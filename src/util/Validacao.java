@@ -164,12 +164,10 @@ public class Validacao {
     }
 
 
-    public void validaNivelRisco(String nivelRisco, String mensagemDeErro) {
-        if (nivelRisco.trim().toUpperCase().equals("BAIXO") || nivelRisco.trim().toUpperCase().equals("MEDIO") || nivelRisco.trim().toUpperCase().equals("ALTO")) {
-            throw new IllegalAccessException(mensagemDeErro);
-        }
-    }
-
-}
+//    public void validaNivelRisco(String nivelRisco, String mensagemDeErro) {
+//        if (nivelRisco.trim().toUpperCase().equals("BAIXO") || nivelRisco.trim().toUpperCase().equals("MEDIO") || nivelRisco.trim().toUpperCase().equals("ALTO")) {
+//            throw new IllegalAccessException(mensagemDeErro);
+//        }
+//    }
 
 }

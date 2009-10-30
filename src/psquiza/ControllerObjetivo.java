@@ -19,7 +19,7 @@ public class ControllerObjetivo {
         validacao.validaNulleVazio(descricao,"Campo descricao nao pode ser nulo ou vazio.");
         validacao.validaViabilidadeOuAderencia(aderencia,"Valor invalido de aderencia");
         validacao.validaViabilidadeOuAderencia(viabilidade,"Valor invalido de viabilidade.");
-        if((!tipo.equals("GERAL")) || (!tipo.equals("ESPECIFICO"))) {
+        if((!tipo.equals("GERAL")) && (!tipo.equals("ESPECIFICO"))) {
             validacao.lancaExcecao("Valor invalido de tipo.");
         }
         Objetivo objetivo = new Objetivo(tipo, descricao, aderencia, viabilidade);
