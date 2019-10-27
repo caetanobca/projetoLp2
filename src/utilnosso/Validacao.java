@@ -1,52 +1,147 @@
 package utilnosso;
 
-/**
- * Classe criada para Representar um validador de entradas
- *
- * @author Caetano Albuquerque - UFCG
- */
 public class Validacao {
 
-    /**
-     * Metodo que verifica se uma string e nula ou vazia
-     * @param testa - string que sera testada
-     * @param msg - menssagem de erro que sera exibida
-     */
-    public void validaString (String testa, String msg){
+    public Validacao() {
 
-        if (testa == null){
-            throw new NullPointerException(msg);
-        }else if (testa.trim().equals("")){
-            throw new IllegalArgumentException(msg);
+    }
+
+    /**
+     * Método que verifica o dado inserido, lançando a exceção se o dado for nulo ou
+     * vazio.
+     *
+     * @param verifica Parametro a ser verificado.
+     * @param mensagemDeErro Mensagem de erro que será lançada junto com o tipo do erro.
+     */
+    public void validaNulleVazio(String verifica, String mensagemDeErro) {
+
+        validaNull(verifica, mensagemDeErro);
+        validaVazio(verifica, mensagemDeErro);
+
+    }
+
+    /**
+     * Método que verifica o dado inserido, lançando a exceção se o dado for nulo.
+     *
+     * @param verifica Parametro a ser verificado.
+     * @param mensagemDeErro Mensagem de erro que será lançada junto com o tipo do erro
+     */
+    public void validaNull(String verifica, String mensagemDeErro) {
+
+        if (verifica == null) {
+            throw new NullPointerException(mensagemDeErro);
+
         }
 
     }
 
     /**
-     * metodo que verifica se o tamanho de uma string e valido
-     * @param testa - str que sera testada
-     * @param tamanho - tamanho que a string deve ter
-     * @param msg - menssagem de erro que sera exibida
+     * Método que verifica o dado inserido, lançando a exceção se o dado for vazio.
+     *
+     * @param verifica Parametro a ser verificado.
+     * @param mensagemDeErro Mensagem de erro que será lançada junto com o tipo do erro
      */
-    public void validaTamanho(String testa, int tamanho, String msg) {
-        if (!(testa.length() == tamanho)){
-            throw new IllegalArgumentException(msg);
+    public void validaVazio(String verifica, String mensagemDeErro) {
+
+        if ("".equals(verifica)) {
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+
+    }
+
+    /**
+     * Método que verifica o tamanho do CPF, se for diferente de 11 digitos, lançara
+     * exceção.
+     *
+     * @param verifica Parametro a ser verificado.
+     * @param mensagem Mensagem de erro que será lançada junto com o tipo do erro
+     */
+    public void validaTamanhoCpf(String verifica, String mensagem) {
+        if (verifica.length() != 11) {
+            throw new IllegalArgumentException(mensagem);
+        }
+
+    }
+
+    /**
+     * Método que lança um erro se verificado algum erro durante a execução do
+     * código do SAGA
+     *
+     * @param mensagem
+     */
+    public void lancaExcecao(String mensagem) {
+        throw new IllegalArgumentException(mensagem);
+    }
+
+    public void validaInteiro(double preco, String mensagemDeErro) {
+        if (preco <= 0) {
+            throw new IllegalArgumentException(mensagemDeErro);
+
+        }
+
+    }
+
+    /**
+     * Método que verifica se a data inserida é válida, caso não seja, lança um
+     * erro.
+     *
+     * @param verifica       data a ser verificada.
+     * @param mensagemDeErro mensagem de erro com o erro a ser lançado.
+     */
+    public void validaTamanhoData(String verifica, String mensagemDeErro) {
+        String array[] = new String[3];
+
+        array = verifica.split("/");
+
+        if (Integer.parseInt(array[0]) < 1 || Integer.parseInt(array[1]) < 1 || Integer.parseInt(array[2]) < 1) {
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+
+        if (Integer.parseInt(array[1]) > 12) {
+            throw new IllegalArgumentException(mensagemDeErro);
+        } else if (Integer.parseInt(array[1]) == 1 || Integer.parseInt(array[1]) == 3 || Integer.parseInt(array[1]) == 5
+                || Integer.parseInt(array[1]) == 7 || Integer.parseInt(array[1]) == 8
+                || Integer.parseInt(array[1]) == 10) {
+            if (Integer.parseInt(array[0]) > 31) {
+                throw new IllegalArgumentException(mensagemDeErro);
+            }
+        } else if (Integer.parseInt(array[1]) == 2) {
+            if (Integer.parseInt(array[0]) > 28) {
+                throw new IllegalArgumentException(mensagemDeErro);
+            }
+
+        } else {
+            if (Integer.parseInt(array[0]) > 30) {
+                throw new IllegalArgumentException(mensagemDeErro);
+            }
+        }
+
+    }
+
+    /**
+     * Método que verifica se o fator inserido de desconto para os combos é valido,
+     * caso não seja, lança um erro.
+     *
+     * @param fator          fator a ser verificado.
+     * @param mensagemDeErro mensagem de erro com o erro a ser lançado.
+     */
+    public void validaFator(double fator, String mensagemDeErro) {
+        if (fator <= 0 || fator >= 1) {
+            throw new IllegalArgumentException(mensagemDeErro);
         }
     }
 
     /**
-     * Metodo que verifica se um valor esta dentro de um intervalo aceitavel
-     * @param testa -valor que sera testado
-     * @param minimo - menor valo do intervalo aceitavel
-     * @param maximo - maior valor do intervalo aceitavel
-     * @param msg - menssagem de erro que sera exibida
+     * Método que verifica se o criterio de ordenação escolhido é válido, caso não
+     * seja, lança um erro.
+     *
+     * @param criterio       criterio a ser verificado.
+     * @param mensagemDeErro mensagem de erro com o erro a ser lançado.
      */
-    public void validaDouble(double testa, double minimo, double maximo, String msg){
-        if(testa < minimo){
-            throw new IllegalArgumentException(msg);
-        }else if(testa > maximo){
-            throw new IllegalArgumentException(msg);
+    public void validaCriterio(String criterio, String mensagemDeErro) {
+
+        if (!criterio.equals("CLIENTE") && !criterio.equals("DATA") && !criterio.equals("FORNECEDOR")) {
+            throw new IllegalArgumentException(mensagemDeErro);
         }
     }
-
 }
