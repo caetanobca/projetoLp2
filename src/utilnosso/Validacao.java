@@ -144,4 +144,10 @@ public class Validacao {
             throw new IllegalArgumentException(mensagemDeErro);
         }
     }
+
+    public void validaTamanhoString (String verifica, int tamanhoMinimo, int tamanhoMaximo, String mensagemDeErro){
+        if (verifica.length() < tamanhoMinimo || verifica.length() > tamanhoMaximo){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+    }
 }
