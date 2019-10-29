@@ -150,4 +150,16 @@ public class Validacao {
             throw new IllegalArgumentException(mensagemDeErro);
         }
     }
+
+    /**
+     * Metodo que verifica a viabilidade de um problema ou objetivo.
+     * @param viabilidade e a viabilidade do problema
+     * @param mensagemDeErro e a mensagem de erro com o erro a ser lancado.
+     */
+    public void validaViabilidade(int viabilidade,String mensagemDeErro) {
+
+        if((viabilidade<1) || (viabilidade>5)){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+    }
 }
