@@ -1,20 +1,25 @@
 public class Item {
 
-    private int id;
-    private String descricao;
+    private String id;
+    private String nome;
     private StatusItem status;
 
-    public Item(int id, String desricao){
+
+    public Item(String id, String nome){
 
         this.id = id;
-        this.descricao = descricao;
-        this.status = StatusItem.PENDENTE;
+        this.nome = nome;
+        this.status = false;
 
     }
 
     public setStatus(){
-        this.status = StatusItem.REALIZADO;
+        this.status = true;
     }
 
+    @Override
+    public String toString() {
+        return status + id;
 
+    }
 }
