@@ -1,4 +1,4 @@
-package utilnosso;
+package util;
 
 public class Validacao {
 
@@ -162,4 +162,14 @@ public class Validacao {
             throw new IllegalArgumentException(mensagemDeErro);
         }
     }
+
+
+    public void validaNivelRisco(String nivelRisco, String mensagemDeErro) {
+        if (nivelRisco.trim().toUpperCase().equals("BAIXO") || nivelRisco.trim().toUpperCase().equals("MEDIO") || nivelRisco.trim().toUpperCase().equals("ALTO")) {
+            throw new IllegalAccessException(mensagemDeErro);
+        }
+    }
+
+}
+
 }

@@ -1,3 +1,5 @@
+package psquiza;
+
 /**
  * Representacao de um objetivo, que dentro de uma pesquisa aplicada, trabalha para a resolucao do problema,
  * definindo a finalidade da pesquisa. Os objetivos sao divididos em dois subgrupos(Geral e Especifico),

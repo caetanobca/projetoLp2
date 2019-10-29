@@ -1,4 +1,6 @@
-import utilnosso.Validacao;
+package psquiza;
+
+import util.Validacao;
 
 import java.util.ArrayList;
 import java.util.Objects;

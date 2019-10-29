@@ -1,4 +1,6 @@
-import utilnosso.Validacao;
+package psquiza;
+
+import util.Validacao;
 
 import java.util.HashMap;
 
@@ -25,7 +27,7 @@ public class ControllerProblema {
     public void apagarProblema(String codigo) {
         validacao.validaNulleVazio(codigo,"Campo codigo nao pode ser nulo ou vazio.");
         if(!problemas.containsKey(codigo)) {
-            validacao.lancaExcecao("Problema nao encontrado");
+            validacao.lancaExcecao("psquiza.Problema nao encontrado");
         }
         problemas.remove(codigo);
     }
@@ -33,7 +35,7 @@ public class ControllerProblema {
     public String exibeProblema(String codigo) {
         validacao.validaNulleVazio(codigo,"Campo codigo nao pode ser nulo ou vazio.");
         if(!problemas.containsKey(codigo)) {
-            validacao.lancaExcecao("Problema nao encontrado");
+            validacao.lancaExcecao("psquiza.Problema nao encontrado");
         }
         String retorno = codigo+" - ";
         Problema problema = problemas.get(codigo);

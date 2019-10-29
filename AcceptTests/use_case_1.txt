@@ -1,4 +1,4 @@
-# Cadastro de Pesquisa
+# Cadastro de psquiza.Pesquisa
 
 # - COM1: ativada
 # - ELE1: ativada
@@ -13,7 +13,7 @@ cadastraPesquisa descricao="Autoavaliacao na Disciplina de Programacao Orientada
 cadastraPesquisa descricao="Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces." campoDeInteresse="fermentacao, cerveja"
 cadastraPesquisa descricao="Alienacao Parental e o Sistema de Justica Brasileiro." campoDeInteresse="psicologia, sistema juridico, alienacao parental, brasil"
 encerraPesquisa codigo="FER1" motivo="Cerveja causou intoxicacao alimentar"
-encerraPesquisa codigo="PSI1" motivo="Pesquisa concluida"
+encerraPesquisa codigo="PSI1" motivo="psquiza.Pesquisa concluida"
 
 
 # descricao ou campoDeInteresse vazios no cadastro de pesquisa
@@ -33,19 +33,19 @@ expectError "Formato do campo de interesse invalido." cadastraPesquisa descricao
 
 # ativacao e encerramento
 
-expectError "Pesquisa nao encontrada." ativaPesquisa codigo="ENE1"
-expectError "Pesquisa nao encontrada." encerraPesquisa codigo="ENE1" motivo="quero acabar a pesquisa no brasil."
-expectError "Pesquisa ja ativada." ativaPesquisa codigo="COM1"
-expectError "Pesquisa desativada." encerraPesquisa codigo="PSI1" motivo="quero fechar de novo mesmo"
-encerraPesquisa codigo="COM2" motivo="Pesquisa concluida"
+expectError "psquiza.Pesquisa nao encontrada." ativaPesquisa codigo="ENE1"
+expectError "psquiza.Pesquisa nao encontrada." encerraPesquisa codigo="ENE1" motivo="quero acabar a pesquisa no brasil."
+expectError "psquiza.Pesquisa ja ativada." ativaPesquisa codigo="COM1"
+expectError "psquiza.Pesquisa desativada." encerraPesquisa codigo="PSI1" motivo="quero fechar de novo mesmo"
+encerraPesquisa codigo="COM2" motivo="psquiza.Pesquisa concluida"
 ativaPesquisa codigo="COM2"
 
 
 # alterar pesquisas
 
-expectError "Pesquisa nao encontrada." alteraPesquisa codigo="ENE1" conteudoASerAlterado="DESCRICAO" novoConteudo="Modelagem do motor de inducao em estudos de estabilidade de tensao"
+expectError "psquiza.Pesquisa nao encontrada." alteraPesquisa codigo="ENE1" conteudoASerAlterado="DESCRICAO" novoConteudo="Modelagem do motor de inducao em estudos de estabilidade de tensao"
 expectError "Nao e possivel alterar esse valor de pesquisa." alteraPesquisa codigo="COM1" conteudoASerAlterado="CaMpO" novoConteudo="age of aquarius"
-expectError "Pesquisa desativada." alteraPesquisa codigo="PSI1" conteudoASerAlterado="CAMPO" novoConteudo="age of aquarius"
+expectError "psquiza.Pesquisa desativada." alteraPesquisa codigo="PSI1" conteudoASerAlterado="CAMPO" novoConteudo="age of aquarius"
 expectError "Descricao nao pode ser nula ou vazia." alteraPesquisa codigo="COM1" conteudoASerAlterado="DESCRICAO" novoConteudo=""
 expectError "Formato do campo de interesse invalido." alteraPesquisa codigo="COM1" conteudoASerAlterado="CAMPO" novoConteudo=""
 alteraPesquisa codigo="ELE1" conteudoASerAlterado="DESCRICAO" novoConteudo="Aumento da evasao no numero de eleitores paraibanos."
@@ -54,13 +54,13 @@ expect "ELE1 - Aumento da evasao no numero de eleitores paraibanos. - eleicao, p
 
 
 # exibir
-expectError "Pesquisa nao encontrada." exibePesquisa codigo="ENE1"
+expectError "psquiza.Pesquisa nao encontrada." exibePesquisa codigo="ENE1"
 expect "COM1 - Homofobia em mensagens online de alunos de computacao do primeiro periodo. - computacao, homofobia" exibePesquisa codigo="COM1"
 
 
 # verificando ativacao
 
 expectError "Codigo nao pode ser nulo ou vazio." pesquisaEhAtiva codigo=""
-expectError "Pesquisa nao encontrada." pesquisaEhAtiva codigo="ENE1"
+expectError "psquiza.Pesquisa nao encontrada." pesquisaEhAtiva codigo="ENE1"
 expect "true" pesquisaEhAtiva codigo="COM1"
 expect "false" pesquisaEhAtiva codigo="FER1"

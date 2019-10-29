@@ -1,3 +1,5 @@
+package psquiza;
+
 public class Facade {
     private ControllerPesquisa controllerPesquisa;
 

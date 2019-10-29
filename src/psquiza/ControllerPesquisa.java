@@ -1,4 +1,6 @@
-import utilnosso.Validacao;
+package psquiza;
+
+import util.Validacao;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,11 +55,11 @@ public class ControllerPesquisa {
 //        this.validador.validaNulleVazio(novoConteudo, "Novo conteudo nao pode ser nulo ou vazio.");
 
         if (!this.pesquisas.containsKey(codigo)){
-            throw new IllegalArgumentException("Pesquisa nao encontrada.");
+            throw new IllegalArgumentException("psquiza.Pesquisa nao encontrada.");
         }
 
         if (!this.pesquisas.get(codigo).isAtivada()){
-            throw new IllegalArgumentException("Pesquisa desativada.");
+            throw new IllegalArgumentException("psquiza.Pesquisa desativada.");
         }
         if (!(conteudoASerAlterado.equals("DESCRICAO") || conteudoASerAlterado.equals("CAMPO"))) {
             throw new IllegalArgumentException("Nao e possivel alterar esse valor de pesquisa.");
@@ -84,10 +86,10 @@ public class ControllerPesquisa {
 
 
         if (!this.pesquisas.containsKey(codigo)){
-            throw new IllegalArgumentException("Pesquisa nao encontrada.");
+            throw new IllegalArgumentException("psquiza.Pesquisa nao encontrada.");
         }
         if (!this.pesquisas.get(codigo).isAtivada()){
-            throw new IllegalArgumentException("Pesquisa desativada.");
+            throw new IllegalArgumentException("psquiza.Pesquisa desativada.");
         }
         this.pesquisas.get(codigo).desativa(motivo);
     }
@@ -96,10 +98,10 @@ public class ControllerPesquisa {
         this.validador.validaNulleVazio(codigo, "Codigo nao pode ser nulo ou vazio.");
 
         if (!this.pesquisas.containsKey(codigo)){
-            throw new IllegalArgumentException("Pesquisa nao encontrada.");
+            throw new IllegalArgumentException("psquiza.Pesquisa nao encontrada.");
         }
         if (this.pesquisas.get(codigo).isAtivada()){
-            throw new IllegalArgumentException("Pesquisa ja ativada.");
+            throw new IllegalArgumentException("psquiza.Pesquisa ja ativada.");
         }
         this.pesquisas.get(codigo).ativa();
     }
@@ -108,7 +110,7 @@ public class ControllerPesquisa {
         //        this.validador.validaNulleVazio(codigo, "Codigo nao pode ser nulo ou vazio.");
 
         if (!this.pesquisas.containsKey(codigo)){
-            throw new IllegalArgumentException("Pesquisa nao encontrada.");
+            throw new IllegalArgumentException("psquiza.Pesquisa nao encontrada.");
         }
 
         return this.pesquisas.get(codigo).toString();
@@ -118,7 +120,7 @@ public class ControllerPesquisa {
         this.validador.validaNulleVazio(codigo, "Codigo nao pode ser nulo ou vazio.");
 
         if (!this.pesquisas.containsKey(codigo)){
-            throw new IllegalArgumentException("Pesquisa nao encontrada.");
+            throw new IllegalArgumentException("psquiza.Pesquisa nao encontrada.");
         }
 
         return this.pesquisas.get(codigo).isAtivada();

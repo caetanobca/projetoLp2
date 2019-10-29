@@ -1,3 +1,5 @@
+package psquiza;
+
 /**
  * Representacao de um problema que pode vir a ser objeto de pesquisa para um pesquisador. Para que
  * o problema se torne interessante, e seja objeto de pesquisa, ele deve abordar aspectos que apresentam
