@@ -2,14 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5475ace-6fa9-43d9-871e-d8ef9b558b9c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/psquiza/ControllerPesquisa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/ControllerPesquisa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/psquiza/Pesquisa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Pesquisa.java" afterDir="false" />
+
+
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
@@ -67,6 +70,8 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+
+
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -85,6 +90,7 @@
     <option name="width" value="1392" />
     <option name="height" value="1002" />
   </component>
+
   <component name="ProjectId" id="1SqGooG9TGhwAmQJF1T9W0XomJH" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -127,11 +133,15 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1572442694496" />
     <property name="jdk.selected.JAVA_MODULE" value="12" />
+
+
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -343,6 +353,8 @@
       </provider>
     </entry>
   </component>
+
+
   <component name="masterDetails">
     <states>
       <state key="ArtifactsStructureConfigurable.UI">
@@ -419,6 +431,7 @@
       </state>
     </states>
   </component>
+
   <component name="simpleUML.UMLToolWindowPlugin">
     <General>
       <option name="birdViewUpdateDelay" value="2000" />
