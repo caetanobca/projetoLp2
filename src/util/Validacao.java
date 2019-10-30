@@ -10,7 +10,7 @@ public class Validacao {
      * Método que verifica o dado inserido, lançando a exceção se o dado for nulo ou
      * vazio.
      *
-     * @param verifica Parametro a ser verificado.
+     * @param verifica       Parametro a ser verificado.
      * @param mensagemDeErro Mensagem de erro que será lançada junto com o tipo do erro.
      */
     public void validaNulleVazio(String verifica, String mensagemDeErro) {
@@ -23,7 +23,7 @@ public class Validacao {
     /**
      * Método que verifica o dado inserido, lançando a exceção se o dado for nulo.
      *
-     * @param verifica Parametro a ser verificado.
+     * @param verifica       Parametro a ser verificado.
      * @param mensagemDeErro Mensagem de erro que será lançada junto com o tipo do erro
      */
     public void validaNull(String verifica, String mensagemDeErro) {
@@ -38,7 +38,7 @@ public class Validacao {
     /**
      * Método que verifica o dado inserido, lançando a exceção se o dado for vazio.
      *
-     * @param verifica Parametro a ser verificado.
+     * @param verifica       Parametro a ser verificado.
      * @param mensagemDeErro Mensagem de erro que será lançada junto com o tipo do erro
      */
     public void validaVazio(String verifica, String mensagemDeErro) {
@@ -145,25 +145,32 @@ public class Validacao {
         }
     }
 
-    public void validaTamanhoString (String verifica, int tamanhoMinimo, int tamanhoMaximo, String mensagemDeErro){
-        if (verifica.length() < tamanhoMinimo || verifica.length() > tamanhoMaximo){
+    public void validaTamanhoString(String verifica, int tamanhoMinimo, int tamanhoMaximo, String mensagemDeErro) {
+        if (verifica.length() < tamanhoMinimo || verifica.length() > tamanhoMaximo) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
     }
 
     /**
      * Metodo que verifica a viabilidade de um problema ou objetivo.
-     * @param viabilidade e a viabilidade do problema
+     *
+     * @param viabilidade    e a viabilidade do problema
      * @param mensagemDeErro e a mensagem de erro com o erro a ser lancado.
      */
-    public void validaViabilidade(int viabilidade,String mensagemDeErro) {
+    public void validaViabilidade(int viabilidade, String mensagemDeErro) {
 
-        if((viabilidade<1) || (viabilidade>5)){
+        if ((viabilidade < 1) || (viabilidade > 5)) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
     }
 
-
+    /**
+     * Metodo que valida o nivel de risco para cadastrar uma atividade. Como existem apenas tres niveis possiveis,
+     * "BAIXO","MEDIO","ALTO", o programa lançara um erro caso o nivel seja diferente desses.
+     *
+     * @param nivelRisco String com o nivel do risco a ser verificado
+     * @param mensagemDeErro Mensagem de erro que irá ser lancada juntamente com o erro
+     */
     public void validaNivelRisco(String nivelRisco, String mensagemDeErro) {
         if (nivelRisco.trim().toUpperCase().equals("BAIXO") || nivelRisco.trim().toUpperCase().equals("MEDIO") || nivelRisco.trim().toUpperCase().equals("ALTO")) {
 
