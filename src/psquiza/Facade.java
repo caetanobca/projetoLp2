@@ -2,11 +2,13 @@ package psquiza;
 
 public class Facade {
     private ControllerPesquisa controllerPesquisa;
-    private ControllerAtividade controllerAtividade;
+    private ControllerProblema controllerProblema;
+    private ControllerObjetivo controllerObjetivo;
 
     public Facade(){
         this.controllerPesquisa = new ControllerPesquisa();
-        this.controllerAtividade = new ControllerAtividade();
+        this.controllerProblema = new ControllerProblema();
+        this.controllerObjetivo = new ControllerObjetivo();
     }
 
     public String cadastraPesquisa(String descricao, String campoDeInteresse){
@@ -33,27 +35,27 @@ public class Facade {
         return this.controllerPesquisa.pesquisaEhAtiva(codigo);
     }
 
-    public String cadastraAtividade(String descricao, String nivelRisco, String descricaoRisco){
-        return this.controllerAtividade.cadastraAtividade(descricao, nivelRisco,descricaoRisco);
+    public String cadastraProblema(String descricao, int viabilidade) {
+        return this.controllerProblema.cadastraProblema(descricao,viabilidade);
     }
 
-    public void apagaAtividade(String codigo){
-        this.controllerAtividade.apagaAtividade(codigo);
+    public void apagarProblema(String codigo) {
+        this.controllerProblema.apagarProblema(codigo);
     }
 
-    public void cadastraItem(String codigo, String item){
-        this.controllerAtividade.cadastraItem(codigo,item);
+    public String exibeProblema(String codigo) {
+        return this.controllerProblema.exibeProblema(codigo);
     }
 
-    public String exibeAtividade(String codigo){
-        return this.controllerAtividade.exibeAtividade(codigo);
+    public String cadastraObjetivo(String tipo,String descricao,int aderencia,int viabilidade) {
+        return this.controllerObjetivo.cadastraObjetivo(tipo, descricao, aderencia, viabilidade);
     }
 
-    public int contaItensPendentes(String codigo){
-        return this.controllerAtividade.contaItensPendentes(codigo);
+    public void apagarObjetivo(String codigo) {
+        this.controllerObjetivo.apagarObjetivo(codigo);
     }
 
-    public int contaItensRealizados(String codigo){
-        return this.controllerAtividade.contaItensRealizados(codigo);
+    public String exibeObjetivo(String codigo) {
+        return this.controllerObjetivo.exibeObjetivo(codigo);
     }
 }
