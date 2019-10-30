@@ -2,6 +2,8 @@ package psquiza;
 
 import util.Validacao;
 
+import java.util.Objects;
+
 /**
  * Classe que representa uma pesquisa, que tem descricao, campo de interesse, codigo, e uma variavel que indica
  * se esta ativa ou encerrada
@@ -117,7 +119,7 @@ public class Pesquisa {
      * @param motivo - motivo pelo qual o usuario deseja desativar essa pesquisa
      */
     public void desativa(String motivo) {
-        //        this.validador.validaNulleVazio(motivo, "Motivo nao pode ser nulo ou vazio.");
+        this.validador.validaNulleVazio(motivo, "Motivo nao pode ser nulo ou vazio.");
 
         this.ativada = false;
         this.motivoDesativacao = motivo;
@@ -138,5 +140,24 @@ public class Pesquisa {
     @Override
     public String toString() {
         return this.codigo + " - " + this.descricao + " - " + this.campoDeInteresse;
+    }
+
+    /**
+     * Metodo que compara se duas pesquisa sao iguais, usando como criterio o codigo da pesquisa
+     * @param o - objeto que sera comparado
+     * @return - true caso as pesquisas tem o mesmo codigo e false caso os codigos sejam diferentes
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pesquisa pesquisa = (Pesquisa) o;
+        return codigo.equals(pesquisa.codigo);
+    }
+    
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigo);
     }
 }

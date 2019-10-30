@@ -122,7 +122,7 @@ public class ControllerPesquisa {
      */
     public void encerraPesquisa(String codigo, String motivo) {
         this.validador.validaNulleVazio(codigo, "Codigo nao pode ser nulo ou vazio.");
-        //        this.validador.validaNulleVazio(motivo, "Motivo nao pode ser nulo ou vazio.");
+        this.validador.validaNulleVazio(motivo, "Motivo nao pode ser nulo ou vazio.");
 
 
         if (!this.pesquisas.containsKey(codigo)) {
