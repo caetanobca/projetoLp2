@@ -166,10 +166,38 @@ public class Validacao {
 
     public void validaNivelRisco(String nivelRisco, String mensagemDeErro) {
         if (nivelRisco.trim().toUpperCase().equals("BAIXO") || nivelRisco.trim().toUpperCase().equals("MEDIO") || nivelRisco.trim().toUpperCase().equals("ALTO")) {
-            throw new IllegalAccessException(mensagemDeErro);
+            throw new IllegalArgumentException(mensagemDeErro);
         }
     }
 
-}
+    /**
+     * Verifica se o email esta no formato valido, ou seja, com pelo menos uma letra e/ou um numero
+     * antes e depois do @. Caso contrario, uma excessao eh lancada.
+     *
+     * @param verifica o email a ser verificado
+     * @param mensagemDeErro a mensagem de erro a ser lancada caso ele ocorra
+     */
+    public void validaEmail(String verifica, String mensagemDeErro){
+        if(verifica.split("@")[0].trim().isEmpty() || verifica.split("@")[1].trim().isEmpty()){
+            throw new IllegalArgumentException(mensagemDeErro);
 
+        }
+    }
+
+    /**
+     * Verifica se a url da foto esta no formato valido, ou seja, inicializando com "http://" ou "https://",
+     * seguido de um endereco;
+     *
+     * @param verifica a URL da foto a ser verificada
+     * @param mensagemDeErro a mensagem de erro a ser lancada caso ele ocorra
+     */
+    public void validaFoto(String verifica, String mensagemDeErro){
+        if(!(verifica.split("://")[0].equals("http") || verifica.split("://")[0].equals("https"))){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+
+        if(!verifica.split("://")[1].isEmpty()){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+    }
 }
