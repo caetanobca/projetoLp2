@@ -179,5 +179,17 @@ public class Validacao {
         }
     }
 
+    /**
+     * Metodo que verifica a viabilidade de um problema ou objetivo.
+     * @param valor e a viabilidade do problema
+     * @param mensagemDeErro e a mensagem de erro com o erro a ser lancado.
+     */
+    public void validaViabilidadeOuAderencia(int valor,String mensagemDeErro) {
+
+
+        if((valor<1) || (valor>5)){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+    }
 }
 

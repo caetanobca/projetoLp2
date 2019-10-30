@@ -46,8 +46,13 @@ public class Objetivo {
         this.viabilidade = viabilidade;
     }
 
-
-
-
-
+    /**
+     * Apresenta a String no formato "TIPO - DESCRICAO - VALOR". Onde o valor e a soma
+     * aritmetica da viabilidade com a aderencia do objetivo.
+     * @return a representacao de um objetivo como objeto
+     */
+    @Override
+    public String toString() {
+        return this.tipo+" - "+this.descricao+" - "+(this.viabilidade+this.aderencia);
+    }
 }
