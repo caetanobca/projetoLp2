@@ -42,6 +42,7 @@ public class Atividade {
         }
 
         itensExibidos = itensExibidos.substring(0, itensExibidos.length() - 3);
+        return itensExibidos;
     }
 
     @Override

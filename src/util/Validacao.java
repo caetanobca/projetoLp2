@@ -178,9 +178,14 @@ public class Validacao {
      * @param mensagemDeErro a mensagem de erro a ser lancada caso ele ocorra
      */
     public void validaEmail(String verifica, String mensagemDeErro){
+        if(!verifica.contains("@")){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+        if(verifica.indexOf("@") == verifica.length()-1){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
         if(verifica.split("@")[0].trim().isEmpty() || verifica.split("@")[1].trim().isEmpty()){
             throw new IllegalArgumentException(mensagemDeErro);
-
         }
     }
 
@@ -192,11 +197,14 @@ public class Validacao {
      * @param mensagemDeErro a mensagem de erro a ser lancada caso ele ocorra
      */
     public void validaFoto(String verifica, String mensagemDeErro){
+        if(!verifica.contains("://")){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
         if(!(verifica.split("://")[0].equals("http") || verifica.split("://")[0].equals("https"))){
             throw new IllegalArgumentException(mensagemDeErro);
         }
 
-        if(!verifica.split("://")[1].isEmpty()){
+        if(verifica.split("://")[1].isEmpty()){
             throw new IllegalArgumentException(mensagemDeErro);
         }
     }

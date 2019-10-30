@@ -4,7 +4,7 @@ public class Item {
 
     private String id;
     private String nome;
-    private StatusItem status;
+    private boolean status;
 
 
     public Item(String id, String nome){
@@ -15,7 +15,7 @@ public class Item {
 
     }
 
-    public setStatus(){
+    public void setStatus(){
         this.status = true;
     }
 

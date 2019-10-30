@@ -2,6 +2,9 @@ package psquiza;
 
 import util.Validacao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ControllerAtividade {
 
     private Map<String,Atividade> atividades;
@@ -16,9 +19,6 @@ public class ControllerAtividade {
 
     }
 
-    public String cadastraAtividade(String descricao, String nivelRisco, String descricaoRisco){
-
-    }
 
 }
 

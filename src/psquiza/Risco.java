@@ -16,7 +16,7 @@ public class Risco {
 
     }
 
-    private setNivelRisco(String nivelRisco){
+    private void setNivelRisco(String nivelRisco){
         if(nivelRisco.trim().toUpperCase().equals("BAIXO")){
             this.nivelRisco = NivelRisco.BAIXO;
         } else if(nivelRisco.trim().toUpperCase().equals("MEDIO")){

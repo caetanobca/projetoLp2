@@ -11,7 +11,6 @@ import java.util.Map;
  */
 public class ControllerPesquisador {
 
-<<<<<<< HEAD
     /**
      * Mapa que relaciona o email dos pesquisadores com objetos Pesquisador. Cada pesquisador eh identificado
      * unicamente pelo seu email.
@@ -37,19 +36,14 @@ public class ControllerPesquisador {
      * Todos os atributos sao verificados e caso qualquer um deles esteja invalido (nulo/vazio ou em formato
      * errado), uma excecao sera lancada.
      *
-     * @param nome o nome do pesquisador
-     * @param funcao a funcao do pesquisador (estudante, professor ou externo)
-     * @param biografia a biografia do pesquisador
-     * @param email o email do pesquisador
-     * @param fotoURL a foto do pesquisador
      */
-    public void cadastraPesquisador(String nome, String funcao, String biografia, String email, String fotoURL){
+    public void cadastraPesquisador(String nome, String funcao, String biografia, String email, String fotoURL) {
         validador.validaNulleVazio(nome, "Campo nome nao pode ser nulo ou vazio.");
         validador.validaNulleVazio(funcao, "Campo funcao nao pode ser nulo ou vazio.");
         validador.validaNulleVazio(biografia, "Campo biografia nao pode ser nulo ou vazio.");
         validador.validaNulleVazio(email, "Campo email nao pode ser nulo ou vazio.");
         validador.validaNulleVazio(fotoURL, "Campo fotoURL nao pode ser nulo ou vazio.");
-        validador.validaFoto(fotoURL,"Formato de foto invalido.");
+        validador.validaFoto(fotoURL, "Formato de foto invalido.");
         validador.validaEmail(email, "Formato de email invalido.");
 
         pesquisadores.put(email, new Pesquisador(nome, funcao, biografia, email, fotoURL));
@@ -59,44 +53,49 @@ public class ControllerPesquisador {
      * Altera um atributo de um pesquisador ja existente para um novo valor. Caso o atributo passado nao
      * exista ou o novoValor for nulo/vazio e/ou invalido, uma excecao sera lancada.
      *
-     * @param email o email do pesquisador
-     * @param atributo o nome do atributo a ser modificado
+     * @param email     o email do pesquisador
+     * @param atributo  o nome do atributo a ser modificado
      * @param novoValor o novo valor do atributo a ser modificado
      */
-    public void alteraPesquisador(String email, String atributo, String novoValor){
+    public void alteraPesquisador(String email, String atributo, String novoValor) {
 
-        if(!this.pesquisadores.containsKey(email)){
+        if (!this.pesquisadores.containsKey(email)) {
             throw new IllegalArgumentException("Pesquisador nao encontrado");
         }
 
-        if(!this.pesquisadores.get(email).isAtivo()){
+        if (!this.pesquisadores.get(email).isAtivo()) {
             throw new IllegalArgumentException("Pesquisador inativo");
         }
 
-        switch (atributo){
-            case("nome"):
-                this.validador.validaNulleVazio(novoValor,"Campo nome nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(atributo, "Atributo nao pode ser vazio ou nulo.");
+
+        switch (atributo) {
+            case ("NOME"):
+                this.validador.validaNulleVazio(novoValor, "Campo nome nao pode ser nulo ou vazio.");
                 pesquisadores.get(email).setNome(novoValor);
                 break;
 
-            case("funcao"):
-                this.validador.validaNulleVazio(novoValor,"Campo funcao nao pode ser nulo ou vazio.");
+            case ("FUNCAO"):
+                this.validador.validaNulleVazio(novoValor, "Campo funcao nao pode ser nulo ou vazio.");
                 pesquisadores.get(email).setFuncao(novoValor);
                 break;
 
-            case("biografia"):
-                this.validador.validaNulleVazio(novoValor,"Campo biografia nao pode ser nulo ou vazio.");
+            case ("BIOGRAFIA"):
+                this.validador.validaNulleVazio(novoValor, "Campo biografia nao pode ser nulo ou vazio.");
                 pesquisadores.get(email).setBiografia(novoValor);
                 break;
 
-            case("email"):
-                this.validador.validaNulleVazio(novoValor,"Campo email nao pode ser nulo ou vazio.");
+            case ("EMAIL"):
+                this.validador.validaNulleVazio(novoValor, "Campo email nao pode ser nulo ou vazio.");
                 validador.validaEmail(novoValor, "Formato de email invalido.");
                 pesquisadores.get(email).setEmail(novoValor);
+                pesquisadores.put(novoValor, pesquisadores.get(email));
+                pesquisadores.remove(email);
+                break;
 
-            case("fotoURL"):
-                this.validador.validaNulleVazio(novoValor,"Campo fotoURL nao pode ser nulo ou vazio.");
-                this.validador.validaFoto(novoValor,"Formato de foto invalido.");
+            case ("FOTO"):
+                this.validador.validaNulleVazio(novoValor, "Campo fotoURL nao pode ser nulo ou vazio.");
+                this.validador.validaFoto(novoValor, "Formato de foto invalido.");
                 pesquisadores.get(email).setFotoURL(novoValor);
                 break;
 
@@ -111,14 +110,14 @@ public class ControllerPesquisador {
      *
      * @param email o email do pesquisador a ser ativado
      */
-    public void ativaPesquisador(String email){
+    public void ativaPesquisador(String email) {
 
-        if(!this.pesquisadores.containsKey(email)){
+        if (!this.pesquisadores.containsKey(email)) {
             throw new IllegalArgumentException("Pesquisador nao encontrado");
         }
 
-        if(this.pesquisadores.get(email).isAtivo()){
-            throw  new IllegalArgumentException("Pesquisador ja ativado.");
+        if (this.pesquisadores.get(email).isAtivo()) {
+            throw new IllegalArgumentException("Pesquisador ja ativado.");
         }
 
         pesquisadores.get(email).setAtivo(true);
@@ -130,13 +129,13 @@ public class ControllerPesquisador {
      *
      * @param email o email do pesquisador a ser desativado
      */
-    public void desativaPesquisador(String email){
-        if(!this.pesquisadores.containsKey(email)){
+    public void desativaPesquisador(String email) {
+        if (!this.pesquisadores.containsKey(email)) {
             throw new IllegalArgumentException("Pesquisador nao encontrado");
         }
 
-        if(!this.pesquisadores.get(email).isAtivo()){
-            throw  new IllegalArgumentException("Pesquisador inativo.");
+        if (!this.pesquisadores.get(email).isAtivo()) {
+            throw new IllegalArgumentException("Pesquisador inativo.");
         }
 
         pesquisadores.get(email).setAtivo(false);
@@ -149,9 +148,9 @@ public class ControllerPesquisador {
      * @param email o email do pesquisador
      * @return representacao em String do pesquisador
      */
-    public String exibePesquisador(String email){
+    public String exibePesquisador(String email) {
 
-        if(!this.pesquisadores.containsKey(email)){
+        if (!this.pesquisadores.containsKey(email)) {
             throw new IllegalArgumentException("Pesquisador nao encontrado");
         }
 
@@ -164,9 +163,11 @@ public class ControllerPesquisador {
      * @param email o email do pesquisador
      * @return a representacao booleana do status do pesquisador
      */
-    public boolean pesquisadorEhAtivo(String email){
+    public boolean pesquisadorEhAtivo(String email) {
 
-        if(!this.pesquisadores.containsKey(email)){
+        validador.validaNulleVazio(email, "Email nao pode ser vazio ou nulo.");
+
+        if (!this.pesquisadores.containsKey(email)) {
             throw new IllegalArgumentException("Pesquisador nao encontrado");
         }
 
@@ -174,7 +175,3 @@ public class ControllerPesquisador {
     }
 
 }
-=======
-    private String nome;
-}
->>>>>>> 6c8e5a2f37986ebe90b97bb304c99f087878e672
