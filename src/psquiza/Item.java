@@ -19,6 +19,7 @@ public class Item {
      */
     private String nome;
 
+
     /**
      * Status do Item. Objeto da ClasseEnum StatusItem.
      */
@@ -45,6 +46,7 @@ public class Item {
 
     }
 
+
     /**
      * Metodo que altera o status do Item, para "REALIZADO".
      */
@@ -60,6 +62,7 @@ public class Item {
      */
     public String getStatus() {
         return status.toString();
+
     }
 
 
