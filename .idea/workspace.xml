@@ -2,17 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5475ace-6fa9-43d9-871e-d8ef9b558b9c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Psquiza.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Psquiza.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/psquiza/Atividade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Atividade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/psquiza/ControllerAtividade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/ControllerAtividade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/psquiza/ControllerObjetivo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/ControllerObjetivo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/psquiza/ControllerProblema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/ControllerProblema.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/psquiza/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/psquiza/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/psquiza/Objetivo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Objetivo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/psquiza/Risco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Risco.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/Validacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/Validacao.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -111,6 +108,7 @@
       <workItem from="1572401404941" duration="4435000" />
       <workItem from="1572406348546" duration="1544000" />
       <workItem from="1256875783168" duration="913000" />
+      <workItem from="1572471407717" duration="2340000" />
     </task>
     <servers />
   </component>
