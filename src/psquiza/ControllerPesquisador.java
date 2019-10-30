@@ -11,6 +11,7 @@ import java.util.Map;
  */
 public class ControllerPesquisador {
 
+<<<<<<< HEAD
     /**
      * Mapa que relaciona o email dos pesquisadores com objetos Pesquisador. Cada pesquisador eh identificado
      * unicamente pelo seu email.
@@ -173,3 +174,7 @@ public class ControllerPesquisador {
     }
 
 }
+=======
+    private String nome;
+}
+>>>>>>> 6c8e5a2f37986ebe90b97bb304c99f087878e672
