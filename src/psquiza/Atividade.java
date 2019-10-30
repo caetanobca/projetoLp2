@@ -28,25 +28,63 @@ public class Atividade {
         this.codigoIdentificador = codigoIdentificador;
         this.descricao = descricao;
         this.nivelRisco = new Risco(nivelRisco, descricaoRisco);
+        this.itens = new ArrayList();
+
     }
 
     public void cadastraItem(String item) {
-        String codigoIdentificador = "ITEM" + Integer.toString(itens.size() + 1);
+        validador.validaNulleVazio(item, "Item nao pode ser nulo ou vazio.");
+        int codigoIdentificador = itens.size() + 1;
         Item itemNovo = new Item(codigoIdentificador, item);
+        itens.add(itemNovo);
     }
 
-    private String exibeItens(){
-        String itensExibidos = "";
-        for(Item item:itens){
-            itensExibidos += item.toString() + " | ";
+    public int contaItensPendentes() {
+        int contador = 0;
+
+        for (Item item : itens) {
+            if ("PENDENTE".equals(item.getStatus())) {
+                contador++;
+            }
         }
 
-        itensExibidos = itensExibidos.substring(0, itensExibidos.length() - 3);
+        return contador;
+    }
+
+    public int contaItensRealizados() {
+        int contador = 0;
+
+        for (Item item : itens) {
+            if ("REALIZADO".equals(item.getStatus())) {
+                contador++;
+            }
+        }
+
+        return contador;
+    }
+
+
+    private String exibeItens() {
+        String itensExibidos = "";
+
+        if (!itens.isEmpty()) {
+
+            for (Item item : itens) {
+                itensExibidos +=  " | " + item.toString();
+            }
+
+
+
+        }
+
+        return itensExibidos;
+
+
     }
 
     @Override
     public String toString() {
-        return descricao + nivelRisco.toString() + exibeItens();
+        return descricao + " (" + nivelRisco.toString() + ")" + exibeItens();
     }
 
     @Override

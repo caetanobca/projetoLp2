@@ -9,14 +9,20 @@ public class Risco {
     private Validacao validador;
 
 
-    public Risco(String descricao, String nivelRisco){
+    public Risco(String nivelRisco, String descricao){
+       validador = new Validacao();
+
+        validador.validaNulleVazio(nivelRisco, "Campo nivelRisco nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(descricao, "Campo descricaoRisco nao pode ser nulo ou vazio.");
+        validador.validaNivelRisco(nivelRisco, "Valor invalido do nivel do risco.");
+
         this.descricao = descricao;
         this.validador = new Validacao();
         setNivelRisco(nivelRisco);
 
     }
 
-    private setNivelRisco(String nivelRisco){
+    private void setNivelRisco(String nivelRisco){
         if(nivelRisco.trim().toUpperCase().equals("BAIXO")){
             this.nivelRisco = NivelRisco.BAIXO;
         } else if(nivelRisco.trim().toUpperCase().equals("MEDIO")){
