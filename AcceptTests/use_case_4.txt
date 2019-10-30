@@ -58,3 +58,4 @@ expectError "Campo codigo nao pode ser nulo ou vazio." contaItensPendentes codig
 expectError "Campo codigo nao pode ser nulo ou vazio." contaItensRealizados codigo=""
 expectError "Atividade nao encontrada" contaItensPendentes codigo="BOI14"
 expectError "Atividade nao encontrada" contaItensRealizados codigo="OII9"
+
