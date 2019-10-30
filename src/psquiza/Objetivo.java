@@ -46,8 +46,8 @@ public class Objetivo {
         this.viabilidade = viabilidade;
     }
 
-
-
-
-
+    @Override
+    public String toString() {
+        return this.tipo+" - "+this.descricao+" - "+(this.viabilidade+this.aderencia);
+    }
 }

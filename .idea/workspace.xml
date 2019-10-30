@@ -2,24 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5475ace-6fa9-43d9-871e-d8ef9b558b9c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/psquiza/ControllerObjetivo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcceptTests/use_case_1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AcceptTests/use_case_1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcceptTests/use_case_3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AcceptTests/use_case_3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcceptTests/use_case_4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AcceptTests/use_case_4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Atividade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Atividade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ControllerAtividade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/ControllerAtividade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ControllerPesquisa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/ControllerPesquisa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ControllerProblema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/ControllerProblema.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Facade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Facade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NivelRisco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/NivelRisco.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Objetivo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Objetivo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pesquisa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Pesquisa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Problema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Problema.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Risco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Risco.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StatusItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/StatusItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utilnosso/Validacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/Validacao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcceptTests/use_case_1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcceptTests/use_case_2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcceptTests/use_case_3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcceptTests/use_case_4.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/psquiza/ControllerProblema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/ControllerProblema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/psquiza/Objetivo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Objetivo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/psquiza/Problema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Problema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/Validacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/Validacao.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,30 +26,32 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="292" />
-    <option name="y" value="52" />
-    <option name="width" value="1401" />
-    <option name="height" value="1001" />
-  </component>
   <component name="ProjectId" id="1SqGooG9TGhwAmQJF1T9W0XomJH" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1571926776356" />
     <property name="jdk.selected.JAVA_MODULE" value="12" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/bibliotecas/easyaccept.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -110,8 +105,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571926636020</updated>
+      <workItem from="1572401404941" duration="4435000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -125,82 +124,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>11</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>Psquiza</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>easyaccept</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
   <component name="simpleUML.UMLToolWindowPlugin">
     <General>

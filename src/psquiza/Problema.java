@@ -29,6 +29,10 @@ public class Problema {
         this.viabilidade = viabilidade;
     }
 
+    /**
+     * Representação de um problema como objeto, no formato "DESCRICAO - VIABILIDADE".
+     * @return a string que representa o problema
+     */
     @Override
     public String toString() {
         return this.descricao+" - "+this.viabilidade;
