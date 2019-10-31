@@ -1,34 +1,114 @@
 package psquiza;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ControllerPesquisadorTest {
 
-    @org.junit.jupiter.api.BeforeEach
-    void setUp() {
+    private ControllerPesquisador controllerPesquisador;
+
+    @BeforeEach
+    void testConstrutor() {
+        this.controllerPesquisador = new ControllerPesquisador();
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void cadastraPesquisador() {
+
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
+    void cadastraPesquisadorNomeNulleVazio() {
+        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+                "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
+        assertThrows(NullPointerException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+                "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
+    }
+
+    @Test
+    void cadastraPesquisadorFuncaoNulleVazio() {
+        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+                "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
+        assertThrows(NullPointerException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+                "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
+    }
+
+    @Test
+    void cadastraPesquisadorBiografiaNulleVazio() {
+        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+                "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
+        assertThrows(NullPointerException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+                "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
+    }
+
+    @Test
+    void cadastraPesquisadorEmailNulleVazio() {
+        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+                "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
+        assertThrows(NullPointerException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+                "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
+    }
+
+    @Test
+    void cadastraPesquisadorFNulleVazio() {
+        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+                "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
+        assertThrows(NullPointerException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+                "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
+    }
+
+    @Test
+    void cadastraPesquisadorNulleVazio() {
+        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+                "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
+        assertThrows(NullPointerException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+                "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
+    }
+
+    @Test
     void alteraPesquisador() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
+    void alteraPesquisadorNulleVazio() {
+    }
+
+
+    @Test
     void ativaPesquisador() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
+    void ativaPesquisadorNulleVazio() {
+    }
+
+
+    @Test
     void desativaPesquisador() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
+    void desativaPesquisadorNulleVazio() {
+    }
+
+
+    @Test
     void exibePesquisador() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
+    void exibePesquisadorNulleVazio() {
+    }
+
+
+    @Test
     void pesquisadorEhAtivo() {
     }
+
+    @Test
+    void pesquisadorEhAtivoNulleVazio() {
+    }
+
 }
