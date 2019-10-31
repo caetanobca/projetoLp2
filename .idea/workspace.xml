@@ -1,24 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e5475ace-6fa9-43d9-871e-d8ef9b558b9c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcceptTests/use_case_2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AcceptTests/use_case_2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcceptTests/use_case_3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AcceptTests/use_case_3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcceptTests/use_case_4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AcceptTests/use_case_4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/ControllerPesquisa.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/ControllerPesquisa.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/ControllerProblema.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/ControllerProblema.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Facade.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Facade.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Objetivo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Objetivo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Pesquisa.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Pesquisa.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Problema.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Problema.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/util/Validacao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/util/Validacao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/psquiza/ControllerPesquisador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/ControllerPesquisador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/psquiza/Facade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Facade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/psquiza/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/psquiza/Pesquisador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Pesquisador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/Validacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/Validacao.java" afterDir="false" />
-    </list>
+    <list default="true" id="e5475ace-6fa9-43d9-871e-d8ef9b558b9c" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/psquiza/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="45" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
+            <state relative-caret-position="238">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
         </entry>
@@ -45,8 +28,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/psquiza/Facade.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="42" column="46" lean-forward="true" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
+            <state relative-caret-position="612">
+              <caret line="42" column="46" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -54,8 +37,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/psquiza/ControllerPesquisador.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="173" column="5" lean-forward="true" selection-start-line="173" selection-start-column="5" selection-end-line="173" selection-end-column="5" />
+            <state relative-caret-position="2941">
+              <caret line="173" column="5" selection-start-line="173" selection-start-column="5" selection-end-line="173" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -66,7 +49,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/psquiza/Pesquisador.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-146">
+            <state relative-caret-position="1955">
               <caret line="115" column="12" selection-start-line="115" selection-start-column="12" selection-end-line="115" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -78,26 +61,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/util/Validacao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="211" lean-forward="true" selection-start-line="211" selection-end-line="211" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa24480.17689/Validacao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="209" column="5" lean-forward="true" selection-start-line="172" selection-start-column="3" selection-end-line="209" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa24480.14447/Pesquisador.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="7" selection-start-line="7" selection-end-line="187" />
+            <state relative-caret-position="3553">
+              <caret line="211" selection-start-line="211" selection-end-line="211" />
             </state>
           </provider>
         </entry>
@@ -147,8 +112,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -177,6 +140,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -253,7 +218,7 @@
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21538462" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21862349" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -359,51 +324,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa24480.2392/Facade.java">
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa24480.2392/Facade.java" />
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa24480.10634/ControllerPesquisador.java" />
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa24480.14447/Pesquisador.java" />
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa24480.17689/Validacao.java" />
+    <entry file="file://$PROJECT_DIR$/src/psquiza/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="46" selection-start-line="4" selection-end-line="5" />
+        <state relative-caret-position="238">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/psquiza/Facade.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="42" column="46" lean-forward="true" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
+        <state relative-caret-position="612">
+          <caret line="42" column="46" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa24480.10634/ControllerPesquisador.java">
+    <entry file="file://$PROJECT_DIR$/src/psquiza/ControllerPesquisador.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="176" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa24480.14447/Pesquisador.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="7" selection-start-line="7" selection-end-line="187" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa24480.17689/Validacao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="209" column="5" lean-forward="true" selection-start-line="172" selection-start-column="3" selection-end-line="209" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/Validacao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="211" lean-forward="true" selection-start-line="211" selection-end-line="211" />
+        <state relative-caret-position="2941">
+          <caret line="173" column="5" selection-start-line="173" selection-start-column="5" selection-end-line="173" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/psquiza/Pesquisador.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-146">
+        <state relative-caret-position="1955">
           <caret line="115" column="12" selection-start-line="115" selection-start-column="12" selection-end-line="115" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -411,20 +362,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/psquiza/ControllerPesquisador.java">
+    <entry file="file://$PROJECT_DIR$/src/util/Validacao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="173" column="5" lean-forward="true" selection-start-line="173" selection-start-column="5" selection-end-line="173" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/psquiza/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="45" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
+        <state relative-caret-position="3553">
+          <caret line="211" selection-start-line="211" selection-end-line="211" />
         </state>
       </provider>
     </entry>
