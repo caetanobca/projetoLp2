@@ -20,13 +20,21 @@ public class Problema {
     private int viabilidade;
 
     /**
+     * E o identificador unico do problema, no formato P+1,P+2,P+3,... que sempre quando um novo problema e gerado
+     * e gerado automaticamente.
+     */
+    private String id;
+
+    /**
      * Constroi um problema por meio de sua respectiva descricao e viabilidade.
      * @param descricao e a descricao do problema
      * @param viabilidade e a viabilidade do problema
+     * @param id e o id do problema, que e seu identificador unico
      */
-    public Problema(String descricao,int viabilidade){
+    public Problema(String descricao,int viabilidade,String id){
         this.descricao = descricao;
         this.viabilidade = viabilidade;
+        this.id = id;
     }
 
     /**

@@ -22,9 +22,9 @@ public class ControllerProblema {
 
     /**
      * Contador utilizado para que a cada vez que um problema seja cadastrado, um id possa ser gerado da forma
-     * "P+1,P+2,P+3..." e assim sucessivamente. E inicializaco com valor 0.
+     * "P+1,P+2,P+3..." e assim sucessivamente. E inicializaco com valor 1.
      */
-    private int contaProblema = 0;
+    private int contaProblema = 1;
 
     /**
      * Constroi a entidade responsavel por controlar os problemas, por meio de um mapa, que vai conter todos os
@@ -46,9 +46,9 @@ public class ControllerProblema {
     public String cadastraProblema(String descricao,int viabilidade) {
         validacao.validaNulleVazio(descricao,"Campo descricao nao pode ser nulo ou vazio.");
         validacao.validaViabilidadeOuAderencia(viabilidade,"Valor invalido de viabilidade.");
-        Problema problema = new Problema(descricao,viabilidade);
-        this.contaProblema++;
         String idProblema = "P"+this.contaProblema;
+        Problema problema = new Problema(descricao,viabilidade,idProblema);
+        this.contaProblema++;
         this.problemas.put(idProblema,problema);
         return idProblema;
     }

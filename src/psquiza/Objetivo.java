@@ -33,17 +33,25 @@ public class Objetivo {
     private int viabilidade;
 
     /**
+     * E o identificador unico do objetivo, no formato O+1,O+2,O+3,... que sempre quando um novo objetivo e gerado
+     * e gerado automaticamente.
+     */
+    private String id;
+
+    /**
      * Constroi um objetivo, por meio de seu tipo,descricao,aderencia e viabilidade.
      * @param tipo e o tipo do objetivo
      * @param descricao e a descricao do objetivo
      * @param aderencia e a aderencia ao problema do objetivo
      * @param viabilidade e a viabilidade do objetivo
+     * @param id e o id do objetivo e seu identificador unico
      */
-    public Objetivo(String tipo,String descricao,int aderencia,int viabilidade){
+    public Objetivo(String tipo,String descricao,int aderencia,int viabilidade,String id){
         this.tipo = tipo;
         this.descricao = descricao;
         this.aderencia = aderencia;
         this.viabilidade = viabilidade;
+        this.id = id;
     }
 
     /**

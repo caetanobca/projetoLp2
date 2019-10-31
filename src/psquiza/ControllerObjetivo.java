@@ -21,10 +21,10 @@ public class ControllerObjetivo {
     private Validacao validacao = new Validacao();
 
     /**
-     * E um contador necessario para a geracao do id de um objetivo, inicializado com valor 0 e incrementado a cada
+     * E um contador necessario para a geracao do id de um objetivo, inicializado com valor 1 e incrementado a cada
      * vez que um objetivo e cadastrado.
      */
-    private int contaObjetivos = 0;
+    private int contaObjetivos = 1;
 
     /**
      * Constroi a entidade responsavel por armazenar os objetivos por meio de um mapa que ira armazenar todos os
@@ -54,9 +54,9 @@ public class ControllerObjetivo {
         if((!tipo.equals("GERAL")) && (!tipo.equals("ESPECIFICO"))) {
             validacao.lancaExcecao("Valor invalido de tipo.");
         }
-        Objetivo objetivo = new Objetivo(tipo, descricao, aderencia, viabilidade);
-        this.contaObjetivos++;
         String idObjetivo = "O"+this.contaObjetivos;
+        Objetivo objetivo = new Objetivo(tipo, descricao, aderencia, viabilidade,idObjetivo);
+        this.contaObjetivos++;
         this.objetivos.put(idObjetivo,objetivo);
         return idObjetivo;
     }
