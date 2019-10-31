@@ -39,22 +39,9 @@ public class Risco {
         this.descricao = descricao;
         this.validador = new Validacao();
 
-        setNivelRisco(nivelRisco);
-
-    }
-
-    /**
-     * Metodo que atribui o valor da Classe Enum NivelRisco a partir de uma String com o nivel valido.
-     *
-     * @param nivelRisco String com o nivel que o Risco ira assumir.
-     */
-    private void setNivelRisco(String nivelRisco) {
-
-        validador.validaNivelRisco(nivelRisco, "Valor invalido do nivel do risco.");
-
         this.nivelRisco = NivelRisco.valueOf(nivelRisco.trim().toUpperCase());
-    }
 
+    }
 
     /**
      * Metodo responsavel por gerar uma representação textual do Risco.
