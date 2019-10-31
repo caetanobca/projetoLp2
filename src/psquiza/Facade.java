@@ -2,7 +2,6 @@ package psquiza;
 
 public class Facade {
     private ControllerPesquisa controllerPesquisa;
-    private ControllerPesquisador cPesquisador;
     private ControllerProblema controllerProblema;
     private ControllerObjetivo controllerObjetivo;
     private ControllerAtividade controllerAtividade;
@@ -83,29 +82,5 @@ public class Facade {
 
     public int contaItensRealizados(String codigo){
         return this.controllerAtividade.contaItensRealizados(codigo);
-
-    public void cadastraPesquisador(String nome, String funcao, String biografia, String email, String fotoURL) {
-       this.cPesquisador.cadastraPesquisador(nome, funcao, biografia, email, fotoURL);
-    }
-
-    public void alteraPesquisador(String email, String atributo, String novoValor) {
-        this.cPesquisador.alteraPesquisador(email, atributo, novoValor);
-    }
-
-    public void ativaPesquisador(String email) {
-        this.cPesquisador.ativaPesquisador(email);
-    }
-
-    public void desativaPesquisador(String email) {
-        this.cPesquisador.desativaPesquisador(email);
-    }
-
-    public String exibePesquisador(String email) {
-        return this.cPesquisador.exibePesquisador(email);
-    }
-
-    public boolean pesquisadorEhAtivo(String email) {
-        return this.cPesquisador.pesquisadorEhAtivo(email);
-
     }
 }
