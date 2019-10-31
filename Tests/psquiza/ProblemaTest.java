@@ -11,8 +11,8 @@ class ProblemaTest {
 
     @BeforeEach
     void setUp() {
-        problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao", 3);
-        problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4);
+        //problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao", 3);
+        //problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4);
     }
 
     @Test
