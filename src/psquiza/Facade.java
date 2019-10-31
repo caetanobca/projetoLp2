@@ -5,12 +5,15 @@ public class Facade {
     private ControllerProblema controllerProblema;
     private ControllerObjetivo controllerObjetivo;
     private ControllerAtividade controllerAtividade;
+    private ControllerPesquisador controllerPesquisador;
+
 
     public Facade(){
         this.controllerPesquisa = new ControllerPesquisa();
         this.controllerProblema = new ControllerProblema();
         this.controllerObjetivo = new ControllerObjetivo();
         this.controllerAtividade = new ControllerAtividade();
+        this.controllerPesquisador = new ControllerPesquisador();
     }
 
     public String cadastraPesquisa(String descricao, String campoDeInteresse){
@@ -35,6 +38,29 @@ public class Facade {
 
     public boolean pesquisaEhAtiva(String codigo){
         return this.controllerPesquisa.pesquisaEhAtiva(codigo);
+    }
+    public void cadastraPesquisador(String nome, String funcao, String biografia, String email, String fotoURL) {
+        this.controllerPesquisador.cadastraPesquisador(nome, funcao, biografia, email, fotoURL);
+    }
+
+    public void alteraPesquisador(String email, String atributo, String novoValor) {
+        this.controllerPesquisador.alteraPesquisador(email, atributo, novoValor);
+    }
+
+    public void ativaPesquisador(String email) {
+        this.controllerPesquisador.ativaPesquisador(email);
+    }
+
+    public void desativaPesquisador(String email) {
+        this.controllerPesquisador.desativaPesquisador(email);
+    }
+
+    public String exibePesquisador(String email) {
+        return this.controllerPesquisador.exibePesquisador(email);
+    }
+
+    public boolean pesquisadorEhAtivo(String email) {
+        return this.controllerPesquisador.pesquisadorEhAtivo(email);
     }
 
     public String cadastraProblema(String descricao, int viabilidade) {
