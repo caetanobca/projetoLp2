@@ -116,4 +116,5 @@ class AtividadeTest {
         assertFalse(atividade2.hashCode()==atividadeSoIdDiferente.hashCode());
         assertFalse(atividade1.hashCode()==atividadeTudoDiferente.hashCode());
     }
+
 }
