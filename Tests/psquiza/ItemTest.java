@@ -19,14 +19,14 @@ class ItemTest {
     }
 
     @Test
-    public void testaItem() {
+    public void testaConstroiItem() {
         assertEquals(item1, new Item(1, "Monitoramento Twitter"));
         assertEquals(item2, new Item(2, "Monitoramento orkut"));
         assertEquals(item3, new Item(3, "Degustacao de parrila"));
     }
 
     @Test
-    public void testaItemComExcecoes() {
+    public void testaConstroiItemComExcecoes() {
         assertThrows(NullPointerException.class,()-> new Item(5,null));
         assertThrows(IllegalArgumentException.class,()-> new Item(10,""));
     }
