@@ -18,11 +18,11 @@ expectError "Valor invalido do nivel do risco." cadastraAtividade Descricao="Deg
 
 #apagando atividades
 
-cadastraAtividade Descricao="atividade criada para ser deletada" nivelRisco="ALTO" descricaoRisco="psquiza.Risco alto por nao ser uma atividade seria"
-expectError "psquiza.Atividade nao encontrada" apagaAtividade codigo="A16"
+cadastraAtividade Descricao="atividade criada para ser deletada" nivelRisco="ALTO" descricaoRisco="Risco alto por nao ser uma atividade seria"
+expectError "Atividade nao encontrada" apagaAtividade codigo="A16"
 expectError "Campo codigo nao pode ser nulo ou vazio." apagaAtividade codigo=""
 apagaAtividade codigo="A3"
-expectError "psquiza.Atividade nao encontrada" apagaAtividade codigo="A3"
+expectError "Atividade nao encontrada" apagaAtividade codigo="A3"
 
 
 #cadastrando itens
@@ -35,8 +35,8 @@ cadastraItem codigo="A2" item="Degustacao com cerveja a temperatura ambiente"
 cadastraItem codigo="A2" item="Degustacao com cerveja a temperatura acima da ambiente(quente)"
 cadastraItem codigo="A2" item="Degustacao com cerveja a temperatura abaixo da ambiente(frio)"
 expectError "Campo codigo nao pode ser nulo ou vazio." cadastraItem codigo="" item="entrega de panfletos"
-expectError "psquiza.Atividade nao encontrada" cadastraItem codigo="B514" item="recolhimento dos celulares defeituosos"
-expectError "psquiza.Item nao pode ser nulo ou vazio." cadastraItem codigo="A1" item=""
+expectError "Atividade nao encontrada" cadastraItem codigo="B514" item="recolhimento dos celulares defeituosos"
+expectError "Item nao pode ser nulo ou vazio." cadastraItem codigo="A1" item=""
 
 
 #exibindo atividades
@@ -45,7 +45,7 @@ cadastraAtividade Descricao="Analise das intencoes de votos de diversas pesquisa
 expect "Monitoramento de chats dos alunos de computacao do primeiro periodo. (BAIXO - Por se tratar de apenas um monitoramento, o risco nao e elevado.) | PENDENTE - Monitoramento facebook/messenger | PENDENTE - Monitoramento slack | PENDENTE - Monitoramento discord | PENDENTE - Monitoramento whatsapp" exibeAtividade codigo="A1"
 expect "Degustacao de uma nova remeca de cervejas, criadas a partir de um novo processo de fermentacao. (MEDIO - Degustadores podem sofrer com problemas de saude nessa atividade, tal como ser alergico a algum ingrediente da cerveja.) | PENDENTE - Degustacao com cerveja a temperatura ambiente | PENDENTE - Degustacao com cerveja a temperatura acima da ambiente(quente) | PENDENTE - Degustacao com cerveja a temperatura abaixo da ambiente(frio)" exibeAtividade codigo="A2"
 expect "Analise das intencoes de votos de diversas pesquisas para comparar com a analise das avaliacao de modelos preditivos nas eleicoes brasileiras. (BAIXO - Sem grandes riscos, apenas analise de dados.)" exibeAtividade codigo="A4"
-expectError "psquiza.Atividade nao encontrada" exibeAtividade codigo="A3"
+expectError "Atividade nao encontrada" exibeAtividade codigo="A3"
 
 
 #exibindo quantidades dos itens
@@ -56,5 +56,5 @@ expect "3" contaItensPendentes codigo="A2"
 expect "0" contaItensRealizados codigo="A2"
 expectError "Campo codigo nao pode ser nulo ou vazio." contaItensPendentes codigo=""
 expectError "Campo codigo nao pode ser nulo ou vazio." contaItensRealizados codigo=""
-expectError "psquiza.Atividade nao encontrada" contaItensPendentes codigo="BOI14"
-expectError "psquiza.Atividade nao encontrada" contaItensRealizados codigo="OII9"
+expectError "Atividade nao encontrada" contaItensPendentes codigo="BOI14"
+expectError "Atividade nao encontrada" contaItensRealizados codigo="OII9"

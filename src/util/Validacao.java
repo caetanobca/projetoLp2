@@ -10,7 +10,7 @@ public class Validacao {
      * Método que verifica o dado inserido, lançando a exceção se o dado for nulo ou
      * vazio.
      *
-     * @param verifica Parametro a ser verificado.
+     * @param verifica       Parametro a ser verificado.
      * @param mensagemDeErro Mensagem de erro que será lançada junto com o tipo do erro.
      */
     public void validaNulleVazio(String verifica, String mensagemDeErro) {
@@ -23,7 +23,7 @@ public class Validacao {
     /**
      * Método que verifica o dado inserido, lançando a exceção se o dado for nulo.
      *
-     * @param verifica Parametro a ser verificado.
+     * @param verifica       Parametro a ser verificado.
      * @param mensagemDeErro Mensagem de erro que será lançada junto com o tipo do erro
      */
     public void validaNull(String verifica, String mensagemDeErro) {
@@ -38,7 +38,7 @@ public class Validacao {
     /**
      * Método que verifica o dado inserido, lançando a exceção se o dado for vazio.
      *
-     * @param verifica Parametro a ser verificado.
+     * @param verifica       Parametro a ser verificado.
      * @param mensagemDeErro Mensagem de erro que será lançada junto com o tipo do erro
      */
     public void validaVazio(String verifica, String mensagemDeErro) {
@@ -145,31 +145,89 @@ public class Validacao {
         }
     }
 
-    public void validaTamanhoString (String verifica, int tamanhoMinimo, int tamanhoMaximo, String mensagemDeErro){
-        if (verifica.length() < tamanhoMinimo || verifica.length() > tamanhoMaximo){
+    public void validaTamanhoString(String verifica, int tamanhoMinimo, int tamanhoMaximo, String mensagemDeErro) {
+        if (verifica.length() < tamanhoMinimo || verifica.length() > tamanhoMaximo) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
     }
 
     /**
      * Metodo que verifica a viabilidade de um problema ou objetivo.
-     * @param viabilidade e a viabilidade do problema
+     *
+     * @param viabilidade    e a viabilidade do problema
      * @param mensagemDeErro e a mensagem de erro com o erro a ser lancado.
      */
-    public void validaViabilidade(int viabilidade,String mensagemDeErro) {
+    public void validaViabilidade(int viabilidade, String mensagemDeErro) {
 
-        if((viabilidade<1) || (viabilidade>5)){
+        if ((viabilidade < 1) || (viabilidade > 5)) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
     }
 
-
+    /**
+     * Metodo que valida o nivel de risco para cadastrar uma atividade. Como existem apenas tres niveis possiveis,
+     * "BAIXO","MEDIO","ALTO", o programa lançara um erro caso o nivel seja diferente desses.
+     *
+     * @param nivelRisco String com o nivel do risco a ser verificado
+     * @param mensagemDeErro Mensagem de erro que irá ser lancada juntamente com o erro
+     */
     public void validaNivelRisco(String nivelRisco, String mensagemDeErro) {
         if (nivelRisco.trim().toUpperCase().equals("BAIXO") || nivelRisco.trim().toUpperCase().equals("MEDIO") || nivelRisco.trim().toUpperCase().equals("ALTO")) {
-            throw new IllegalAccessException(mensagemDeErro);
+
+        } else {
+            throw new IllegalArgumentException(mensagemDeErro);
         }
     }
 
+    /**
+     * Metodo que verifica a viabilidade de um problema ou objetivo.
+     * @param valor e a viabilidade do problema
+     * @param mensagemDeErro e a mensagem de erro com o erro a ser lancado.
+     */
+    public void validaViabilidadeOuAderencia(int valor,String mensagemDeErro) {
+
+
+        if((valor<1) || (valor>5)){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+    }
+    /**
+     * Verifica se o email esta no formato valido, ou seja, com pelo menos uma letra e/ou um numero
+     * antes e depois do @. Caso contrario, uma excessao eh lancada.
+     *
+     * @param verifica o email a ser verificado
+     * @param mensagemDeErro a mensagem de erro a ser lancada caso ele ocorra
+     */
+    public void validaEmail(String verifica, String mensagemDeErro){
+        if(!verifica.contains("@")){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+        if(verifica.indexOf("@") == verifica.length()-1){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+        if(verifica.split("@")[0].trim().isEmpty() || verifica.split("@")[1].trim().isEmpty()){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+    }
+
+    /**
+     * Verifica se a url da foto esta no formato valido, ou seja, inicializando com "http://" ou "https://",
+     * seguido de um endereco;
+     *
+     * @param verifica a URL da foto a ser verificada
+     * @param mensagemDeErro a mensagem de erro a ser lancada caso ele ocorra
+     */
+    public void validaFoto(String verifica, String mensagemDeErro){
+        if(!verifica.contains("://")){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+        if(!(verifica.split("://")[0].equals("http") || verifica.split("://")[0].equals("https"))){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+
+        if(verifica.split("://")[1].isEmpty()){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+    }
 }
 
-}
