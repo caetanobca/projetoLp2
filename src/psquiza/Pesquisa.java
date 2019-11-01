@@ -16,12 +16,14 @@ public class Pesquisa {
     private String descricao;
 
     /**
-     * Um marcador da área ou tema a ser colocado. Pode ter até 4 tópicos, separados por vírgula e ter até 255 caracteres.
+     * Um marcador da área ou tema a ser colocado. Pode ter até 4 tópicos, separados por vírgula e ter até 255
+     * caracteres.
      */
     private String campoDeInteresse;
 
     /**
-     * Codiogo gerado automaticamente pelos 3 primeiros caracteres do campo de interesse e um inteiro. O codigo e o indentificador unico.
+     * Codiogo gerado automaticamente pelos 3 primeiros caracteres do campo de interesse e um inteiro. O codigo e o
+     * indentificador unico.
      */
     private String codigo;
 
@@ -51,10 +53,14 @@ public class Pesquisa {
 
         String[] interesses = campoDeInteresse.split(",");
 
-        for (int i = 0; i < interesses.length; i++) {
-            this.validador.validaNulleVazio(interesses[i], "Formato do campo de interesse invalido.");
-            this.validador.validaTamanhoString(interesses[i], 3, 255,
-                    "Formato do campo de interesse invalido.");
+        if (interesses.length > 4) {
+            throw new IllegalArgumentException("Formato do campo de interesse invalido.");
+        } else {
+            for (int i = 0; i < interesses.length; i++) {
+                this.validador.validaNulleVazio(interesses[i], "Formato do campo de interesse invalido.");
+                this.validador.validaTamanhoString(interesses[i], 3, 255,
+                        "Formato do campo de interesse invalido.");
+            }
         }
 
         this.descricao = descricao;
@@ -144,6 +150,7 @@ public class Pesquisa {
 
     /**
      * Metodo que compara se duas pesquisa sao iguais, usando como criterio o codigo da pesquisa
+     *
      * @param o - objeto que sera comparado
      * @return - true caso as pesquisas tem o mesmo codigo e false caso os codigos sejam diferentes
      */
@@ -154,7 +161,7 @@ public class Pesquisa {
         Pesquisa pesquisa = (Pesquisa) o;
         return codigo.equals(pesquisa.codigo);
     }
-    
+
 
     @Override
     public int hashCode() {

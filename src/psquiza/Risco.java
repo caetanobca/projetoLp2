@@ -27,7 +27,7 @@ public class Risco {
      * seja, ele lançara um erro.
      *
      * @param nivelRisco Nivel do Risco.
-     * @param descricao Descricao do Risco.
+     * @param descricao  Descricao do Risco.
      */
     public Risco(String nivelRisco, String descricao) {
         validador = new Validacao();
@@ -38,29 +38,14 @@ public class Risco {
 
         this.descricao = descricao;
         this.validador = new Validacao();
-        setNivelRisco(nivelRisco);
 
-    }
-
-    /**
-     * Metodo que atribui o valor da Classe Enum NivelRisco a partir de uma String com o nivel valido.
-     * @param nivelRisco String com o nivel que o Risco ira assumir.
-     */
-    private void setNivelRisco(String nivelRisco) {
-        if (nivelRisco.trim().toUpperCase().equals("BAIXO")) {
-            this.nivelRisco = NivelRisco.BAIXO;
-        } else if (nivelRisco.trim().toUpperCase().equals("MEDIO")) {
-            this.nivelRisco = NivelRisco.MEDIO;
-        } else if (nivelRisco.trim().toUpperCase().equals("ALTO")) {
-            this.nivelRisco = NivelRisco.ALTO;
-        } else {
-            validador.lancaExcecao("Valor invalido do nivel do risco.");
-        }
+        this.nivelRisco = NivelRisco.valueOf(nivelRisco.trim().toUpperCase());
 
     }
 
     /**
      * Metodo responsavel por gerar uma representação textual do Risco.
+     *
      * @return Uma String com o nivel do Risco e sua descricao.
      */
     @Override

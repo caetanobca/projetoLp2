@@ -64,6 +64,7 @@ public class Pesquisador {
         validador.validaNulleVazio(email, "Campo email nao pode ser nulo ou vazio.");
         validador.validaNulleVazio(fotoURL, "Campo fotoURL nao pode ser nulo ou vazio.");
         validador.validaEmail(email, "Formato de email invalido.");
+        validador.validaFoto(fotoURL, "Formato de foto invalido.");
         this.nome = nome;
         this.funcao = funcao;
         this.biografia = biografia;
@@ -130,13 +131,23 @@ public class Pesquisador {
     }
 
     /**
-     * Muda o status do pesquisador para "ativo" ou "desativo". Quando desativado, nenhuma mudanca
-     * pode ser realizada no pesquisador.
-     *
-     * @param ativo o novo status do pesquisador em booleano
+     * Ativa um pesquisador, caso ele enao esteja ativo
      */
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
+    public void ativa() {
+        if (this.ativo == true) {
+            throw new IllegalArgumentException("Pesquisador ja ativado.");
+        }
+        this.ativo = true;
+    }
+
+    /**
+     * Desativa um pesquisador, caso ele nao esteja desativado
+     */
+    public void desativa() {
+        if (this.ativo == false) {
+            throw new IllegalArgumentException("Pesquisador ja ativado.");
+        }
+        this.ativo = false;
     }
 
     /**
@@ -183,4 +194,5 @@ public class Pesquisador {
     public int hashCode() {
         return Objects.hash(email);
     }
+
 }
