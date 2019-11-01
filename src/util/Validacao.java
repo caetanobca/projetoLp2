@@ -43,7 +43,7 @@ public class Validacao {
      */
     public void validaVazio(String verifica, String mensagemDeErro) {
 
-        if ("".equals(verifica)) {
+        if ("".equals(verifica.trim())) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
 
