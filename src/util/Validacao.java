@@ -172,6 +172,7 @@ public class Validacao {
      * @param mensagemDeErro Mensagem de erro que irá ser lancada juntamente com o erro
      */
     public void validaNivelRisco(String nivelRisco, String mensagemDeErro) {
+
         if (nivelRisco.trim().toUpperCase().equals("BAIXO") || nivelRisco.trim().toUpperCase().equals("MEDIO") || nivelRisco.trim().toUpperCase().equals("ALTO")) {
 
         } else {
