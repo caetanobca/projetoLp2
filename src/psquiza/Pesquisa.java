@@ -42,26 +42,20 @@ public class Pesquisa {
      */
     private Validacao validador;
 
+    /**
+     * Construtor da Classe Atividade. O Construtor não aceita parametros vazios, nulos ou não válidos, caso algum
+     * valor seja, ele lançara um erro.
+     *
+     * @param descricao         Descricao da Pesquisa
+     * @param campoDeInteresse  Campos de interesse que estao associados a esta Pesquisa
+     * @param codigo            Indentificador unico da pesquisa, gerado a partir do campo de interesse.
+     */
     public Pesquisa(String descricao, String campoDeInteresse, String codigo) {
         this.validador = new Validacao();
 
         this.validador.validaNulleVazio(descricao, "Descricao nao pode ser nula ou vazia.");
         this.validador.validaNulleVazio(campoDeInteresse, "Formato do campo de interesse invalido.");
-        this.validador.validaTamanhoString(campoDeInteresse, 3, 255,
-                "Formato do campo de interesse invalido.");
-//        this.validador.validaNulleVazio(codigo, "Codigo nao pode ser nulo ou vazio.");
-
-        String[] interesses = campoDeInteresse.split(",");
-
-        if (interesses.length > 4) {
-            throw new IllegalArgumentException("Formato do campo de interesse invalido.");
-        } else {
-            for (int i = 0; i < interesses.length; i++) {
-                this.validador.validaNulleVazio(interesses[i], "Formato do campo de interesse invalido.");
-                this.validador.validaTamanhoString(interesses[i], 3, 255,
-                        "Formato do campo de interesse invalido.");
-            }
-        }
+        this.validador.validaCampoDeInteresse(campoDeInteresse, "Formato do campo de interesse invalido.");
 
         this.descricao = descricao;
         this.campoDeInteresse = campoDeInteresse;
@@ -89,20 +83,7 @@ public class Pesquisa {
      */
     public void setCampoDeInteresse(String campoDeInteresse) {
         this.validador.validaNulleVazio(campoDeInteresse, "Formato do campo de interesse invalido.");
-        this.validador.validaTamanhoString(campoDeInteresse, 3, 255,
-                "Formato do campo de interesse invalido.");
-
-        String[] interesses = campoDeInteresse.split(",");
-
-        if (interesses.length > 4) {
-            throw new IllegalArgumentException("Formato do campo de interesse invalido.");
-        } else {
-            for (int i = 0; i < interesses.length; i++) {
-                this.validador.validaNulleVazio(interesses[i], "Formato do campo de interesse invalido.");
-                this.validador.validaTamanhoString(interesses[i], 3, 255,
-                        "Formato do campo de interesse invalido.");
-            }
-        }
+        this.validador.validaCampoDeInteresse(campoDeInteresse, "Formato do campo de interesse invalido.");
 
         if (this.ativada == false) {
             this.validador.lancaExcecao("Pesquisa desativada.");
