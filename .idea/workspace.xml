@@ -2,17 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5475ace-6fa9-43d9-871e-d8ef9b558b9c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/psquiza/ControllerGeral.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/psquiza/TipoObjetivo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Psquiza.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Psquiza.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/ControllerPesquisador.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/ControllerPesquisador.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcceptTests/use_case_3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AcceptTests/use_case_3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/ControllerObjetivo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/ControllerObjetivo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/ControllerPesquisa.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/ControllerPesquisa.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/ControllerProblema.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/ControllerProblema.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Facade.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Facade.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Objetivo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Objetivo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Pesquisador.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Pesquisador.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Problema.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Problema.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/Psquiza/psquiza/ControllerObjetivoTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/Psquiza/psquiza/ControllerObjetivoTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/Psquiza/psquiza/ControllerPesquisadorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/Psquiza/psquiza/ControllerPesquisadorTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/Psquiza/psquiza/ControllerProblemaTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/Psquiza/psquiza/ControllerProblemaTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/Psquiza/psquiza/ObjetivoTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/Psquiza/psquiza/ObjetivoTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/Psquiza/psquiza/ProblemaTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/Psquiza/psquiza/ProblemaTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Pesquisa.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/psquiza/Pesquisa.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Psquiza/util/Validacao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Psquiza/util/Validacao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/psquiza/ControllerObjetivo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/ControllerObjetivo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/psquiza/ControllerPesquisa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/ControllerPesquisa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/psquiza/ControllerProblema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/ControllerProblema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/psquiza/Facade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Facade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/psquiza/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/psquiza/Objetivo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Objetivo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/psquiza/Pesquisa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/psquiza/Pesquisa.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/util/Validacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/Validacao.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,9 +38,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -81,7 +89,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in Psquiza">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main$Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main$Main" />
       <module name="Psquiza" />
@@ -143,8 +151,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in Psquiza" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.All in Psquiza" />
         <item itemvalue="JUnit.psquiza in Psquiza" />
         <item itemvalue="JUnit.PesquisaTest.testConstroiPesquisaDescricaoVaziaOuNull" />
         <item itemvalue="Application.Main$Main" />
@@ -164,23 +172,6 @@
     </task>
     <servers />
   </component>
-  <component name="TestHistory">
-    <history-entry file="PesquisaTest_testConstroiPesquisaDescricaoVaziaOuNull - 2019.10.31 at 11h 04m 17s.xml">
-      <configuration name="PesquisaTest.testConstroiPesquisaDescricaoVaziaOuNull" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PesquisaTest_testConstroiPesquisaDescricaoVaziaOuNull - 2019.10.31 at 11h 04m 40s.xml">
-      <configuration name="PesquisaTest.testConstroiPesquisaDescricaoVaziaOuNull" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PesquisaTest_testConstroiPesquisaDescricaoVaziaOuNull - 2019.10.31 at 11h 05m 09s.xml">
-      <configuration name="PesquisaTest.testConstroiPesquisaDescricaoVaziaOuNull" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PesquisaTest_testConstroiPesquisaDescricaoVaziaOuNull - 2019.10.31 at 11h 05m 30s.xml">
-      <configuration name="PesquisaTest.testConstroiPesquisaDescricaoVaziaOuNull" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PesquisaTest_testConstroiPesquisaDescricaoVaziaOuNull - 2019.10.31 at 11h 17m 35s.xml">
-      <configuration name="PesquisaTest.testConstroiPesquisaDescricaoVaziaOuNull" configurationId="JUnit" />
-    </history-entry>
-  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -195,10 +186,10 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Psquiza$All_in_Psquiza.ic" NAME="All in Psquiza Coverage Results" MODIFIED="1572574192967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Psquiza$psquiza_in_Psquiza.ic" NAME="psquiza in Psquiza Coverage Results" MODIFIED="1572574175539" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>psquiza.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/Psquiza$All_in_Psquiza.ic" NAME="All in Psquiza Coverage Results" MODIFIED="1572574192967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="masterDetails">
     <states>

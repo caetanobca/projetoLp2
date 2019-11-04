@@ -18,13 +18,13 @@ public class ControllerObjetivo {
     /**
      * E um objeto da classe validacao responsavel pelo tratamento das excecoes nos metodos da classe.
      */
-    private Validacao validacao = new Validacao();
+    private Validacao validacao;
 
     /**
      * E um contador necessario para a geracao do id de um objetivo, inicializado com valor 1 e incrementado a cada
      * vez que um objetivo e cadastrado.
      */
-    private int contaObjetivos = 1;
+    private int contaObjetivos;
 
     /**
      * Constroi a entidade responsavel por armazenar os objetivos por meio de um mapa que ira armazenar todos os
@@ -32,6 +32,8 @@ public class ControllerObjetivo {
      */
     public ControllerObjetivo() {
         this.objetivos = new HashMap<>();
+        this.contaObjetivos = 1;
+        this.validacao = new Validacao();
     }
 
     /**
@@ -92,4 +94,23 @@ public class ControllerObjetivo {
         retorno+=objetivo.toString();
         return retorno;
     }
+
+    public Objetivo getObjetivo(String codigo){
+        if(!this.objetivos.containsKey(codigo)) {
+            validacao.lancaExcecao("Objetivo nao encontrado.");
+        }
+
+        return this.objetivos.get(codigo);
+    }
+
+    public boolean getObjetivoAssociado(String codigo){
+        if(!this.objetivos.containsKey(codigo)) {
+            validacao.lancaExcecao("Objetivo nao encontrado.");
+        }
+
+        return this.objetivos.get(codigo).getAssociado();
+    }
+
+
+
 }

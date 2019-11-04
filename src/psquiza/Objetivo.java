@@ -18,7 +18,7 @@ public class Objetivo {
     /**
      * E o tipo do objetivo que varia entre Geral ou Especifico.
      */
-    private String tipo;
+    private TipoObjetivo tipo;
 
     /**
      * E a descricao do objetivo, que define a meta a ser alcancada.
@@ -43,10 +43,15 @@ public class Objetivo {
     private String id;
 
     /**
+     * Variavel que armazena se o objetivo é associado ou não em algum problema.
+     */
+    private boolean associado;
+
+    /**
      * Atributo importado de uma classe externa, que possui metodos que auxiliam a nao permitir que valores que causem
      * erros sejam atribuidos as variaveis, sejam nulos,vazios ou quaisquer outro tipos de excessoes.
      */
-    private Validacao validacao = new Validacao();
+    private Validacao validacao;
 
     /**
      * Constroi um objetivo, por meio de seu tipo,descricao,aderencia e viabilidade.
@@ -57,18 +62,27 @@ public class Objetivo {
      * @param id e o id do objetivo e seu identificador unico
      */
     public Objetivo(String tipo,String descricao,int aderencia,int viabilidade,String id){
+        this.validacao = new Validacao();
         validacao.validaNulleVazio(tipo,"Campo tipo nao pode ser nulo ou vazio.");
         validacao.validaNulleVazio(descricao,"Campo descricao nao pode ser nulo ou vazio.");
         validacao.validaViabilidadeOuAderencia(aderencia,"Valor invalido de aderencia");
         validacao.validaViabilidadeOuAderencia(viabilidade,"Valor invalido de viabilidade.");
-        if((!tipo.equals("GERAL")) && (!tipo.equals("ESPECIFICO"))) {
-            validacao.lancaExcecao("Valor invalido de tipo.");
-        }
-        this.tipo = tipo;
+        validacao.validaTipoObjetivo(tipo, "Valor invalido de tipo");
+        this.tipo = TipoObjetivo.valueOf(tipo);
         this.descricao = descricao;
         this.aderencia = aderencia;
         this.viabilidade = viabilidade;
         this.id = id;
+        this.associado = false;
+
+    }
+
+    public boolean getAssociado(){
+        return associado;
+    }
+
+    public void setAssociado(boolean associado){
+        this.associado = associado;
     }
 
     /**
