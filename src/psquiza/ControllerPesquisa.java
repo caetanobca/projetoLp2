@@ -40,20 +40,7 @@ public class ControllerPesquisa {
     public String cadastraPesquisa(String descricao, String campoDeInteresse) {
         this.validador.validaNulleVazio(descricao, "Descricao nao pode ser nula ou vazia.");
         this.validador.validaNulleVazio(campoDeInteresse, "Formato do campo de interesse invalido.");
-        this.validador.validaTamanhoString(campoDeInteresse, 3, 255,
-                "Formato do campo de interesse invalido.");
-
-        String[] interesses = campoDeInteresse.split(",");
-
-        if (interesses.length > 4) {
-            throw new IllegalArgumentException("Formato do campo de interesse invalido.");
-        } else {
-            for (int i = 0; i < interesses.length; i++) {
-                this.validador.validaNulleVazio(interesses[i], "Formato do campo de interesse invalido.");
-                this.validador.validaTamanhoString(interesses[i], 3, 255,
-                        "Formato do campo de interesse invalido.");
-            }
-        }
+        this.validador.validaCampoDeInteresse(campoDeInteresse, "Formato do campo de interesse invalido.");
 
         String codigoPesquisa;
         codigoPesquisa = this.geraCodigoDePesquisa(campoDeInteresse.substring(0, 3).toUpperCase(), 1);
@@ -95,29 +82,29 @@ public class ControllerPesquisa {
 
         if (!this.pesquisas.containsKey(codigo)) {
             this.validador.lancaExcecao("Pesquisa nao encontrada.");
-        }
-
-        if (!this.pesquisas.get(codigo).isAtivada()) {
+        }else if (!this.pesquisas.get(codigo).isAtivada()) {
             this.validador.lancaExcecao("Pesquisa desativada.");
         }
 
-        if (!(conteudoASerAlterado.equals("DESCRICAO") || conteudoASerAlterado.equals("CAMPO"))) {
+
+        if (conteudoASerAlterado.equals("CAMPO") || conteudoASerAlterado.equals("DESCRICAO")) {
+            AlterarPesquisa opcao = AlterarPesquisa.valueOf(conteudoASerAlterado);
+            if (opcao == AlterarPesquisa.DESCRICAO) {
+                this.validador.validaNulleVazio(novoConteudo, "Descricao nao pode ser nula ou vazia.");
+
+                this.pesquisas.get(codigo).setDescricao(novoConteudo);
+
+            } else if (opcao == AlterarPesquisa.CAMPO) {
+                this.validador.validaNulleVazio(novoConteudo, "Formato do campo de interesse invalido.");
+                this.validador.validaCampoDeInteresse(novoConteudo,"Formato do campo de interesse invalido.");
+
+                this.pesquisas.get(codigo).setCampoDeInteresse(novoConteudo);
+            }
+        }else {
             this.validador.lancaExcecao("Nao e possivel alterar esse valor de pesquisa.");
-        } else if (conteudoASerAlterado.equals("DESCRICAO")) {
-
-            this.validador.validaNulleVazio(novoConteudo, "Descricao nao pode ser nula ou vazia.");
-            this.pesquisas.get(codigo).setDescricao(novoConteudo);
-
-        } else if (conteudoASerAlterado.equals("CAMPO")) {
-
-            this.validador.validaNulleVazio(novoConteudo, "Formato do campo de interesse invalido.");
-            this.validador.validaTamanhoString(novoConteudo, 3, 255,
-                    "Formato do campo de interesse invalido.");
-
-            this.pesquisas.get(codigo).setCampoDeInteresse(novoConteudo);
         }
-
     }
+
 
     /**
      * Metodo responsavel por encerrar uma pesquisa a partir do seu codigo, e assim bloqueando edicoes nessa pesquisa.

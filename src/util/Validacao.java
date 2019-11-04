@@ -232,6 +232,27 @@ public class Validacao {
     }
 
     /**
+     * Verifica se o campo de interesse e valido, ou seja se contem no maximo 4 campos, se e menor que 255 caractres
+     * e se cada um dos campos tem pelo menos 3 caracteres
+     * @param verifica        Os campos de interesse
+     * @param mensagemDeErro  A mensagem de erro a ser lancada caso ele ocorra.
+     */
+    public void validaCampoDeInteresse (String verifica, String mensagemDeErro){
+        this.validaTamanhoString(verifica, 3, 255, mensagemDeErro);
+
+        String[] interesses = verifica.split(",");
+
+        if (interesses.length > 4) {
+            this.lancaExcecao(mensagemDeErro);
+        } else {
+            for (int i = 0; i < interesses.length; i++) {
+                this.validaNulleVazio(interesses[i], mensagemDeErro);
+                this.validaTamanhoString(interesses[i], 3, 255, mensagemDeErro);
+            }
+        }
+    }
+      
+    /*
      * Verifica se o tipo do objetivo e Geral ou Especifico, caso seja uma String diferente dessas duas, lancara um erro.
      * @param verifica String a ser verificada.
      * @param mensagemDeErro a mensagem de erro a ser lancada caso ele ocorra.
@@ -241,7 +262,5 @@ public class Validacao {
         if((!verifica.equals("GERAL")) && (!verifica.equals("ESPECIFICO"))) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
-
     }
 }
-
