@@ -1,6 +1,7 @@
 package psquiza;
 
 import util.Validacao;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,8 +32,10 @@ public class ControllerPesquisa {
      * Metodo que adiciona uma pesquisa ao sistema, a partir da sua descricao e do seu campo de interesse
      *
      * @param descricao        - Um texto livre com um resumo da pesquisa a ser realizada.
-     * @param campoDeInteresse - Um marcador da área ou tema a ser colocado. Pode ter até 4 tópicos, separados por vírgula e ter até 255 caracteres.
-     * @return o codigo da pesquisa, gerado a partir dos 3 primeiros caracteres do campo de interesse seguido de um inteiro
+     * @param campoDeInteresse - Um marcador da área ou tema a ser colocado. Pode ter até 4 tópicos, separados por
+     *                         vírgula e ter até 255 caracteres.
+     * @return o codigo da pesquisa, gerado a partir dos 3 primeiros caracteres do campo de interesse seguido de um
+     * inteiro
      */
     public String cadastraPesquisa(String descricao, String campoDeInteresse) {
         this.validador.validaNulleVazio(descricao, "Descricao nao pode ser nula ou vazia.");
@@ -79,13 +82,15 @@ public class ControllerPesquisa {
     /**
      * Metodo responsavel por alterar o valor de determinado atributo (descricao ou campo de interesse) em uma pesquisa.
      *
-     * @param codigo               - Codigo da pesquisa, formado pelos 3 primeiros caracteres do campo de interesse seguido de um inteiro..
+     * @param codigo               - Codigo da pesquisa, formado pelos 3 primeiros caracteres do campo de interesse
+     *                             seguido de um inteiro..
      * @param conteudoASerAlterado - qual atributo sera alterado (descricao ou campo de interesse)
      * @param novoConteudo         - novo valor que os atributos devem assumir
      */
     public void alteraPesquisa(String codigo, String conteudoASerAlterado, String novoConteudo) {
         this.validador.validaNulleVazio(codigo, "Codigo nao pode ser nulo ou vazio.");
-        //        this.validador.validaNulleVazio(conteudoASerAlterado, "Conteudo a ser alterado nao pode ser nulo ou vazio.");
+        //        this.validador.validaNulleVazio(conteudoASerAlterado, "Conteudo a ser alterado nao pode ser nulo ou
+        //        vazio.");
         //        this.validador.validaNulleVazio(novoConteudo, "Novo conteudo nao pode ser nulo ou vazio.");
 
         if (!this.pesquisas.containsKey(codigo)) {
@@ -117,7 +122,8 @@ public class ControllerPesquisa {
     /**
      * Metodo responsavel por encerrar uma pesquisa a partir do seu codigo, e assim bloqueando edicoes nessa pesquisa.
      *
-     * @param codigo - codigo da pesquisa, formado pelos 3 primeiros caracteres do campo de interesse seguido de um inteiro.
+     * @param codigo - codigo da pesquisa, formado pelos 3 primeiros caracteres do campo de interesse seguido de um
+     *               inteiro.
      * @param motivo - Motivo pelo qual o usuario deseja encerrar a pesquisa
      */
     public void encerraPesquisa(String codigo, String motivo) {
@@ -138,7 +144,8 @@ public class ControllerPesquisa {
      * Metodo responsavel por ativar uma pesquisa a partir do seu codigo, e assim tornando possivel alterar determinada
      * pesquisa
      *
-     * @param codigo - codigo da pesquisa, formado pelos 3 primeiros caracteres do campo de interesse seguido de um inteiro
+     * @param codigo - codigo da pesquisa, formado pelos 3 primeiros caracteres do campo de interesse seguido de um
+     *               inteiro
      */
     public void ativaPesquisa(String codigo) {
         this.validador.validaNulleVazio(codigo, "Codigo nao pode ser nulo ou vazio.");
@@ -155,7 +162,8 @@ public class ControllerPesquisa {
     /**
      * Metodo que exibe uma determinada pesquisa a partir do seu codigo
      *
-     * @param codigo - codigo da pesquisa, formado pelos 3 primeiros caracteres do campo de interesse seguido de um inteiro.
+     * @param codigo - codigo da pesquisa, formado pelos 3 primeiros caracteres do campo de interesse seguido de um
+     *               inteiro.
      * @return - a representacao textual de uma pesquisa
      */
     public String exibePesquisa(String codigo) {
@@ -170,7 +178,8 @@ public class ControllerPesquisa {
     /**
      * Metodo que verifica se determinada pesquisa esta ativa ou encerrada
      *
-     * @param codigo - codigo da pesquisa, formado pelos 3 primeiros caracteres do campo de interesse seguido de um inteiro
+     * @param codigo - codigo da pesquisa, formado pelos 3 primeiros caracteres do campo de interesse seguido de um
+     *               inteiro
      * @return - true caso a pesquisa esteja ativa e false caso esteja encerrada
      */
     public boolean pesquisaEhAtiva(String codigo) {
@@ -182,4 +191,96 @@ public class ControllerPesquisa {
 
         return this.pesquisas.get(codigo).isAtivada();
     }
+
+    public Pesquisa getPesquisa(String codigo) {
+        if (!this.pesquisas.containsKey(codigo)) {
+            this.validador.lancaExcecao("Pesquisa nao encontrada.");
+        }
+
+        return this.pesquisas.get(codigo);
+    }
+
+    /**
+     * Metodo responsavel por associar um Problema para uma Pesquisa, validando o Id de Pesquisa inserido e passando
+     * um objeto do tipo Problema para Pesquisa.
+     *
+     * @param idPesquisa Identificacao da Pesquisa.
+     * @param problema Objeto do tipo Problema a ser associado.
+     * @return true caso a associacao tenha dado certo, false caso contrario.
+     */
+    public boolean associaProblemaEmPesquisa(String idPesquisa, Problema problema) {
+        boolean associou = false;
+        if (!this.pesquisas.containsKey(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa nao encontrada.");
+
+        } else if (!pesquisaEhAtiva(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa desativada.");
+
+        } else {
+            associou = this.pesquisas.get(idPesquisa).associaProblemaEmPesquisa(problema);
+
+        }
+
+        return associou;
+    }
+
+    /**
+     * Metodo responsavel por desassociar um Problema para uma Pesquisa, validando o Id de Pesquisa inserido e passando
+     * um objeto do tipo Problema para Pesquisa.
+     *
+     * @param idPesquisa Identificacao da Pesquisa.
+     * @param problema Objeto do tipo Problema a ser desassociado.
+     * @return true caso a desassociacao tenha dado certo, false caso contrario.
+     */
+    public boolean desassociaProblemaEmPesquisa(String idPesquisa, Problema problema) {
+        boolean desassociou = false;
+        if (!this.pesquisas.containsKey(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa nao encontrada.");
+
+        } else if (!pesquisaEhAtiva(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa desativada.");
+
+        } else {
+            desassociou = this.pesquisas.get(idPesquisa).desassociaProblemaEmPesquisa(problema);
+
+        }
+
+        return desassociou;
+    }
+
+    public boolean associaObjetivoEmPesquisa(String idPesquisa, Objetivo objetivo) {
+        boolean associou = false;
+        if (!this.pesquisas.containsKey(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa nao encontrada.");
+
+        } else if (!pesquisaEhAtiva(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa desativada.");
+
+        } else {
+            associou = this.pesquisas.get(idPesquisa).associaObjetivoEmPesquisa(objetivo);
+
+        }
+
+        return associou;
+    }
+
+
+    public boolean desassociaObjetivoEmPesquisa(String idPesquisa, Objetivo objetivo) {
+        boolean desassociou = false;
+        if (!this.pesquisas.containsKey(idPesquisa)) {
+
+            this.validador.lancaExcecao("Pesquisa nao encontrada.");
+
+        } else if (!pesquisaEhAtiva(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa desativada.");
+
+        } else {
+            desassociou = this.pesquisas.get(idPesquisa).desassociaObjetivoEmPesquisa(objetivo);
+
+        }
+
+        return desassociou;
+    }
+
 }
+
