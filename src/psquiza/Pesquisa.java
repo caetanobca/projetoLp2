@@ -2,6 +2,8 @@ package psquiza;
 
 import util.Validacao;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -9,6 +11,11 @@ import java.util.Objects;
  * se esta ativa ou encerrada
  */
 public class Pesquisa {
+
+    /**
+     * Problema associado a essa pesquisa.
+     */
+    private Problema problemaAssociado;
 
     /**
      * Um texto livre com um resumo da pesquisa a ser realizada.
@@ -38,35 +45,37 @@ public class Pesquisa {
     private String motivoDesativacao;
 
     /**
+     * ArrayList com todos os objetivos da pesquisa.
+     */
+    private List<Objetivo> objetivos;
+
+    /**
      * Objeto que tem funcoes que auxiliam na validacao de entradas.
      */
     private Validacao validador;
 
+    /**
+     * Construtor da Classe Atividade. O Construtor não aceita parametros vazios, nulos ou não válidos, caso algum
+     * valor seja, ele lançara um erro.
+     *
+     * @param descricao         Descricao da Pesquisa
+     * @param campoDeInteresse  Campos de interesse que estao associados a esta Pesquisa
+     * @param codigo            Indentificador unico da pesquisa, gerado a partir do campo de interesse.
+     */
     public Pesquisa(String descricao, String campoDeInteresse, String codigo) {
         this.validador = new Validacao();
 
         this.validador.validaNulleVazio(descricao, "Descricao nao pode ser nula ou vazia.");
         this.validador.validaNulleVazio(campoDeInteresse, "Formato do campo de interesse invalido.");
-        this.validador.validaTamanhoString(campoDeInteresse, 3, 255,
-                "Formato do campo de interesse invalido.");
-//        this.validador.validaNulleVazio(codigo, "Codigo nao pode ser nulo ou vazio.");
-
-        String[] interesses = campoDeInteresse.split(",");
-
-        if (interesses.length > 4) {
-            throw new IllegalArgumentException("Formato do campo de interesse invalido.");
-        } else {
-            for (int i = 0; i < interesses.length; i++) {
-                this.validador.validaNulleVazio(interesses[i], "Formato do campo de interesse invalido.");
-                this.validador.validaTamanhoString(interesses[i], 3, 255,
-                        "Formato do campo de interesse invalido.");
-            }
-        }
+        this.validador.validaCampoDeInteresse(campoDeInteresse, "Formato do campo de interesse invalido.");
 
         this.descricao = descricao;
         this.campoDeInteresse = campoDeInteresse;
         this.codigo = codigo;
         this.ativada = true;
+        this.problemaAssociado = null;
+        this.objetivos = new ArrayList<>();
+
     }
 
     /**
@@ -89,20 +98,7 @@ public class Pesquisa {
      */
     public void setCampoDeInteresse(String campoDeInteresse) {
         this.validador.validaNulleVazio(campoDeInteresse, "Formato do campo de interesse invalido.");
-        this.validador.validaTamanhoString(campoDeInteresse, 3, 255,
-                "Formato do campo de interesse invalido.");
-
-        String[] interesses = campoDeInteresse.split(",");
-
-        if (interesses.length > 4) {
-            throw new IllegalArgumentException("Formato do campo de interesse invalido.");
-        } else {
-            for (int i = 0; i < interesses.length; i++) {
-                this.validador.validaNulleVazio(interesses[i], "Formato do campo de interesse invalido.");
-                this.validador.validaTamanhoString(interesses[i], 3, 255,
-                        "Formato do campo de interesse invalido.");
-            }
-        }
+        this.validador.validaCampoDeInteresse(campoDeInteresse, "Formato do campo de interesse invalido.");
 
         if (this.ativada == false) {
             this.validador.lancaExcecao("Pesquisa desativada.");
@@ -136,6 +132,68 @@ public class Pesquisa {
      */
     public void ativa() {
         this.ativada = true;
+    }
+
+    public boolean associaProblemaEmPesquisa(Problema problema) {
+        boolean associou;
+
+
+        if (this.problemaAssociado != null && !"".equals(this.problemaAssociado)) {
+
+            if (this.problemaAssociado.equals(problema)) {
+                associou = false;
+            } else {
+                validador.lancaExcecao("Pesquisa ja associada a um problema.");
+                associou = false;
+            }
+
+        } else {
+            this.problemaAssociado = problema;
+            associou = true;
+
+        }
+        return associou;
+    }
+
+    public boolean desassociaProblemaEmPesquisa(Problema problema) {
+        boolean desassociou;
+        if (this.problemaAssociado == null || "".equals(this.problemaAssociado)) {
+
+            desassociou = false;
+        } else {
+            this.problemaAssociado = null;
+            desassociou = true;
+        }
+
+        return desassociou;
+    }
+
+    public boolean associaObjetivoEmPesquisa(Objetivo objetivo) {
+        boolean associou = false;
+
+        if (!objetivos.contains(objetivo)) {
+            if (objetivo.getAssociado() == false) {
+                objetivos.add(objetivo);
+                objetivo.setAssociado(true);
+                associou = true;
+            } else {
+                validador.lancaExcecao("Objetivo ja associado a uma pesquisa.");
+            }
+        }
+
+        return associou;
+    }
+
+    public boolean desassociaObjetivoEmPesquisa(Objetivo objetivo) {
+        boolean desassociou = false;
+
+        if (objetivos.contains(objetivo)) {
+            objetivos.remove(objetivo);
+            objetivo.setAssociado(false);
+            desassociou = true;
+        }
+
+        return desassociou;
     }
 
     /**
