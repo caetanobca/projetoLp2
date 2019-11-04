@@ -251,5 +251,16 @@ public class Validacao {
             }
         }
     }
-}
+      
+    /*
+     * Verifica se o tipo do objetivo e Geral ou Especifico, caso seja uma String diferente dessas duas, lancara um erro.
+     * @param verifica String a ser verificada.
+     * @param mensagemDeErro a mensagem de erro a ser lancada caso ele ocorra.
+     */
+    public void validaTipoObjetivo(String verifica, String mensagemDeErro){
 
+        if((!verifica.equals("GERAL")) && (!verifica.equals("ESPECIFICO"))) {
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+    }
+}

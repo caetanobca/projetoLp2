@@ -2,6 +2,8 @@ package psquiza;
 
 import util.Validacao;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -9,6 +11,11 @@ import java.util.Objects;
  * se esta ativa ou encerrada
  */
 public class Pesquisa {
+
+    /**
+     * Problema associado a essa pesquisa.
+     */
+    private Problema problemaAssociado;
 
     /**
      * Um texto livre com um resumo da pesquisa a ser realizada.
@@ -38,6 +45,11 @@ public class Pesquisa {
     private String motivoDesativacao;
 
     /**
+     * ArrayList com todos os objetivos da pesquisa.
+     */
+    private List<Objetivo> objetivos;
+
+    /**
      * Objeto que tem funcoes que auxiliam na validacao de entradas.
      */
     private Validacao validador;
@@ -61,6 +73,9 @@ public class Pesquisa {
         this.campoDeInteresse = campoDeInteresse;
         this.codigo = codigo;
         this.ativada = true;
+        this.problemaAssociado = null;
+        this.objetivos = new ArrayList<>();
+
     }
 
     /**
@@ -117,6 +132,68 @@ public class Pesquisa {
      */
     public void ativa() {
         this.ativada = true;
+    }
+
+    public boolean associaProblemaEmPesquisa(Problema problema) {
+        boolean associou;
+
+
+        if (this.problemaAssociado != null && !"".equals(this.problemaAssociado)) {
+
+            if (this.problemaAssociado.equals(problema)) {
+                associou = false;
+            } else {
+                validador.lancaExcecao("Pesquisa ja associada a um problema.");
+                associou = false;
+            }
+
+        } else {
+            this.problemaAssociado = problema;
+            associou = true;
+
+        }
+        return associou;
+    }
+
+    public boolean desassociaProblemaEmPesquisa(Problema problema) {
+        boolean desassociou;
+        if (this.problemaAssociado == null || "".equals(this.problemaAssociado)) {
+
+            desassociou = false;
+        } else {
+            this.problemaAssociado = null;
+            desassociou = true;
+        }
+
+        return desassociou;
+    }
+
+    public boolean associaObjetivoEmPesquisa(Objetivo objetivo) {
+        boolean associou = false;
+
+        if (!objetivos.contains(objetivo)) {
+            if (objetivo.getAssociado() == false) {
+                objetivos.add(objetivo);
+                objetivo.setAssociado(true);
+                associou = true;
+            } else {
+                validador.lancaExcecao("Objetivo ja associado a uma pesquisa.");
+            }
+        }
+
+        return associou;
+    }
+
+    public boolean desassociaObjetivoEmPesquisa(Objetivo objetivo) {
+        boolean desassociou = false;
+
+        if (objetivos.contains(objetivo)) {
+            objetivos.remove(objetivo);
+            objetivo.setAssociado(false);
+            desassociou = true;
+        }
+
+        return desassociou;
     }
 
     /**
