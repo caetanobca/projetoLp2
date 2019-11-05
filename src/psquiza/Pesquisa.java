@@ -10,7 +10,7 @@ import java.util.Objects;
  * Classe que representa uma pesquisa, que tem descricao, campo de interesse, codigo, e uma variavel que indica
  * se esta ativa ou encerrada
  */
-public class Pesquisa {
+public class Pesquisa implements Comparable<Pesquisa>{
 
     /**
      * Problema associado a essa pesquisa.
@@ -134,6 +134,14 @@ public class Pesquisa {
         this.ativada = true;
     }
 
+    /**
+     * Metodo responsavel por retornar o Problema associado a Pesquisa.
+     * @return
+     */
+    public Problema getProblemaAssociado(){
+        return problemaAssociado;
+    }
+
     public boolean associaProblemaEmPesquisa(Problema problema) {
         boolean associou;
 
@@ -196,6 +204,10 @@ public class Pesquisa {
         return desassociou;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
     /**
      * Metodo que cria uma representacao textual da pesquisa.
      *
@@ -224,5 +236,11 @@ public class Pesquisa {
     @Override
     public int hashCode() {
         return Objects.hash(codigo);
+    }
+
+
+    @Override
+    public int compareTo(Pesquisa o) {
+        return o.getCodigo().compareTo(codigo);
     }
 }

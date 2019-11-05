@@ -2,6 +2,8 @@ package psquiza;
 
 import util.Validacao;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -88,13 +90,13 @@ public class ControllerPesquisa {
 
 
         if (conteudoASerAlterado.equals("CAMPO") || conteudoASerAlterado.equals("DESCRICAO")) {
-            AlterarPesquisa opcao = AlterarPesquisa.valueOf(conteudoASerAlterado);
-            if (opcao == AlterarPesquisa.DESCRICAO) {
+            AlterarPesquisaEnum opcao = AlterarPesquisaEnum.CAMPO.valueOf(conteudoASerAlterado);
+            if (opcao == AlterarPesquisaEnum.CAMPO.DESCRICAO) {
                 this.validador.validaNulleVazio(novoConteudo, "Descricao nao pode ser nula ou vazia.");
 
                 this.pesquisas.get(codigo).setDescricao(novoConteudo);
 
-            } else if (opcao == AlterarPesquisa.CAMPO) {
+            } else if (opcao == AlterarPesquisaEnum.CAMPO.CAMPO) {
                 this.validador.validaNulleVazio(novoConteudo, "Formato do campo de interesse invalido.");
                 this.validador.validaCampoDeInteresse(novoConteudo,"Formato do campo de interesse invalido.");
 
@@ -267,6 +269,36 @@ public class ControllerPesquisa {
         }
 
         return desassociou;
+    }
+
+    public String listaPesquisas(String ordem){
+
+    }
+
+    private ArrayList<Pesquisa> ordenaListaPesquisaProblema(){
+        ArrayList<Pesquisa> pesquisasComProblema = new ArrayList<>();
+        ArrayList<Pesquisa> pesquisasSemProblema = new ArrayList<>();
+
+        for(Pesquisa pesquisa:pesquisas){
+            if(pesquisa.getProblemaAssociado() == null){
+                pesquisasSemProblema.add(pesquisa);
+            } else {
+                pesquisasComProblema.add(pesquisa);
+            }
+        }
+
+        Collections.sort(pesquisasComProblema, new ComparadorPesquisaPorProblema());
+
+        Collections.sort(pesquisasSemProblema);
+
+        ArrayList<Pesquisa> todasAsPesquisas = new ArrayList<>;
+
+        todasAsPesquisas.add(pesquisasComProblema);
+        todasAsPesquisas.add(pesquisasSemProblema);
+
+        return todasAsPesquisas;
+
+
     }
 
 }
