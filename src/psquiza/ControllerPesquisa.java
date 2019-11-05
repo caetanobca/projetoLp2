@@ -2,7 +2,9 @@ package psquiza;
 
 import util.Validacao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -269,5 +271,19 @@ public class ControllerPesquisa {
         return desassociou;
     }
 
+    public List<String> busca(String termo) {
+        List<String> results = new ArrayList<>();
+
+        for (String codigo: pesquisas.keySet()){
+            if (this.pesquisas.get(codigo).getDescricao().contains(termo)){
+                results.add(codigo + ": " + this.pesquisas.get(codigo).getDescricao());
+            }
+            if (this.pesquisas.get(codigo).getCampoDeInteresse().contains(termo)){
+                results.add(codigo + ": " + this.pesquisas.get(codigo).getCampoDeInteresse());
+            }
+        }
+
+        return results;
+    }
 }
 

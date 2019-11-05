@@ -225,4 +225,20 @@ public class Pesquisa {
     public int hashCode() {
         return Objects.hash(codigo);
     }
+
+    /**
+     * Metodo responsavel por pegar a descricao da Pesquisa.
+     * @return descricao da Pesquisa.
+     */
+    public String getDescricao() {
+        return descricao;
+    }
+
+    /**
+     * Metodo responsavel por pegar os campos de interesse da Pesquisa.
+     * @return campos de interesse da Pesquisa.
+     */
+    public String getCampoDeInteresse() {
+        return campoDeInteresse;
+    }
 }

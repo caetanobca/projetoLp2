@@ -2,6 +2,9 @@ package psquiza;
 
 import util.Validacao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ControllerGeral {
 
     private ControllerPesquisa controllerPesquisa;
@@ -58,6 +61,17 @@ public class ControllerGeral {
     }
 
 
+    public String busca(String termo) {
+        List<String> resultados = new ArrayList<>();
+        resultados.addAll(this.controllerAtividade.busca(termo));
+        resultados.addAll(this.controllerPesquisa.busca(termo));
+
+        String resultString = "";
+        for (int i = 0; i < resultados.size(); i++){
+            resultString += resultados.get(i);
+        }
+        return resultString;
+    }
 }
 
 
