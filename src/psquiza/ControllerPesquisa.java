@@ -2,10 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -271,17 +268,35 @@ public class ControllerPesquisa {
         return desassociou;
     }
 
+    /**
+     * Metedo responsavel por buscar um termo nas descricoes e nos campos de interesse das Pesquisas.
+     * @param termo Texto que sera usado como referencia na busca.
+     * @return uma lista com todos o resultados.
+     */
     public List<String> busca(String termo) {
+        validador.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
+
         List<String> results = new ArrayList<>();
 
+        List<String> buscaDescricao = new ArrayList<>();
         for (String codigo: pesquisas.keySet()){
-            if (this.pesquisas.get(codigo).getDescricao().contains(termo)){
-                results.add(codigo + ": " + this.pesquisas.get(codigo).getDescricao());
-            }
             if (this.pesquisas.get(codigo).getCampoDeInteresse().contains(termo)){
-                results.add(codigo + ": " + this.pesquisas.get(codigo).getCampoDeInteresse());
+                buscaDescricao.add(codigo + ": " + this.pesquisas.get(codigo).getCampoDeInteresse());
             }
         }
+
+        Collections.sort(buscaDescricao);
+        results.addAll(buscaDescricao);
+
+        List<String> buscaCampoDeInteresse = new ArrayList<>();
+        for (String codigo: pesquisas.keySet()){
+            if (this.pesquisas.get(codigo).getCampoDeInteresse().contains(termo)){
+                buscaCampoDeInteresse.add(codigo + ": " + this.pesquisas.get(codigo).getCampoDeInteresse());
+            }
+        }
+
+        Collections.sort(buscaCampoDeInteresse);
+        results.addAll(buscaCampoDeInteresse);
 
         return results;
     }

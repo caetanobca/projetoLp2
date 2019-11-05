@@ -195,4 +195,11 @@ public class Pesquisador {
         return Objects.hash(email);
     }
 
+    /**
+     * Metodo responsavel por pegar a biografia do Pesquisador.
+     * @return biografia do Pesquisador.
+     */
+    public String getBiografia() {
+        return this.biografia;
+    }
 }

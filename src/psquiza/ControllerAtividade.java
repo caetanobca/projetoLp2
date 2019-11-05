@@ -2,10 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Classe responssavel por gerenciar as Atividades cadastradas no sistema. As Atividades sao armazenadas em um mapa
@@ -179,17 +176,36 @@ public class ControllerAtividade {
         return itensPendentes;
     }
 
+    /**
+     * Metedo responsavel por buscar um termo nas descricoes e nas descricoes dos risco das Atividades.
+     * @param termo Texto que sera usado como referencia na busca.
+     * @return uma lista com todos o resultados.
+     */
     public List<String> busca(String termo) {
+        validador.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
+
         List<String> results = new ArrayList<>();
 
+        List<String> buscaDescricao = new ArrayList<>();
         for (String codigo: atividades.keySet()){
             if (this.atividades.get(codigo).getDescricao().contains(termo)){
-                results.add(codigo + ": " + this.atividades.get(codigo).getDescricao());
+                buscaDescricao.add(codigo + ": " + this.atividades.get(codigo).getDescricao());
             }
+
+        }
+
+        Collections.sort(buscaDescricao);
+        results.addAll(buscaDescricao);
+
+        List<String> buscaDescricaoErro = new ArrayList<>();
+        for (String codigo: atividades.keySet()){
             if (this.atividades.get(codigo).getDescricaoDoRisco().contains(termo)){
-                results.add(codigo + ": " + this.atividades.get(codigo).getDescricaoDoRisco());
+                buscaDescricaoErro.add(codigo + ": " + this.atividades.get(codigo).getDescricaoDoRisco());
             }
         }
+
+        Collections.sort(buscaDescricaoErro);
+        results.addAll(buscaDescricaoErro);
 
         return results;
     }

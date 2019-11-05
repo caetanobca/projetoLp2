@@ -62,9 +62,18 @@ public class ControllerGeral {
 
 
     public String busca(String termo) {
+        validador.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
+
         List<String> resultados = new ArrayList<>();
-        resultados.addAll(this.controllerAtividade.busca(termo));
+
         resultados.addAll(this.controllerPesquisa.busca(termo));
+        resultados.addAll(this.controllerPesquisador.busca(termo));
+        /*
+        Pesquisador: Biografia
+        Problemas: Descrição
+        Objetivo: Descrição
+        */
+        resultados.addAll(this.controllerAtividade.busca(termo));
 
         String resultString = "";
         for (int i = 0; i < resultados.size(); i++){
