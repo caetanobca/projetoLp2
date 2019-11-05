@@ -2,7 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Entidade utilizada no sistema para ser a dona das informacoes sobre os problemas, ou seja nesta classe, serao
@@ -100,5 +100,19 @@ public class ControllerProblema {
     }
 
 
+    public List<String> busca(String termo) {
+        validacao.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
 
+        List<String> results = new ArrayList<>();
+
+        for (String codigo: problemas.keySet()){
+            if (this.problemas.get(codigo).getDescricao().contains(termo)){
+                results.add(codigo + ": " + this.problemas.get(codigo).getDescricao());
+            }
+        }
+
+        Collections.sort(results, new OrdenaStrings());
+        return results;
+
+    }
 }

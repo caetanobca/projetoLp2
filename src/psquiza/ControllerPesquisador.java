@@ -187,7 +187,7 @@ public class ControllerPesquisador {
             }
         }
 
-        Collections.sort(results);
+        Collections.sort(results, new OrdenaStrings());
         return results;
     }
 }

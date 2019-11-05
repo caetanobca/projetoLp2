@@ -189,13 +189,12 @@ public class ControllerAtividade {
         List<String> buscaDescricao = new ArrayList<>();
         for (String codigo: atividades.keySet()){
             if (this.atividades.get(codigo).getDescricao().contains(termo)){
-                buscaDescricao.add(codigo + ": " + this.atividades.get(codigo).getDescricao());
+                results.add(codigo + ": " + this.atividades.get(codigo).getDescricao());
             }
 
         }
 
-        Collections.sort(buscaDescricao);
-        results.addAll(buscaDescricao);
+        Collections.sort(results, new OrdenaStrings());
 
         List<String> buscaDescricaoErro = new ArrayList<>();
         for (String codigo: atividades.keySet()){
@@ -204,8 +203,11 @@ public class ControllerAtividade {
             }
         }
 
-        Collections.sort(buscaDescricaoErro);
+        Collections.sort(buscaDescricaoErro, new OrdenaStrings());
         results.addAll(buscaDescricaoErro);
+
+
+        Collections.sort(buscaDescricao, new OrdenaStrings());
 
         return results;
     }

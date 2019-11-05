@@ -278,25 +278,16 @@ public class ControllerPesquisa {
 
         List<String> results = new ArrayList<>();
 
-        List<String> buscaDescricao = new ArrayList<>();
         for (String codigo: pesquisas.keySet()){
+            if (this.pesquisas.get(codigo).getDescricao().contains(termo)){
+                results.add(codigo + ": " + this.pesquisas.get(codigo).getDescricao());
+            }
             if (this.pesquisas.get(codigo).getCampoDeInteresse().contains(termo)){
-                buscaDescricao.add(codigo + ": " + this.pesquisas.get(codigo).getCampoDeInteresse());
+                results.add(codigo + ": " + this.pesquisas.get(codigo).getCampoDeInteresse());
             }
         }
 
-        Collections.sort(buscaDescricao);
-        results.addAll(buscaDescricao);
-
-        List<String> buscaCampoDeInteresse = new ArrayList<>();
-        for (String codigo: pesquisas.keySet()){
-            if (this.pesquisas.get(codigo).getCampoDeInteresse().contains(termo)){
-                buscaCampoDeInteresse.add(codigo + ": " + this.pesquisas.get(codigo).getCampoDeInteresse());
-            }
-        }
-
-        Collections.sort(buscaCampoDeInteresse);
-        results.addAll(buscaCampoDeInteresse);
+        Collections.sort(results, new OrdenaStrings());
 
         return results;
     }

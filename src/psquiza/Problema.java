@@ -82,4 +82,12 @@ public class Problema {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    /**
+     * Metodo responsavel por pegar a descricao do Problema.
+     * @return descricao da Pesquisa.
+     */
+    public String getDescricao() {
+        return descricao;
+    }
 }
