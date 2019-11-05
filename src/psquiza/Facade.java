@@ -132,6 +132,10 @@ public class Facade {
     }
 
     public boolean associaPesquisador(String idPesquisa,String emailPesquisador) {
-        return  this.controllerGeral.associaPesquisador(idPesquisa,emailPesquisador);
+        return this.controllerGeral.associaPesquisador(idPesquisa,emailPesquisador);
+    }
+
+    public boolean desassociaPesquisador(String idPesquisa,String emailPesquisador) {
+        return this.controllerGeral.desassociaPesquisador(idPesquisa,emailPesquisador);
     }
 }

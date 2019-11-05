@@ -45,14 +45,20 @@ public class Pesquisador {
      */
     private boolean ativo;
 
+    /**
+     * Objeto da classe Validacao, que tem como funcao, lancar excecoes caso seja necessario(Entradas nulas e vazias).
+     */
     private Validacao validador;
 
+    /**
+     * Sao as pesquisas que um pesquisador possui cadastradas junto a ele.
+     */
     private ArrayList<String> pesquisas;
 
     /**
-     * Constroi um pesquisador a partir de seu nome, funcao, biografia, email valido e a URL da foto valida.
+     * Constroi um pesquisador a partir de seu nome, funcao, biografia, email valido,
+     * URL da foto valida e suas respectivas pesquisas.
      * Caso qualquer atributo esteja invalido, uma excecao sera lancada.
-     *
      * @param nome o nome do pesquisador
      * @param funcao a funcao do pesquisador (estudante, professor ou externo)
      * @param biografia a biografia do pesquisador
@@ -163,10 +169,25 @@ public class Pesquisador {
         return ativo;
     }
 
+    /**
+     * Adiciona uma nova pesquisa a lista de pesquisas que o pesquisador possui. Uma excecao sera lancada caso o usuario
+     * tente passar ao sistema um idPesquisa nulo ou vazio.
+     * @param idPesquisa e o identificador unico da pesquisa que sera adicionado
+     */
    public void adicionaPesquisa(String idPesquisa) {
+        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
         pesquisas.add(idPesquisa);
    }
 
+    public void removePesquisa(String idPesquisa) {
+        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
+        pesquisas.remove(idPesquisa);
+    }
+
+    /**
+     * Metodo que retorna ao usuario a lista com as pesquisas do pesquisador.
+     * @return o ArrayList com todas as pesquisas de um pesquisador
+     */
     public ArrayList<String> getPesquisas() {
         return pesquisas;
     }

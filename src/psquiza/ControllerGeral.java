@@ -82,6 +82,30 @@ public class ControllerGeral {
         return retorno;
     }
 
+    public boolean desassociaPesquisador(String idPesquisa,String emailPesquisador) {
+        boolean retorno;
+        validador.validaNulleVazio(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
+        if(!controllerPesquisa.getPesquisas().containsKey(idPesquisa)) {
+            validador.lancaExcecao("Pesquisa nao encontrada.");
+        }
+        if(controllerPesquisa.getPesquisas().get(idPesquisa).isAtivada()==false) {
+            validador.lancaExcecao("Pesquisa desativada.");
+        }
+        if(!controllerPesquisador.getPesquisadores().containsKey(emailPesquisador)) {
+            validador.lancaExcecao("Pesquisador nao encontrado.");
+        }
+        if(controllerPesquisador.getPesquisadores().get(emailPesquisador).isAtivo()==false) {
+            validador.lancaExcecao("Pesquisador desativado");
+        }
+        if(controllerPesquisador.getPesquisadores().get(emailPesquisador).getPesquisas().contains(idPesquisa)) {
+            Pesquisa pesquisa = controllerPesquisa.getPesquisas().get(idPesquisa);
+            controllerPesquisador.desassociaPesquisador(idPesquisa, emailPesquisador);
+            retorno =  true;
+        }
+        retorno = false;
+        return retorno;
+    }
 
 }
 
