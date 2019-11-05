@@ -2,6 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -46,6 +47,8 @@ public class Pesquisador {
 
     private Validacao validador;
 
+    private ArrayList<String> pesquisas;
+
     /**
      * Constroi um pesquisador a partir de seu nome, funcao, biografia, email valido e a URL da foto valida.
      * Caso qualquer atributo esteja invalido, uma excecao sera lancada.
@@ -71,6 +74,7 @@ public class Pesquisador {
         this.email = email;
         this.fotoURL = fotoURL;
         this.ativo = true;
+        this.pesquisas = new ArrayList<>();
     }
 
     /**
@@ -157,6 +161,14 @@ public class Pesquisador {
      */
     public boolean isAtivo(){
         return ativo;
+    }
+
+   public void adicionaPesquisa(String idPesquisa) {
+        pesquisas.add(idPesquisa);
+   }
+
+    public ArrayList<String> getPesquisas() {
+        return pesquisas;
     }
 
     /**

@@ -177,4 +177,14 @@ public class ControllerPesquisador {
         return pesquisadores.get(email).isAtivo();
     }
 
+    public Map<String, Pesquisador> getPesquisadores() {
+        return pesquisadores;
+    }
+
+    public void associaPesquisador(String idPesquisa, String emailPesquisador) {
+        validador.validaNulleVazio(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
+        Pesquisador pesquisador = pesquisadores.get(emailPesquisador);
+        pesquisador.adicionaPesquisa(idPesquisa);
+    }
+
 }

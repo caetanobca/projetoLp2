@@ -130,4 +130,8 @@ public class Facade {
         return this.controllerGeral.desassociaObjetivo(idPesquisa, idObjetivo);
 
     }
+
+    public boolean associaPesquisador(String idPesquisa,String emailPesquisador) {
+        return  this.controllerGeral.associaPesquisador(idPesquisa,emailPesquisador);
+    }
 }

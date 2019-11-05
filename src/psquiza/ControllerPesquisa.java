@@ -269,5 +269,8 @@ public class ControllerPesquisa {
         return desassociou;
     }
 
+    public Map<String, Pesquisa> getPesquisas() {
+        return pesquisas;
+    }
 }
 
