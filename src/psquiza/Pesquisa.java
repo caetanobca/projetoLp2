@@ -135,19 +135,38 @@ public class Pesquisa implements Comparable<Pesquisa> {
     }
 
     /**
-     * Metodo responsavel por retornar o Problema associado a Pesquisa.
+     * Metodo de acesso ao Problema associado a Pesquisa.
      *
-     * @return
+     * @return Um Objeto do tipo Problema
      */
     public Problema getProblemaAssociado() {
         return problemaAssociado;
     }
 
+    /**
+     * Metodo de acesso ao ArrayList de Objetivos associados a Pesquisa.
+     *
+     * @return ArrayList de Objetivo.
+     */
     public List<Objetivo> getObjetivosAssociados() {
         return objetivos;
     }
 
+    /**
+     * Metodo de acesso ao Codigo de identificao da Pesquisa
+     * @return Uma String com o Codigo de identificacao da Pesquisa.
+     */
+    public String getCodigo() {
+        return codigo;
+    }
 
+    /**
+     * Metodo responsvel por receber um Problema como parametro, verificar se a Pesquisa ja tem associacao com algum
+     * problema, e caso nao tenha,  associa-lo a Pesquisa.
+     *
+     * @param problema Objeto Problema que sera associado a Pesquisa.
+     * @return  variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
+     */
     public boolean associaProblemaEmPesquisa(Problema problema) {
         boolean associou;
 
@@ -169,9 +188,15 @@ public class Pesquisa implements Comparable<Pesquisa> {
         return associou;
     }
 
+    /**
+     * Metodo responsavel por desassociar um Problema da Pesquisa em que ele estava associado, verificando se o Problema
+     * passado por parametro e o mesmo que ja esta associado, caso seja, a desassociacao será realizada.
+     * @param problema Objeto Problema que sera desassociado a Pesquisa.
+     * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
+     */
     public boolean desassociaProblemaEmPesquisa(Problema problema) {
         boolean desassociou;
-        if (this.problemaAssociado == null || "".equals(this.problemaAssociado)) {
+        if (this.problemaAssociado == null || "".equals(this.problemaAssociado) || !problema.equals(problemaAssociado)){
 
             desassociou = false;
         } else {
@@ -182,6 +207,13 @@ public class Pesquisa implements Comparable<Pesquisa> {
         return desassociou;
     }
 
+    /**
+     * Metodo responsvel por receber um Objetivo como parametro, verificar se o Objetivo ja tem associacao com alguma
+     * Pesquisa, e caso nao tenha,  associa-lo a Pesquisa.
+     *
+     * @param objetivo Objeto Objetivo que sera associado a Pesquisa.
+     * @return  variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
+     */
     public boolean associaObjetivoEmPesquisa(Objetivo objetivo) {
         boolean associou = false;
 
@@ -198,6 +230,12 @@ public class Pesquisa implements Comparable<Pesquisa> {
         return associou;
     }
 
+    /**
+     * Metodo responsavel por desassociar um Objetivo da Pesquisa em que ele estava associado, verificando se o Problema
+     * passado por parametro esta no ArrayList de Objetivos associados, caso esteja, a desassociacao sera realizada.
+     * @param objetivo Objeto Problema que sera desassociado a Pesquisa.
+     * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
+     */
     public boolean desassociaObjetivoEmPesquisa(Objetivo objetivo) {
         boolean desassociou = false;
 
@@ -210,9 +248,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
         return desassociou;
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
 
     /**
      * Metodo que cria uma representacao textual da pesquisa.

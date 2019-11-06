@@ -168,7 +168,7 @@ public class Validacao {
      * Metodo que valida o nivel de risco para cadastrar uma atividade. Como existem apenas tres niveis possiveis,
      * "BAIXO","MEDIO","ALTO", o programa lançara um erro caso o nivel seja diferente desses.
      *
-     * @param nivelRisco String com o nivel do risco a ser verificado
+     * @param nivelRisco     String com o nivel do risco a ser verificado
      * @param mensagemDeErro Mensagem de erro que irá ser lancada juntamente com o erro
      */
     public void validaNivelRisco(String nivelRisco, String mensagemDeErro) {
@@ -182,31 +182,33 @@ public class Validacao {
 
     /**
      * Metodo que verifica a viabilidade de um problema ou objetivo.
-     * @param valor e a viabilidade do problema
+     *
+     * @param valor          e a viabilidade do problema
      * @param mensagemDeErro e a mensagem de erro com o erro a ser lancado.
      */
-    public void validaViabilidadeOuAderencia(int valor,String mensagemDeErro) {
+    public void validaViabilidadeOuAderencia(int valor, String mensagemDeErro) {
 
 
-        if((valor<1) || (valor>5)){
+        if ((valor < 1) || (valor > 5)) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
     }
+
     /**
      * Verifica se o email esta no formato valido, ou seja, com pelo menos uma letra e/ou um numero
      * antes e depois do @. Caso contrario, uma excessao eh lancada.
      *
-     * @param verifica o email a ser verificado
+     * @param verifica       o email a ser verificado
      * @param mensagemDeErro a mensagem de erro a ser lancada caso ele ocorra
      */
-    public void validaEmail(String verifica, String mensagemDeErro){
-        if(!verifica.contains("@")){
+    public void validaEmail(String verifica, String mensagemDeErro) {
+        if (!verifica.contains("@")) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
-        if(verifica.indexOf("@") == verifica.length()-1){
+        if (verifica.indexOf("@") == verifica.length() - 1) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
-        if(verifica.split("@")[0].trim().isEmpty() || verifica.split("@")[1].trim().isEmpty()){
+        if (verifica.split("@")[0].trim().isEmpty() || verifica.split("@")[1].trim().isEmpty()) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
     }
@@ -215,18 +217,18 @@ public class Validacao {
      * Verifica se a url da foto esta no formato valido, ou seja, inicializando com "http://" ou "https://",
      * seguido de um endereco;
      *
-     * @param verifica a URL da foto a ser verificada
+     * @param verifica       a URL da foto a ser verificada
      * @param mensagemDeErro a mensagem de erro a ser lancada caso ele ocorra
      */
-    public void validaFoto(String verifica, String mensagemDeErro){
-        if(!verifica.contains("://")){
+    public void validaFoto(String verifica, String mensagemDeErro) {
+        if (!verifica.contains("://")) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
-        if(!(verifica.split("://")[0].equals("http") || verifica.split("://")[0].equals("https"))){
+        if (!(verifica.split("://")[0].equals("http") || verifica.split("://")[0].equals("https"))) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
 
-        if(verifica.split("://")[1].isEmpty()){
+        if (verifica.split("://")[1].isEmpty()) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
     }
@@ -234,10 +236,11 @@ public class Validacao {
     /**
      * Verifica se o campo de interesse e valido, ou seja se contem no maximo 4 campos, se e menor que 255 caractres
      * e se cada um dos campos tem pelo menos 3 caracteres
-     * @param verifica        Os campos de interesse
-     * @param mensagemDeErro  A mensagem de erro a ser lancada caso ele ocorra.
+     *
+     * @param verifica       Os campos de interesse
+     * @param mensagemDeErro A mensagem de erro a ser lancada caso ele ocorra.
      */
-    public void validaCampoDeInteresse (String verifica, String mensagemDeErro){
+    public void validaCampoDeInteresse(String verifica, String mensagemDeErro) {
         this.validaTamanhoString(verifica, 3, 255, mensagemDeErro);
 
         String[] interesses = verifica.split(",");
@@ -251,21 +254,30 @@ public class Validacao {
             }
         }
     }
-      
-    /*
-     * Verifica se o tipo do objetivo e Geral ou Especifico, caso seja uma String diferente dessas duas, lancara um erro.
-     * @param verifica String a ser verificada.
+
+    /**
+     * Verifica se o tipo do objetivo e Geral ou Especifico, caso seja uma String diferente dessas duas, lancara um
+     * erro.
+     *
+     * @param verifica       String a ser verificada.
      * @param mensagemDeErro a mensagem de erro a ser lancada caso ele ocorra.
      */
-    public void validaTipoObjetivo(String verifica, String mensagemDeErro){
+    public void validaTipoObjetivo(String verifica, String mensagemDeErro) {
 
-        if((!verifica.equals("GERAL")) && (!verifica.equals("ESPECIFICO"))) {
+        if ((!verifica.equals("GERAL")) && (!verifica.equals("ESPECIFICO"))) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
     }
 
-    public void validaTipoOrdenacao(String verifica, String mensagemDeErro){
-        if(!verifica.equals("PROBLEMA") && !verifica.equals("OBJETIVOS") && !verifica.equals("PESQUISA")){
+    /**
+     * Metodo responsavel por verificar se o tipo de ordenacao inserido para a funcao de listar pesquisas e valido.
+     * Caso seja diferente de: "PROBLEMA", "OBJETIVOS", "PESQUISA", lancara um erro.
+     *
+     * @param verifica String a ser verificada.
+     * @param mensagemDeErro a mensagem de erro a ser lancada caso ele ocorra.
+     */
+    public void validaTipoOrdenacao(String verifica, String mensagemDeErro) {
+        if (!verifica.equals("PROBLEMA") && !verifica.equals("OBJETIVOS") && !verifica.equals("PESQUISA")) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
     }
