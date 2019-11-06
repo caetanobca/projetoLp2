@@ -187,27 +187,17 @@ public class ControllerAtividade {
         List<String> results = new ArrayList<>();
 
         List<String> buscaDescricao = new ArrayList<>();
+
         for (String codigo: atividades.keySet()){
             if (this.atividades.get(codigo).getDescricao().contains(termo)){
                 results.add(codigo + ": " + this.atividades.get(codigo).getDescricao());
             }
-
-        }
-
-        Collections.sort(results, new OrdenaStrings());
-
-        List<String> buscaDescricaoErro = new ArrayList<>();
-        for (String codigo: atividades.keySet()){
             if (this.atividades.get(codigo).getDescricaoDoRisco().contains(termo)){
-                buscaDescricaoErro.add(codigo + ": " + this.atividades.get(codigo).getDescricaoDoRisco());
+                results.add(codigo + ": " + this.atividades.get(codigo).getDescricaoDoRisco());
             }
         }
 
-        Collections.sort(buscaDescricaoErro, new OrdenaStrings());
-        results.addAll(buscaDescricaoErro);
-
-
-        Collections.sort(buscaDescricao, new OrdenaStrings());
+        Collections.sort(results, new ComparadorBusca());
 
         return results;
     }

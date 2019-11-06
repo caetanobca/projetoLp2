@@ -287,7 +287,7 @@ public class ControllerPesquisa {
             }
         }
 
-        Collections.sort(results, new OrdenaStrings());
+        Collections.sort(results, new ComparadorBusca());
 
         return results;
     }

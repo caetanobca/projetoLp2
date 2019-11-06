@@ -99,7 +99,11 @@ public class ControllerProblema {
 
     }
 
-
+    /**
+     * Metedo responsavel por buscar um termo nas descricoes dos Problemas.
+     * @param termo Texto que sera usado como referencia na busca.
+     * @return uma lista com todos o resultados.
+     */
     public List<String> busca(String termo) {
         validacao.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
 
@@ -111,8 +115,7 @@ public class ControllerProblema {
             }
         }
 
-        Collections.sort(results, new OrdenaStrings());
+        Collections.sort(results, new ComparadorBusca());
         return results;
-
     }
 }

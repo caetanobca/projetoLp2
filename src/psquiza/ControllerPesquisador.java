@@ -176,6 +176,11 @@ public class ControllerPesquisador {
         return pesquisadores.get(email).isAtivo();
     }
 
+    /**
+     * Metedo responsavel por buscar um termo nas biografias dos Pesquisadores.
+     * @param termo Texto que sera usado como referencia na busca.
+     * @return uma lista com todos o resultados.
+     */
     public List<String> busca(String termo) {
         validador.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
 
@@ -187,7 +192,7 @@ public class ControllerPesquisador {
             }
         }
 
-        Collections.sort(results, new OrdenaStrings());
+        Collections.sort(results, new ComparadorBusca());
         return results;
     }
 }
