@@ -263,4 +263,10 @@ public class Validacao {
             throw new IllegalArgumentException(mensagemDeErro);
         }
     }
+
+    public void validaTipoOrdenacao(String verifica, String mensagemDeErro){
+        if(!verifica.equals("PROBLEMA") && !verifica.equals("OBJETIVOS") && !verifica.equals("PESQUISA")){
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+    }
 }

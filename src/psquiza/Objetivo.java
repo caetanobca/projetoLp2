@@ -85,6 +85,10 @@ public class Objetivo {
         this.associado = associado;
     }
 
+    public String getId(){
+        return id;
+    }
+
     /**
      * Apresenta a String no formato "TIPO - DESCRICAO - VALOR". Onde o valor e a soma
      * aritmetica da viabilidade com a aderencia do objetivo.

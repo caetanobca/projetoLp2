@@ -10,7 +10,7 @@ import java.util.Objects;
  * Classe que representa uma pesquisa, que tem descricao, campo de interesse, codigo, e uma variavel que indica
  * se esta ativa ou encerrada
  */
-public class Pesquisa implements Comparable<Pesquisa>{
+public class Pesquisa implements Comparable<Pesquisa> {
 
     /**
      * Problema associado a essa pesquisa.
@@ -58,9 +58,9 @@ public class Pesquisa implements Comparable<Pesquisa>{
      * Construtor da Classe Atividade. O Construtor não aceita parametros vazios, nulos ou não válidos, caso algum
      * valor seja, ele lançara um erro.
      *
-     * @param descricao         Descricao da Pesquisa
-     * @param campoDeInteresse  Campos de interesse que estao associados a esta Pesquisa
-     * @param codigo            Indentificador unico da pesquisa, gerado a partir do campo de interesse.
+     * @param descricao        Descricao da Pesquisa
+     * @param campoDeInteresse Campos de interesse que estao associados a esta Pesquisa
+     * @param codigo           Indentificador unico da pesquisa, gerado a partir do campo de interesse.
      */
     public Pesquisa(String descricao, String campoDeInteresse, String codigo) {
         this.validador = new Validacao();
@@ -136,11 +136,17 @@ public class Pesquisa implements Comparable<Pesquisa>{
 
     /**
      * Metodo responsavel por retornar o Problema associado a Pesquisa.
+     *
      * @return
      */
-    public Problema getProblemaAssociado(){
+    public Problema getProblemaAssociado() {
         return problemaAssociado;
     }
+
+    public List<Objetivo> getObjetivosAssociados() {
+        return objetivos;
+    }
+
 
     public boolean associaProblemaEmPesquisa(Problema problema) {
         boolean associou;

@@ -84,7 +84,7 @@ public class ControllerPesquisa {
 
         if (!this.pesquisas.containsKey(codigo)) {
             this.validador.lancaExcecao("Pesquisa nao encontrada.");
-        }else if (!this.pesquisas.get(codigo).isAtivada()) {
+        } else if (!this.pesquisas.get(codigo).isAtivada()) {
             this.validador.lancaExcecao("Pesquisa desativada.");
         }
 
@@ -98,11 +98,11 @@ public class ControllerPesquisa {
 
             } else if (opcao == AlterarPesquisaEnum.CAMPO.CAMPO) {
                 this.validador.validaNulleVazio(novoConteudo, "Formato do campo de interesse invalido.");
-                this.validador.validaCampoDeInteresse(novoConteudo,"Formato do campo de interesse invalido.");
+                this.validador.validaCampoDeInteresse(novoConteudo, "Formato do campo de interesse invalido.");
 
                 this.pesquisas.get(codigo).setCampoDeInteresse(novoConteudo);
             }
-        }else {
+        } else {
             this.validador.lancaExcecao("Nao e possivel alterar esse valor de pesquisa.");
         }
     }
@@ -194,7 +194,7 @@ public class ControllerPesquisa {
      * um objeto do tipo Problema para Pesquisa.
      *
      * @param idPesquisa Identificacao da Pesquisa.
-     * @param problema Objeto do tipo Problema a ser associado.
+     * @param problema   Objeto do tipo Problema a ser associado.
      * @return true caso a associacao tenha dado certo, false caso contrario.
      */
     public boolean associaProblemaEmPesquisa(String idPesquisa, Problema problema) {
@@ -218,7 +218,7 @@ public class ControllerPesquisa {
      * um objeto do tipo Problema para Pesquisa.
      *
      * @param idPesquisa Identificacao da Pesquisa.
-     * @param problema Objeto do tipo Problema a ser desassociado.
+     * @param problema   Objeto do tipo Problema a ser desassociado.
      * @return true caso a desassociacao tenha dado certo, false caso contrario.
      */
     public boolean desassociaProblemaEmPesquisa(String idPesquisa, Problema problema) {
@@ -271,16 +271,46 @@ public class ControllerPesquisa {
         return desassociou;
     }
 
-    public String listaPesquisas(String ordem){
+    public String listaPesquisas(String ordem) {
+        validador.validaTipoOrdenacao(ordem, "Valor invalido da ordem");
+        ArrayList<Pesquisa> todasAsPesquisas = new ArrayList<>();
 
+        if (ordem.equals("PROBLEMA")) {
+            todasAsPesquisas = ordenaListaPesquisaProblema();
+        } else if (ordem.equals("OBJETIVOS")){
+            todasAsPesquisas = ordenaListaPesquisaObjetivo();
+        } else if (ordem.equals("PESQUISA")){
+            todasAsPesquisas = ordenaListaPesquisa();
+
+        }
+
+        String listaDasPesquisas = "";
+        if (!todasAsPesquisas.isEmpty()) {
+            for (Pesquisa pesquisa : todasAsPesquisas) {
+                listaDasPesquisas += pesquisa.toString() + " | ";
+            }
+
+            listaDasPesquisas = listaDasPesquisas.substring(0,listaDasPesquisas.length()-3);
+        }
+
+        return listaDasPesquisas;
     }
 
-    private ArrayList<Pesquisa> ordenaListaPesquisaProblema(){
+    private ArrayList<Pesquisa> ordenaListaPesquisa(){
+        ArrayList<Pesquisa> pesquisasArray = new ArrayList<>();
+        for(Pesquisa pesquisa: pesquisas.values()){
+            pesquisasArray.add(pesquisa);
+        }
+
+        Collections.sort(pesquisasArray);
+        return pesquisasArray;
+    }
+    private ArrayList<Pesquisa> ordenaListaPesquisaProblema() {
         ArrayList<Pesquisa> pesquisasComProblema = new ArrayList<>();
         ArrayList<Pesquisa> pesquisasSemProblema = new ArrayList<>();
 
-        for(Pesquisa pesquisa:pesquisas){
-            if(pesquisa.getProblemaAssociado() == null){
+        for (Pesquisa pesquisa : pesquisas.values()) {
+            if (pesquisa.getProblemaAssociado() == null) {
                 pesquisasSemProblema.add(pesquisa);
             } else {
                 pesquisasComProblema.add(pesquisa);
@@ -291,15 +321,42 @@ public class ControllerPesquisa {
 
         Collections.sort(pesquisasSemProblema);
 
-        ArrayList<Pesquisa> todasAsPesquisas = new ArrayList<>;
+        ArrayList<Pesquisa> todasAsPesquisas = new ArrayList<>();
 
-        todasAsPesquisas.add(pesquisasComProblema);
-        todasAsPesquisas.add(pesquisasSemProblema);
+        todasAsPesquisas.addAll(pesquisasComProblema);
+        todasAsPesquisas.addAll(pesquisasSemProblema);
 
         return todasAsPesquisas;
 
 
     }
+
+    private ArrayList<Pesquisa> ordenaListaPesquisaObjetivo() {
+        ArrayList<Pesquisa> pesquisasComObjetivo = new ArrayList<>();
+        ArrayList<Pesquisa> pesquisasSemObjetivo = new ArrayList<>();
+
+        for (Pesquisa pesquisa : pesquisas.values()) {
+            if (!pesquisa.getObjetivosAssociados().isEmpty()){
+                pesquisasComObjetivo.add(pesquisa);
+            } else {
+                pesquisasSemObjetivo.add(pesquisa);
+            }
+        }
+
+        Collections.sort(pesquisasComObjetivo, new ComparadorPesquisaPorObjetivo());
+
+        Collections.sort(pesquisasSemObjetivo);
+
+        ArrayList<Pesquisa> todasAsPesquisas = new ArrayList<>();
+
+        todasAsPesquisas.addAll(pesquisasComObjetivo);
+        todasAsPesquisas.addAll(pesquisasSemObjetivo);
+
+        return todasAsPesquisas;
+
+
+    }
+
 
 }
 

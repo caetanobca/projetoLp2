@@ -27,9 +27,9 @@ public class ControllerGeral {
         validador.validaNulleVazio(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
 
 
-        Problema problema = controllerProblema.getProblema(idProblema);
 
-        return controllerPesquisa.associaProblemaEmPesquisa(idPesquisa, problema);
+
+        return controllerPesquisa.associaProblemaEmPesquisa(idPesquisa, controllerProblema.getProblema(idProblema));
 
     }
 
