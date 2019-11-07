@@ -81,41 +81,23 @@ public class Validacao {
 
     }
 
-    /**
-     * Método que verifica se a data inserida é válida, caso não seja, lança um
-     * erro.
-     *
-     * @param verifica       data a ser verificada.
-     * @param mensagemDeErro mensagem de erro com o erro a ser lançado.
-     */
-    public void validaTamanhoData(String verifica, String mensagemDeErro) {
-        String array[] = new String[3];
-
-        array = verifica.split("/");
-
-        if (Integer.parseInt(array[0]) < 1 || Integer.parseInt(array[1]) < 1 || Integer.parseInt(array[2]) < 1) {
+    public void validaData(String data,String mensagemDeErro) {
+        if(data.length()!=10) {
             throw new IllegalArgumentException(mensagemDeErro);
         }
-
-        if (Integer.parseInt(array[1]) > 12) {
+        else if(!data.contains("/")) {
             throw new IllegalArgumentException(mensagemDeErro);
-        } else if (Integer.parseInt(array[1]) == 1 || Integer.parseInt(array[1]) == 3 || Integer.parseInt(array[1]) == 5
-                || Integer.parseInt(array[1]) == 7 || Integer.parseInt(array[1]) == 8
-                || Integer.parseInt(array[1]) == 10) {
-            if (Integer.parseInt(array[0]) > 31) {
-                throw new IllegalArgumentException(mensagemDeErro);
-            }
-        } else if (Integer.parseInt(array[1]) == 2) {
-            if (Integer.parseInt(array[0]) > 28) {
-                throw new IllegalArgumentException(mensagemDeErro);
-            }
-
-        } else {
-            if (Integer.parseInt(array[0]) > 30) {
-                throw new IllegalArgumentException(mensagemDeErro);
-            }
         }
-
+        String usar[] = data.split("/");
+        if(Integer.parseInt(usar[0])>30) {
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+        if(Integer.parseInt(usar[1])>12) {
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
+        if(usar[2].length()>4) {
+            throw new IllegalArgumentException(mensagemDeErro);
+        }
     }
 
     /**

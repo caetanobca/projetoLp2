@@ -192,12 +192,19 @@ public class Pesquisador {
         return pesquisas;
     }
 
+    public String getFuncao() {
+        return funcao;
+    }
+
     /**
      * Retorna uma representacao em String do pesquisador. A representacao segue o formato:
      * "NOME (FUNCAO) - BIOGRAFIA - EMAIL - FOTOURL".
      *
      * @return a representacao em String de um pesquisador
      */
+
+
+
     @Override
     public String toString() {
         return this.nome + " (" + this.funcao + ") - " + this.biografia + " - " + this.email + " - " + this.fotoURL;

@@ -138,4 +138,12 @@ public class Facade {
     public boolean desassociaPesquisador(String idPesquisa,String emailPesquisador) {
         return this.controllerGeral.desassociaPesquisador(idPesquisa,emailPesquisador);
     }
+
+    public void cadastraEspecialidadeProfessor(String email,String formacao,String unidade,String data) {
+        this.controllerGeral.cadastraEspecialidadeProfessor(email,formacao,unidade,data);
+    }
+
+    public void cadastraEspecialidadeAluno(String email,int semestre,double IEA) {
+        this.controllerGeral.cadastraEspecialidadeAluno(email,semestre,IEA);
+    }
 }

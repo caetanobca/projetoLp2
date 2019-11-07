@@ -75,10 +75,11 @@ public class ControllerGeral {
         }
         if(controllerPesquisador.getPesquisadores().get(emailPesquisador).getPesquisas().contains(idPesquisa)) {
             retorno =  false;
+        }else {
+            Pesquisa pesquisa = controllerPesquisa.getPesquisas().get(idPesquisa);
+            controllerPesquisador.associaPesquisador(idPesquisa, emailPesquisador);
+            retorno = true;
         }
-        Pesquisa pesquisa = controllerPesquisa.getPesquisas().get(idPesquisa);
-        controllerPesquisador.associaPesquisador(idPesquisa, emailPesquisador);
-        retorno = true;
         return retorno;
     }
 
@@ -102,10 +103,33 @@ public class ControllerGeral {
             Pesquisa pesquisa = controllerPesquisa.getPesquisas().get(idPesquisa);
             controllerPesquisador.desassociaPesquisador(idPesquisa, emailPesquisador);
             retorno =  true;
+        }else {
+            retorno = false;
         }
-        retorno = false;
         return retorno;
     }
+
+    public void cadastraEspecialidadeProfessor(String email,String formacao,String unidade,String data) {
+        validador.validaNulleVazio(email,"Campo email nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(formacao,"Campo formacao nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(unidade,"Campo unidade nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(data,"Campo data nao pode ser nulo ou vazio.");
+        validador.validaData(data,"Atributo data com formato invalido.");
+        controllerPesquisador.cadastraEspecialidadeProfessor(email,formacao,unidade,data);
+    }
+
+    public void cadastraEspecialidadeAluno(String email,int semestre,double IEA) {
+        validador.validaNulleVazio(email,"Campo email nao pode ser nulo ou vazio.");
+        if(semestre<=0) {
+            validador.lancaExcecao("Atributo semestre com formato invalido.");
+        }
+        if((IEA<0) || (IEA>10)) {
+            validador.lancaExcecao("Atributo IEA com formato invalido.");
+        }
+        controllerPesquisador.cadastraEspecialidadeAluno(email,semestre,IEA);
+    }
+
+
 
 }
 

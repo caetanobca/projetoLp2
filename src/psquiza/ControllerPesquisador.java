@@ -44,8 +44,16 @@ public class ControllerPesquisador {
         validador.validaNulleVazio(fotoURL, "Campo fotoURL nao pode ser nulo ou vazio.");
         validador.validaFoto(fotoURL, "Formato de foto invalido.");
         validador.validaEmail(email, "Formato de email invalido.");
-
-        this.pesquisadores.put(email, new Pesquisador(nome, funcao, biografia, email, fotoURL));
+        if(funcao.equals("externo")) {
+            Pesquisador externo = new Externo(nome, funcao, biografia, email, fotoURL);
+            this.pesquisadores.put(email,externo);
+        }else if(funcao.equals("professor")) {
+            Pesquisador professor = new Professor(nome, funcao, biografia, email, fotoURL);
+            this.pesquisadores.put(email,professor);
+        }else {
+            Pesquisador estudante = new Estudante(nome, funcao, biografia, email, fotoURL);
+            this.pesquisadores.put(email, estudante);
+        }
     }
 
     /**
@@ -204,6 +212,43 @@ public class ControllerPesquisador {
         validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
         Pesquisador pesquisador = pesquisadores.get(emailPesquisador);
         pesquisador.removePesquisa(idPesquisa);
+    }
+
+    public void cadastraEspecialidadeProfessor(String email,String formacao,String unidade,String data) {
+        validador.validaNulleVazio(email,"Campo email nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(unidade,"Campo unidade nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(formacao,"Campo formacao nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(data,"Campo data nao pode ser nulo ou vazio.");
+        validador.validaData(data,"Atributo data com formato invalido.");
+        if(!pesquisadores.containsKey(email)) {
+            validador.lancaExcecao("Pesquisadora nao encontrada.");
+        }
+        if(!pesquisadores.get(email).getFuncao().equals("professor")) {
+            validador.lancaExcecao("Pesquisador nao compativel com a especialidade.");
+        }
+        Professor professor = (Professor) pesquisadores.get(email);
+        professor.setData(data);
+        professor.setFormacao(formacao);
+        professor.setUnidade(unidade);
+    }
+
+    public void cadastraEspecialidadeAluno(String email,int semestre,double IEA) {
+        validador.validaNulleVazio(email, "Campo email nao pode ser nulo ou vazio.");
+        if(semestre <= 0) {
+            validador.lancaExcecao("Atributo semestre com formato invalido.");
+        }
+        if((IEA > 10) || (IEA < 0)) {
+            validador.lancaExcecao("Atributo IEA com formato invalido.");
+        }
+        if(!pesquisadores.containsKey(email)) {
+            validador.lancaExcecao("Pesquisadora nao encontrada.");
+        }
+        if(!pesquisadores.get(email).getFuncao().equals("estudante")) {
+            validador.lancaExcecao("Pesquisador nao compativel com a especialidade.");
+        }
+        Estudante estudante = (Estudante) pesquisadores.get(email);
+        estudante.setIEA(IEA);
+        estudante.setSemestre(semestre);
     }
 
 }
