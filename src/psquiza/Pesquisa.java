@@ -294,6 +294,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
      */
     public String getCampoDeInteresse() {
         return campoDeInteresse;
+    }
 
     @Override
     public int compareTo(Pesquisa o) {
