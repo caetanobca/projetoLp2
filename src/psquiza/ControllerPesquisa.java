@@ -2,10 +2,12 @@ package psquiza;
 
 import util.Validacao;
 
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 
 
 /**
@@ -279,6 +281,30 @@ public class ControllerPesquisa {
     }
 
     /**
+     * Metedo responsavel por buscar um termo nas descricoes e nos campos de interesse das Pesquisas.
+     * @param termo Texto que sera usado como referencia na busca.
+     * @return uma lista com todos o resultados.
+     */
+    public List<String> busca(String termo) {
+        validador.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
+
+        List<String> results = new ArrayList<>();
+
+        for (String codigo: pesquisas.keySet()){
+            if (this.pesquisas.get(codigo).getDescricao().contains(termo)){
+                results.add(codigo + ": " + this.pesquisas.get(codigo).getDescricao());
+            }
+            if (this.pesquisas.get(codigo).getCampoDeInteresse().contains(termo)){
+                results.add(codigo + ": " + this.pesquisas.get(codigo).getCampoDeInteresse());
+            }
+        }
+
+        Collections.sort(results, new ComparadorBusca());
+
+        return results;
+    }
+
+  /*
      * Metodo responsavel por listar, em uma String, todas as pesquisas cadastradas de acordo com o criterio recebido.
      * O Metodo nao aceita valores diferentes de: "PROBLEMA", "OBJETIVOS", "PESQUISA".
      *
@@ -356,8 +382,6 @@ public class ControllerPesquisa {
         todasAsPesquisas.addAll(pesquisasSemProblema);
 
         return todasAsPesquisas;
-
-
     }
 
     /**
@@ -390,10 +414,7 @@ public class ControllerPesquisa {
         todasAsPesquisas.addAll(pesquisasSemObjetivo);
 
         return todasAsPesquisas;
-
-
     }
-
 
 }
 

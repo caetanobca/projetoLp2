@@ -165,4 +165,20 @@ public class Atividade {
     public int hashCode() {
         return Objects.hash(codigoIdentificador);
     }
+
+    /**
+     * Metodo responsavel por pegar a descricao da Atividade.
+     * @return a descricao da Atividade.
+     */
+    public String getDescricao() {
+        return this.descricao;
+    }
+
+    /**
+     * Metodo responsavel por pegar a descricao do do risco da Atividade.
+     * @return descricao do risco.
+     */
+    public String  getDescricaoDoRisco() {
+        return this.nivelRisco.getDescricao();
+    }
 }

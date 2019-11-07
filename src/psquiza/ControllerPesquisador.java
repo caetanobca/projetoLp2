@@ -2,8 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Classe de controle das acoes de(os) pesquisador(es), responsavel por construir, alterar, verificar e
@@ -177,4 +176,23 @@ public class ControllerPesquisador {
         return pesquisadores.get(email).isAtivo();
     }
 
+    /**
+     * Metedo responsavel por buscar um termo nas biografias dos Pesquisadores.
+     * @param termo Texto que sera usado como referencia na busca.
+     * @return uma lista com todos o resultados.
+     */
+    public List<String> busca(String termo) {
+        validador.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
+
+        List<String> results = new ArrayList<>();
+
+        for (String codigo: pesquisadores.keySet()){
+            if (this.pesquisadores.get(codigo).getBiografia().contains(termo)){
+                results.add(codigo + ": " + this.pesquisadores.get(codigo).getBiografia());
+            }
+        }
+
+        Collections.sort(results, new ComparadorBusca());
+        return results;
+    }
 }

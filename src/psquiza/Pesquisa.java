@@ -280,6 +280,21 @@ public class Pesquisa implements Comparable<Pesquisa> {
     }
 
 
+    /**
+     * Metodo responsavel por pegar a descricao da Pesquisa.
+     * @return descricao da Pesquisa.
+     */
+    public String getDescricao() {
+        return descricao;
+    }
+
+    /**
+     * Metodo responsavel por pegar os campos de interesse da Pesquisa.
+     * @return campos de interesse da Pesquisa.
+     */
+    public String getCampoDeInteresse() {
+        return campoDeInteresse;
+
     @Override
     public int compareTo(Pesquisa o) {
         return o.getCodigo().compareTo(codigo);
