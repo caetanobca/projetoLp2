@@ -2,7 +2,9 @@ package psquiza;
 
 import util.Validacao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -230,6 +232,7 @@ public class ControllerPesquisador {
         professor.setData(data);
         professor.setFormacao(formacao);
         professor.setUnidade(unidade);
+        professor.setEspecializado(true);
     }
 
     public void cadastraEspecialidadeAluno(String email,int semestre,double IEA) {
@@ -249,6 +252,48 @@ public class ControllerPesquisador {
         Estudante estudante = (Estudante) pesquisadores.get(email);
         estudante.setIEA(IEA);
         estudante.setSemestre(semestre);
+        estudante.setEspecializado(true);
     }
+
+    public String listaPesquisadores(String tipo) {
+        validador.validaNulleVazio(tipo, "Campo tipo nao pode ser nulo ou vazio.");
+        if ((tipo != "professor") && (tipo != "externo") && (tipo != "estudante")) {
+            validador.lancaExcecao("tipo " + tipo + " inexistente");
+        }
+        String retorno = "";
+        List<String> pesquisadoresOrdenados = new ArrayList<String>();
+        switch (tipo) {
+            case "professor":
+                for (String chave : pesquisadores.keySet()) {
+                    if (pesquisadores.get(chave).getFuncao().equals(tipo)) {
+                        Professor professor = (Professor) pesquisadores.get(chave);
+                        if (professor.isEspecializado() == true) {
+                            pesquisadoresOrdenados.add(professor.exibeProfessorEspecializado());
+                        } else {
+                            pesquisadoresOrdenados.add(professor.toString());
+                        }
+                    }
+                }
+            case "estudante":
+                for (String chave : pesquisadores.keySet()) {
+                    if (pesquisadores.get(chave).getFuncao().equals(tipo)) {
+                        Estudante estudante = (Estudante) pesquisadores.get(chave);
+                        if (estudante.isEspecializado() == true) {
+                            pesquisadoresOrdenados.add(estudante.exibeEstudanteEspecializado());
+                        } else {
+                            pesquisadoresOrdenados.add(estudante.toString());
+                        }
+                    }
+                }
+            default:
+                for (String chave : pesquisadores.keySet()) {
+                    if (pesquisadores.get(chave).getFuncao().equals(tipo)) {
+                        Externo externo = (Externo) pesquisadores.get(chave);
+                        pesquisadoresOrdenados.add(externo.toString());
+                    }
+                }
+        }
+    }
+
 
 }

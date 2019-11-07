@@ -129,6 +129,13 @@ public class ControllerGeral {
         controllerPesquisador.cadastraEspecialidadeAluno(email,semestre,IEA);
     }
 
+    public String listaPesquisadores(String tipo) {
+        validador.validaNulleVazio(tipo,"Campo tipo nao pode ser nulo ou vazio.");
+        if((tipo!="professor") && (tipo!="externo") && (tipo!="estudante")) {
+            validador.lancaExcecao("tipo "+tipo+" inexistente");
+        }
+       return controllerPesquisador.listaPesquisadores(tipo);
+    }
 
 
 }

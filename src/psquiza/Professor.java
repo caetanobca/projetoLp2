@@ -5,6 +5,7 @@ public class Professor extends Pesquisador {
     private String formacao;
     private String data;
     private String unidade;
+    private boolean especializado;
 
     /**
      * Constroi um pesquisador a partir de seu nome, funcao, biografia, email valido,
@@ -22,6 +23,7 @@ public class Professor extends Pesquisador {
         this.data = data;
         this.formacao = formacao;
         this.unidade = unidade;
+        this.especializado = especializado;
     }
 
     public void setFormacao(String formacao) {
@@ -36,4 +38,15 @@ public class Professor extends Pesquisador {
         this.unidade = unidade;
     }
 
+    public boolean isEspecializado() {
+        return especializado;
+    }
+
+    public void setEspecializado(boolean especializado) {
+        this.especializado = especializado;
+    }
+
+    public String exibeProfessorEspecializado(){
+        return super.toString()+" - "+this.formacao+" - "+this.unidade+" - "+this.data;
+    }
 }
