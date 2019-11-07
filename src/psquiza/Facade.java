@@ -141,5 +141,8 @@ public class Facade {
 
     public int contaResultadosBusca(String termo){
         return this.controllerGeral.contaResultadosBusca(termo);
+
+    public String listaPesquisas(String ordem){
+        return this.controllerPesquisa.listaPesquisas(ordem);
     }
 }
