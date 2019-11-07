@@ -55,6 +55,8 @@ public class Pesquisador {
      */
     private ArrayList<String> pesquisas;
 
+    private boolean especializado;
+
     /**
      * Constroi um pesquisador a partir de seu nome, funcao, biografia, email valido,
      * URL da foto valida e suas respectivas pesquisas.
@@ -81,6 +83,15 @@ public class Pesquisador {
         this.fotoURL = fotoURL;
         this.ativo = true;
         this.pesquisas = new ArrayList<>();
+        this.especializado = especializado;
+    }
+
+    public boolean isEspecializado() {
+        return especializado;
+    }
+
+    public void setEspecializado(boolean especializado) {
+        this.especializado = especializado;
     }
 
     /**

@@ -106,7 +106,7 @@ expectError "Pesquisador nao compativel com a especialidade." cadastraEspecialid
 #Listando pesquisadores
 
 expect "Prairie Johnson (externo) - Interessada no estudo de multiplas dimensoes e no estudo dos sentidos humanos. - theoa@2016 - https://notblind | Joel (externo) - Interresado em fungos. - thelastofus@2013 - https://Cordyceps" listaPesquisadores tipo="EXTERNO"
-expectError "Campo tipo nao pode ser nulo ou vazio." listaPesquisadores tipo=""
+                                                                               expectError "Campo tipo nao pode ser nulo ou vazio." listaPesquisadores tipo=""
 expectError "Tipo BOM DIA FAMILIA inexistente." listaPesquisadores tipo="BOM DIA FAMILIA"
 
 

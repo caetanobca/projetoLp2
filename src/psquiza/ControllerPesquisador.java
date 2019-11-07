@@ -2,10 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Classe de controle das acoes de(os) pesquisador(es), responsavel por construir, alterar, verificar e
@@ -47,7 +44,7 @@ public class ControllerPesquisador {
         validador.validaFoto(fotoURL, "Formato de foto invalido.");
         validador.validaEmail(email, "Formato de email invalido.");
         if(funcao.equals("externo")) {
-            Pesquisador externo = new Externo(nome, funcao, biografia, email, fotoURL);
+            Pesquisador externo = new Pesquisador(nome, funcao, biografia, email, fotoURL);
             this.pesquisadores.put(email,externo);
         }else if(funcao.equals("professor")) {
             Pesquisador professor = new Professor(nome, funcao, biografia, email, fotoURL);
@@ -109,8 +106,38 @@ public class ControllerPesquisador {
                 this.validador.validaFoto(novoValor, "Formato de foto invalido.");
                 pesquisadores.get(email).setFotoURL(novoValor);
                 break;
-
-            default:
+            case ("SEMESTRE"):
+                Estudante estudante = (Estudante) pesquisadores.get(email);
+                int valorUsarSemestre = Integer.parseInt(novoValor);
+                if(valorUsarSemestre<=0) {
+                    this.validador.lancaExcecao("Formato de semestre invalido.");
+                }
+                estudante.setSemestre(valorUsarSemestre);
+                break;
+            case ("IEA") :
+                Estudante aluno = (Estudante) pesquisadores.get(email);
+                double valorUsarIEA = Double.parseDouble(novoValor);
+                if((valorUsarIEA<0) || (valorUsarIEA>10)) {
+                    this.validador.lancaExcecao("Formato de IEA invalido.");
+                }
+                aluno.setIEA(valorUsarIEA);
+                break;
+            case ("FORMACAO") :
+                this.validador.validaNulleVazio(novoValor,"Campo formacao nao pode ser nulo ou vazio.");
+                Professor professor = (Professor) pesquisadores.get(email);
+                professor.setFormacao(novoValor);
+                break;
+            case ("DATA") :
+                this.validador.validaNulleVazio(novoValor,"Campo formacao nao pode ser nulo ou vazio.");
+                Professor P = (Professor) pesquisadores.get(email);
+                P.setData(novoValor);
+                break;
+            case ("UNIDADE") :
+                this.validador.validaNulleVazio(novoValor,"Campo formacao nao pode ser nulo ou vazio.");
+                Professor p = (Professor) pesquisadores.get(email);
+                p.setUnidade(novoValor);
+                break;
+             default:
                 throw new IllegalArgumentException("Atributo invalido.");
         }
     }
@@ -162,13 +189,27 @@ public class ControllerPesquisador {
      * @return representacao em String do pesquisador
      */
     public String exibePesquisador(String email) {
-        validador.validaNulleVazio(email, "Email nao pode ser vazio ou nulo.");
+        String retorno = "";
+        validador.validaNulleVazio(email, "Campo email nao pode ser nulo ou vazio.");
 
         if (!this.pesquisadores.containsKey(email)) {
             throw new IllegalArgumentException("Pesquisador nao encontrado");
         }
 
-        return pesquisadores.get(email).toString();
+        if(pesquisadores.get(email).isEspecializado()) {
+            String tipo = pesquisadores.get(email).getFuncao();
+            if(tipo.equals("professor")) {
+                Professor professor = (Professor) pesquisadores.get(email);
+                retorno+=professor.exibeProfessorEspecializado();
+            }else{
+                Estudante estudante = (Estudante) pesquisadores.get(email);
+                retorno+=estudante.exibeEstudanteEspecializado();
+            }
+        }else{
+            retorno+=pesquisadores.get(email).toString();
+        }
+
+        return retorno;
     }
 
     /**
@@ -257,42 +298,46 @@ public class ControllerPesquisador {
 
     public String listaPesquisadores(String tipo) {
         validador.validaNulleVazio(tipo, "Campo tipo nao pode ser nulo ou vazio.");
-        if ((tipo != "professor") && (tipo != "externo") && (tipo != "estudante")) {
-            validador.lancaExcecao("tipo " + tipo + " inexistente");
+        if ((!tipo.equals("EXTERNO")) && (!tipo.equals("PROFESSORA")) && (!tipo.equals("ALUNA"))) {
+            validador.lancaExcecao("Tipo " + tipo + " inexistente.");
         }
         String retorno = "";
         List<String> pesquisadoresOrdenados = new ArrayList<String>();
         switch (tipo) {
-            case "professor":
+            case "PROFESSORA":
                 for (String chave : pesquisadores.keySet()) {
                     if (pesquisadores.get(chave).getFuncao().equals(tipo)) {
                         Professor professor = (Professor) pesquisadores.get(chave);
                         if (professor.isEspecializado() == true) {
                             pesquisadoresOrdenados.add(professor.exibeProfessorEspecializado());
                         } else {
-                            pesquisadoresOrdenados.add(professor.toString());
+                            pesquisadoresOrdenados.add(professor.toString()+" | ");
                         }
                     }
                 }
-            case "estudante":
+            case "ALUNA":
                 for (String chave : pesquisadores.keySet()) {
                     if (pesquisadores.get(chave).getFuncao().equals(tipo)) {
                         Estudante estudante = (Estudante) pesquisadores.get(chave);
                         if (estudante.isEspecializado() == true) {
                             pesquisadoresOrdenados.add(estudante.exibeEstudanteEspecializado());
                         } else {
-                            pesquisadoresOrdenados.add(estudante.toString());
+                            pesquisadoresOrdenados.add(estudante.toString()+" | ");
                         }
                     }
                 }
             default:
                 for (String chave : pesquisadores.keySet()) {
-                    if (pesquisadores.get(chave).getFuncao().equals(tipo)) {
-                        Externo externo = (Externo) pesquisadores.get(chave);
-                        pesquisadoresOrdenados.add(externo.toString());
+                    if ((pesquisadores.get(chave).getFuncao().equals("externo")) || (pesquisadores.get(chave).getFuncao().equals("EXTERNO"))) {
+                        pesquisadoresOrdenados.add(pesquisadores.get(chave).toString()+" | ");
                     }
                 }
         }
+        for(int i=0;i<pesquisadoresOrdenados.size();i++) {
+            retorno+=pesquisadoresOrdenados.get(i);
+        }
+        retorno = retorno.substring(0,retorno.length()-3);
+        return retorno;
     }
 
 

@@ -4,7 +4,6 @@ public class Estudante extends Pesquisador {
 
     private int semestre;
     private double IEA;
-    private boolean especializado;
 
     /**
      * Constroi um pesquisador a partir de seu nome, funcao, biografia, email valido,
@@ -21,7 +20,6 @@ public class Estudante extends Pesquisador {
         super(nome, funcao, biografia, email, fotoURL);
         this.semestre = semestre;
         this.IEA = IEA;
-        this.especializado = false;
     }
 
     public void setSemestre(int semestre) {
@@ -32,15 +30,7 @@ public class Estudante extends Pesquisador {
         this.IEA = IEA;
     }
 
-    public boolean isEspecializado() {
-        return especializado;
-    }
-
-    public void setEspecializado(boolean especializado) {
-        this.especializado = especializado;
-    }
-
     public String exibeEstudanteEspecializado() {
-        return super.toString()+" - "+this.semestre+" - "+this.IEA;
+        return super.toString()+" - "+this.semestre+"o SEMESTRE - "+this.IEA;
     }
 }

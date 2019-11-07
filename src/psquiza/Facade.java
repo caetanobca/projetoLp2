@@ -140,10 +140,14 @@ public class Facade {
     }
 
     public void cadastraEspecialidadeProfessor(String email,String formacao,String unidade,String data) {
-        this.controllerGeral.cadastraEspecialidadeProfessor(email,formacao,unidade,data);
+        this.controllerPesquisador.cadastraEspecialidadeProfessor(email,formacao,unidade,data);
     }
 
     public void cadastraEspecialidadeAluno(String email,int semestre,double IEA) {
-        this.controllerGeral.cadastraEspecialidadeAluno(email,semestre,IEA);
+        this.controllerPesquisador.cadastraEspecialidadeAluno(email,semestre,IEA);
+    }
+
+    public String listaPesquisadores(String tipo) {
+        return this.controllerPesquisador.listaPesquisadores(tipo);
     }
 }
