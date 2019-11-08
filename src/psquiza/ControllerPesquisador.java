@@ -250,6 +250,13 @@ public class ControllerPesquisador {
         pesquisador.adicionaPesquisa(idPesquisa);
     }
 
+    /**
+     * Metodo responsavel por desassociar uma pesquisa de um determinado pesquisador, para identificacao de qual pesquisa e qual
+     * pesquisador serao desassociados, o idPesquisa e o emailPesquisador sao utilizados. Uma excecao e lancada caso o usuario
+     * queira fornecer algum valor nulo ou vazio para os parametros.
+     * @param idPesquisa e o identificador unico da pesquisa
+     * @param emailPesquisador e o email e identificador unico do pesquisador
+     */
     public void desassociaPesquisador(String idPesquisa,String emailPesquisador) {
         validador.validaNulleVazio(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
         validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
@@ -257,6 +264,15 @@ public class ControllerPesquisador {
         pesquisador.removePesquisa(idPesquisa);
     }
 
+    /**
+     * Metodo responsavel por cadastrar uma especialidade em um professor, o email do professor e utilizado
+     * para se identificar qual professor tera os dados atribuidos.Uma excecao e lancada caso usuario tente
+     * passar algum valor nulo ou vazio, ou um email inexistente no sistema.
+     * @param email e o email e identificador unico do professor e pesquisador
+     * @param formacao e a formacao a ser atribuida
+     * @param unidade e a unidade a ser atribuida
+     * @param data e a data a ser atribuida
+     */
     public void cadastraEspecialidadeProfessor(String email,String formacao,String unidade,String data) {
         validador.validaNulleVazio(email,"Campo email nao pode ser nulo ou vazio.");
         validador.validaNulleVazio(unidade,"Campo unidade nao pode ser nulo ou vazio.");
@@ -276,6 +292,14 @@ public class ControllerPesquisador {
         professor.setEspecializado(true);
     }
 
+    /**
+     * Metodo responsavel por cadastrar uma especializade no aluno, o email e utilizado para
+     * identificar qual aluno ira ter os dados atribuidos.Uma excecao e lancada caso usuario tente
+     * informar ao algum valor nulo ou vazio ao sistema, ou um email inexistente no sistema.
+     * @param email e o email e identificador unico do aluno e pesquisador
+     * @param semestre e o semestre em que o aluno esta cursando
+     * @param IEA e o indice de evasao do aluno
+     */
     public void cadastraEspecialidadeAluno(String email,int semestre,double IEA) {
         validador.validaNulleVazio(email, "Campo email nao pode ser nulo ou vazio.");
         if(semestre <= 0) {
@@ -296,6 +320,12 @@ public class ControllerPesquisador {
         estudante.setEspecializado(true);
     }
 
+    /**
+     * Metodo que e responsavel por listar os pesquisadores cadastrados no sistema pertencentes a um tipo
+     * passado como parametro. Uma excecao e lancada caso usuario tente passar um tipo nulo,vazio, ou inexistente.
+     * @param tipo e o tipo de pesquisador que o usuario deseja que seja listada
+     * @return a listagem da respresentacao como objeto de todos os pesquisadores de determinado tipo
+     */
     public String listaPesquisadores(String tipo) {
         validador.validaNulleVazio(tipo, "Campo tipo nao pode ser nulo ou vazio.");
         if ((!tipo.equals("EXTERNO")) && (!tipo.equals("PROFESSORA")) && (!tipo.equals("ALUNA"))) {
