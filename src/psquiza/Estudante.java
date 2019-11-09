@@ -4,7 +4,7 @@ package psquiza;
  * Representacao de um pesquisador que e um estudante da UFCG, o estudante extende o pesquisador, portanto
  * possui seus atributos e metodos, alem disso quando cadastrada a especialidade passa a possuir semestre e IEA.
  */
-public class Estudante extends Pesquisador {
+public class Estudante implements Especialidade {
 
     /**
      * E o semestre em que o aluno esta cursando.
@@ -27,10 +27,17 @@ public class Estudante extends Pesquisador {
      * @param email     o email do pesquisador
      * @param fotoURL   a foto do pesquisador
      */
-    public Estudante(String nome, String funcao, String biografia, String email, String fotoURL) {
-        super(nome, funcao, biografia, email, fotoURL);
+    public Estudante(int semestre, double IEA) {
         this.semestre = semestre;
         this.IEA = IEA;
+    }
+
+    public void edita(String atributo, String valor){
+        if (atributo.equals("SEMESTRE")){
+            this.setSemestre(Integer.parseInt(valor));
+        }else if (atributo.equals("IEA")){
+            this.setIEA(Double.parseDouble(valor));
+        }
     }
 
     /**
@@ -54,7 +61,7 @@ public class Estudante extends Pesquisador {
      * junto a representacao de um pesquisador.
      * @return a representacao de um estudante
      */
-    public String exibeEstudanteEspecializado() {
-        return super.toString()+" - "+this.semestre+"o SEMESTRE - "+this.IEA;
+    public String toString() {
+        return " - "+this.semestre+"o SEMESTRE - "+this.IEA;
     }
 }

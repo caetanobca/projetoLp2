@@ -5,7 +5,7 @@ package psquiza;
  * todos os atributos e metodos de um pesquisador, alem disso o professor pode ter uma especialidade cadastrada e
  * quando tem, uma formacao, unidade e data sao adicionados a ele.
  */
-public class Professor extends Pesquisador {
+public class Professor implements Especialidade {
 
     /**
      * E a formacao do professor.
@@ -33,11 +33,20 @@ public class Professor extends Pesquisador {
      * @param email     o email do pesquisador
      * @param fotoURL   a foto do pesquisador
      */
-    public Professor(String nome, String funcao, String biografia, String email, String fotoURL) {
-        super(nome, funcao, biografia, email, fotoURL);
+    public Professor(String formacao, String unidade, String data) {
         this.data = data;
         this.formacao = formacao;
         this.unidade = unidade;
+    }
+
+    public void edita(String atributo, String valor){
+        if (atributo.equals("DATA")){
+            this.setData(valor);
+        }else if (atributo.equals("FORMACAO")){
+            this.setFormacao(valor);
+        }else if (atributo.equals("UNIDADE")){
+            this.setUnidade(valor);
+        }
     }
 
     /**
@@ -69,7 +78,7 @@ public class Professor extends Pesquisador {
      * de um pesquisador a formacao,unidade e data.
      * @return a exibicao de um professor como objeto
      */
-    public String exibeProfessorEspecializado(){
-        return super.toString()+" - "+this.formacao+" - "+this.unidade+" - "+this.data;
+    public String toString(){
+        return " - "+this.formacao+" - "+this.unidade+" - "+this.data;
     }
 }

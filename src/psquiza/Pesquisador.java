@@ -57,6 +57,8 @@ public class Pesquisador {
 
     private boolean especializado;
 
+    private Especialidade especialidade;
+
     /**
      * Constroi um pesquisador a partir de seu nome, funcao, biografia, email valido,
      * URL da foto valida e suas respectivas pesquisas.
@@ -76,6 +78,7 @@ public class Pesquisador {
         validador.validaNulleVazio(fotoURL, "Campo fotoURL nao pode ser nulo ou vazio.");
         validador.validaEmail(email, "Formato de email invalido.");
         validador.validaFoto(fotoURL, "Formato de foto invalido.");
+
         this.nome = nome;
         this.funcao = funcao;
         this.biografia = biografia;
@@ -83,7 +86,6 @@ public class Pesquisador {
         this.fotoURL = fotoURL;
         this.ativo = true;
         this.pesquisas = new ArrayList<>();
-        this.especializado = especializado;
     }
 
     public boolean isEspecializado() {
@@ -213,9 +215,6 @@ public class Pesquisador {
      *
      * @return a representacao em String de um pesquisador
      */
-
-
-
     @Override
     public String toString() {
         return this.nome + " (" + this.funcao + ") - " + this.biografia + " - " + this.email + " - " + this.fotoURL;
@@ -244,6 +243,30 @@ public class Pesquisador {
     @Override
     public int hashCode() {
         return Objects.hash(email);
+    }
+
+    public void especializaProfessor(String formacao, String unidade, String data) {
+        this.especialidade = new Professor(formacao, unidade, data);
+    }
+
+    public void especializaEstudante(int semestre, double IEA) {
+        this.especialidade = new Estudante(semestre, IEA);
+    }
+
+    public void alteraEspecialidade(String atributo, int valorUsarSemestre) {
+        this.especialidade.edita(atributo, valorUsarSemestre + "");
+    }
+
+    public void alteraEspecialidade(String atributo,double valorUsarIEA) {
+        this.especialidade.edita(atributo, valorUsarIEA + "");
+    }
+
+    public void alteraEspecialidade(String atributo, String novoValor) {
+        this.especialidade.edita(atributo, novoValor);
+    }
+
+    public String exibeEspecializado() {
+        return this.toString() + this.especialidade.toString();
     }
 
 }
