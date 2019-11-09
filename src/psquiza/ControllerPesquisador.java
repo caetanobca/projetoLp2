@@ -119,11 +119,11 @@ public class ControllerPesquisador {
                 pesquisadores.get(email).alteraEspecialidade(atributo, novoValor);
                 break;
             case ("DATA") :
-                this.validador.validaNulleVazio(novoValor,"Campo formacao nao pode ser nulo ou vazio.");
+                this.validador.validaNulleVazio(novoValor,"Campo data nao pode ser nulo ou vazio.");
                 pesquisadores.get(email).alteraEspecialidade(atributo, novoValor);
                 break;
             case ("UNIDADE") :
-                this.validador.validaNulleVazio(novoValor,"Campo formacao nao pode ser nulo ou vazio.");
+                this.validador.validaNulleVazio(novoValor,"Campo unidade nao pode ser nulo ou vazio.");
                 pesquisadores.get(email).alteraEspecialidade(atributo, novoValor);
                 break;
              default:
@@ -321,7 +321,7 @@ public class ControllerPesquisador {
             case "PROFESSORA":
                 for (String chave : pesquisadores.keySet()) {
                     if (pesquisadores.get(chave).getFuncao().equals(tipo)) {
-                        if (pesquisadores.get(chave).isEspecializado() == true) {
+                        if (pesquisadores.get(chave).isEspecializado()) {
                             pesquisadoresOrdenados.add(pesquisadores.get(chave).exibeEspecializado());
                         } else {
                             pesquisadoresOrdenados.add(pesquisadores.get(chave).toString()+" | ");
@@ -331,7 +331,7 @@ public class ControllerPesquisador {
             case "ALUNA":
                 for (String chave : pesquisadores.keySet()) {
                     if (pesquisadores.get(chave).getFuncao().equals(tipo)) {
-                        if (pesquisadores.get(chave).isEspecializado() == true) {
+                        if (pesquisadores.get(chave).isEspecializado()) {
                             pesquisadoresOrdenados.add(pesquisadores.get(chave).exibeEspecializado());
                         } else {
                             pesquisadoresOrdenados.add(pesquisadores.get(chave).toString()+" | ");
@@ -340,7 +340,7 @@ public class ControllerPesquisador {
                 }
             default:
                 for (String chave : pesquisadores.keySet()) {
-                    if ((pesquisadores.get(chave).getFuncao().equals("externo")) || (pesquisadores.get(chave).getFuncao().equals("EXTERNO"))) {
+                    if ((pesquisadores.get(chave).getFuncao().equalsIgnoreCase("EXTERNO"))) {
                         pesquisadoresOrdenados.add(pesquisadores.get(chave).toString()+" | ");
                     }
                 }
