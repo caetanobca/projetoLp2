@@ -146,4 +146,24 @@ public class Facade {
     public String listaPesquisas(String ordem){
         return this.controllerPesquisa.listaPesquisas(ordem);
     }
+    
+    public boolean associaPesquisador(String idPesquisa,String emailPesquisador) {
+        return this.controllerGeral.associaPesquisador(idPesquisa,emailPesquisador);
+    }
+
+    public boolean desassociaPesquisador(String idPesquisa,String emailPesquisador) {
+        return this.controllerGeral.desassociaPesquisador(idPesquisa,emailPesquisador);
+    }
+
+    public void cadastraEspecialidadeProfessor(String email,String formacao,String unidade,String data) {
+        this.controllerPesquisador.cadastraEspecialidadeProfessor(email,formacao,unidade,data);
+    }
+
+    public void cadastraEspecialidadeAluno(String email,int semestre,double IEA) {
+        this.controllerPesquisador.cadastraEspecialidadeAluno(email,semestre,IEA);
+    }
+
+    public String listaPesquisadores(String tipo) {
+        return this.controllerPesquisador.listaPesquisadores(tipo);
+    }
 }

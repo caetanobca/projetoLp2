@@ -411,5 +411,9 @@ public class ControllerPesquisa {
         return todasAsPesquisas;
     }
 
+
+    public Map<String, Pesquisa> getPesquisas() {
+        return pesquisas;
+    }
 }
 

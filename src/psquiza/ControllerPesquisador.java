@@ -44,7 +44,8 @@ public class ControllerPesquisador {
         validador.validaFoto(fotoURL, "Formato de foto invalido.");
         validador.validaEmail(email, "Formato de email invalido.");
 
-        this.pesquisadores.put(email, new Pesquisador(nome, funcao, biografia, email, fotoURL));
+        Pesquisador pesquisador = new Pesquisador(nome, funcao, biografia, email, fotoURL);
+        this.pesquisadores.put(email, pesquisador);
     }
 
     /**
@@ -98,8 +99,34 @@ public class ControllerPesquisador {
                 this.validador.validaFoto(novoValor, "Formato de foto invalido.");
                 pesquisadores.get(email).setFotoURL(novoValor);
                 break;
+            case ("SEMESTRE"):
+                int valorUsarSemestre = Integer.parseInt(novoValor);
+                if(valorUsarSemestre<=0) {
+                    this.validador.lancaExcecao("Formato de semestre invalido.");
+                }
+                pesquisadores.get(email).alteraEspecialidade(atributo, valorUsarSemestre);
+                break;
+            case ("IEA") :
 
-            default:
+                double valorUsarIEA = Double.parseDouble(novoValor);
+                if((valorUsarIEA<0) || (valorUsarIEA>10)) {
+                    this.validador.lancaExcecao("Formato de IEA invalido.");
+                }
+                pesquisadores.get(email).alteraEspecialidade(atributo, valorUsarIEA);
+                break;
+            case ("FORMACAO") :
+                this.validador.validaNulleVazio(novoValor,"Campo formacao nao pode ser nulo ou vazio.");
+                pesquisadores.get(email).alteraEspecialidade(atributo, novoValor);
+                break;
+            case ("DATA") :
+                this.validador.validaNulleVazio(novoValor,"Campo data nao pode ser nulo ou vazio.");
+                pesquisadores.get(email).alteraEspecialidade(atributo, novoValor);
+                break;
+            case ("UNIDADE") :
+                this.validador.validaNulleVazio(novoValor,"Campo unidade nao pode ser nulo ou vazio.");
+                pesquisadores.get(email).alteraEspecialidade(atributo, novoValor);
+                break;
+             default:
                 throw new IllegalArgumentException("Atributo invalido.");
         }
     }
@@ -151,13 +178,25 @@ public class ControllerPesquisador {
      * @return representacao em String do pesquisador
      */
     public String exibePesquisador(String email) {
-        validador.validaNulleVazio(email, "Email nao pode ser vazio ou nulo.");
+        String retorno = "";
+        validador.validaNulleVazio(email, "Campo email nao pode ser nulo ou vazio.");
 
         if (!this.pesquisadores.containsKey(email)) {
             throw new IllegalArgumentException("Pesquisador nao encontrado");
         }
 
-        return pesquisadores.get(email).toString();
+        if(pesquisadores.get(email).isEspecializado()) {
+            String tipo = pesquisadores.get(email).getFuncao();
+            if(tipo.equals("professor")) {
+                retorno+=pesquisadores.get(email).exibeEspecializado();
+            }else{
+                retorno+=pesquisadores.get(email).exibeEspecializado();
+            }
+        }else{
+            retorno+=pesquisadores.get(email).toString();
+        }
+
+        return retorno;
     }
 
     /**
@@ -194,5 +233,142 @@ public class ControllerPesquisador {
 
         Collections.sort(results, new ComparadorBusca());
         return results;
+    }
+
+    /**
+     * Metodo responsavel por retornar os pesquisadores armazenados no sistema.
+     * @return o HashMap que contem os pesquisadores do sistema
+     */
+    public Map<String, Pesquisador> getPesquisadores() {
+        return pesquisadores;
+    }
+
+    /**
+     * Metodo responsavel por associar uma pesquisa a determinado pesquisador, para identificacao de qual pesquisa e qual
+     * pesquisador serao relacionados, o idPesquisa e o emailPesquisador sao utilizados. Uma excecao e lancada caso o usuario
+     * queira fornecer algum valor nulo ou vazio para os parametros.
+     * @param idPesquisa e o identificador unico da pesquisa
+     * @param emailPesquisador e o email e identificador unico do pesquisador
+     */
+    public void associaPesquisador(String idPesquisa, String emailPesquisador) {
+        validador.validaNulleVazio(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
+        Pesquisador pesquisador = pesquisadores.get(emailPesquisador);
+        pesquisador.adicionaPesquisa(idPesquisa);
+    }
+
+    /**
+     * Metodo responsavel por desassociar uma pesquisa de um determinado pesquisador, para identificacao de qual pesquisa e qual
+     * pesquisador serao desassociados, o idPesquisa e o emailPesquisador sao utilizados. Uma excecao e lancada caso o usuario
+     * queira fornecer algum valor nulo ou vazio para os parametros.
+     * @param idPesquisa e o identificador unico da pesquisa
+     * @param emailPesquisador e o email e identificador unico do pesquisador
+     */
+    public void desassociaPesquisador(String idPesquisa,String emailPesquisador) {
+        validador.validaNulleVazio(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
+        Pesquisador pesquisador = pesquisadores.get(emailPesquisador);
+        pesquisador.removePesquisa(idPesquisa);
+    }
+
+    /**
+     * Metodo responsavel por cadastrar uma especialidade em um professor, o email do professor e utilizado
+     * para se identificar qual professor tera os dados atribuidos.Uma excecao e lancada caso usuario tente
+     * passar algum valor nulo ou vazio, ou um email inexistente no sistema.
+     * @param email e o email e identificador unico do professor e pesquisador
+     * @param formacao e a formacao a ser atribuida
+     * @param unidade e a unidade a ser atribuida
+     * @param data e a data a ser atribuida
+     */
+    public void cadastraEspecialidadeProfessor(String email,String formacao,String unidade,String data) {
+        validador.validaNulleVazio(email,"Campo email nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(unidade,"Campo unidade nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(formacao,"Campo formacao nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(data,"Campo data nao pode ser nulo ou vazio.");
+        validador.validaData(data,"Atributo data com formato invalido.");
+
+        if(!pesquisadores.containsKey(email)) {
+            validador.lancaExcecao("Pesquisadora nao encontrada.");
+        }
+        if(!pesquisadores.get(email).getFuncao().equals("professor")) {
+            validador.lancaExcecao("Pesquisador nao compativel com a especialidade.");
+        }
+        pesquisadores.get(email).especializaProfessor(formacao, unidade, data);
+        pesquisadores.get(email).setEspecializado(true);
+    }
+
+    /**
+     * Metodo responsavel por cadastrar uma especializade no aluno, o email e utilizado para
+     * identificar qual aluno ira ter os dados atribuidos.Uma excecao e lancada caso usuario tente
+     * informar ao algum valor nulo ou vazio ao sistema, ou um email inexistente no sistema.
+     * @param email e o email e identificador unico do aluno e pesquisador
+     * @param semestre e o semestre em que o aluno esta cursando
+     * @param IEA e o indice de evasao do aluno
+     */
+    public void cadastraEspecialidadeAluno(String email,int semestre,double IEA) {
+        validador.validaNulleVazio(email, "Campo email nao pode ser nulo ou vazio.");
+        if(semestre <= 0) {
+            validador.lancaExcecao("Atributo semestre com formato invalido.");
+        }
+        if((IEA > 10) || (IEA < 0)) {
+            validador.lancaExcecao("Atributo IEA com formato invalido.");
+        }
+        if(!pesquisadores.containsKey(email)) {
+            validador.lancaExcecao("Pesquisadora nao encontrada.");
+        }
+        if(!pesquisadores.get(email).getFuncao().equals("estudante")) {
+            validador.lancaExcecao("Pesquisador nao compativel com a especialidade.");
+        }
+
+        pesquisadores.get(email).especializaEstudante(semestre, IEA);
+        pesquisadores.get(email).setEspecializado(true);
+    }
+
+    /**
+     * Metodo que e responsavel por listar os pesquisadores cadastrados no sistema pertencentes a um tipo
+     * passado como parametro. Uma excecao e lancada caso usuario tente passar um tipo nulo,vazio, ou inexistente.
+     * @param tipo e o tipo de pesquisador que o usuario deseja que seja listada
+     * @return a listagem da respresentacao como objeto de todos os pesquisadores de determinado tipo
+     */
+    public String listaPesquisadores(String tipo) {
+        validador.validaNulleVazio(tipo, "Campo tipo nao pode ser nulo ou vazio.");
+        if ((!tipo.equals("EXTERNO")) && (!tipo.equals("PROFESSORA")) && (!tipo.equals("ALUNA"))) {
+            validador.lancaExcecao("Tipo " + tipo + " inexistente.");
+        }
+        String retorno = "";
+        List<String> pesquisadoresOrdenados = new ArrayList<String>();
+        switch (tipo) {
+            case "PROFESSORA":
+                for (String chave : pesquisadores.keySet()) {
+                    if (pesquisadores.get(chave).getFuncao().equals(tipo)) {
+                        if (pesquisadores.get(chave).isEspecializado()) {
+                            pesquisadoresOrdenados.add(pesquisadores.get(chave).exibeEspecializado());
+                        } else {
+                            pesquisadoresOrdenados.add(pesquisadores.get(chave).toString()+" | ");
+                        }
+                    }
+                }
+            case "ALUNA":
+                for (String chave : pesquisadores.keySet()) {
+                    if (pesquisadores.get(chave).getFuncao().equals(tipo)) {
+                        if (pesquisadores.get(chave).isEspecializado()) {
+                            pesquisadoresOrdenados.add(pesquisadores.get(chave).exibeEspecializado());
+                        } else {
+                            pesquisadoresOrdenados.add(pesquisadores.get(chave).toString()+" | ");
+                        }
+                    }
+                }
+            default:
+                for (String chave : pesquisadores.keySet()) {
+                    if ((pesquisadores.get(chave).getFuncao().equalsIgnoreCase("EXTERNO"))) {
+                        pesquisadoresOrdenados.add(pesquisadores.get(chave).toString()+" | ");
+                    }
+                }
+        }
+        for(int i=0;i<pesquisadoresOrdenados.size();i++) {
+            retorno+=pesquisadoresOrdenados.get(i);
+        }
+        retorno = retorno.substring(0,retorno.length()-3);
+        return retorno;
     }
 }
