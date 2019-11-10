@@ -2,9 +2,9 @@ package psquiza;
 
 import util.Validacao;
 
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Classe que representa uma Atividade a ser realizada afim de obter resultados. Cada atividade planejada apresenta
@@ -34,9 +34,19 @@ public class Atividade {
     private Validacao validador;
 
     /**
-     * HashSet com um conjunto de Itens.
+     * ArrayList com a lista de Itens.
      */
-    private Set<Item> itens;
+    private List<Item> itens;
+
+    /**
+     * Identifica se a atividade esta associada ou nao em alguma pesquisa.
+     */
+    private boolean associada;
+
+    /**
+     * ArrayList com a lista de resultados.
+     */
+    private List<String> resultados;
 
     /**
      * Construtor da Classe Atividade. O Construtor não aceita parametros vazios, nulos ou não válidos, caso algum
@@ -59,8 +69,9 @@ public class Atividade {
         this.codigoIdentificador = codigoIdentificador;
         this.descricao = descricao;
         this.nivelRisco = new Risco(nivelRisco, descricaoRisco);
-        this.itens = new LinkedHashSet<Item>();
-
+        this.itens = new ArrayList<Item>();
+        this.associada = false;
+        this.resultados = new ArrayList<>();
     }
 
     /**
@@ -72,7 +83,9 @@ public class Atividade {
         validador.validaNulleVazio(item, "Item nao pode ser nulo ou vazio.");
         int codigoIdentificador = itens.size() + 1;
         Item itemNovo = new Item(codigoIdentificador, item);
-        itens.add(itemNovo);
+        if(!itens.contains(itemNovo)){
+            itens.add(itemNovo);
+        }
     }
 
     /**
@@ -116,19 +129,118 @@ public class Atividade {
      */
     private String exibeItens() {
         String itensExibidos = "";
-
         if (!itens.isEmpty()) {
-
             for (Item item : itens) {
                 itensExibidos += " | " + item.toString();
             }
+        }
+        return itensExibidos;
+    }
 
+    /**
+     * Modifica o parametro associada para true.
+     */
+    public void associa() {
+        this.associada = true;
+    }
 
+    /**
+     * Modifica o parametro associada para false.
+     */
+    public void desassocia(){
+        this.associada = false;
+    }
+
+    /**
+     * Executa um item da atividade. Deve-se informar o codigo do item
+     * e a duracao da execucao da atividade.
+     *
+     * @param codigoItem o codigo do item a ser executado
+     * @param duracao a duracao da execucao do item
+     */
+    public void executaAtividade(int codigoItem, int duracao) {
+        validador.validaInteiro(duracao,"Duracao nao pode ser nula ou negativa.");
+        if (associada) {
+            if(codigoItem>itens.size()){
+                validador.lancaExcecao("Item nao encontrado.");
+            }
+            if (itens.get(codigoItem-1).getStatus().equals("PENDENTE")) {
+                itens.get(codigoItem-1).setStatus();
+                itens.get(codigoItem-1).setDuracao(duracao);
+            } else {
+                validador.lancaExcecao("Item ja executado.");
+            }
+        } else{
+            validador.lancaExcecao("Atividade sem associacoes com pesquisas.");
+        }
+    }
+
+    /**
+     * Retorna a duracacao da realizacao de todos os itens da atividade.
+     *
+     * @return valor inteiro que representa a duracao da realizacao da atividade
+     */
+    public int getDuracao(){
+        int duracao = 0;
+
+        for (Item item: itens){
+            duracao += item.getDuracao();
         }
 
-        return itensExibidos;
+        return duracao;
+    }
 
+    /**
+     * Cadastra um resultado para a atividade.
+     *
+     * @param resultado representacao em String do resultado da Ativivdade
+     * @return valor inteiro que representa o indice do resultado.
+     */
+    public int cadastraResultado(String resultado) {
+        validador.validaNulleVazio(resultado, "Resultado nao pode ser nulo ou vazio.");
+        int codigoIdentificador = resultados.size() + 1;
+        resultados.add(resultado);
+        return codigoIdentificador;
+    }
 
+    /**
+     * Remove um resultado de uma atividade.
+     *
+     * @param numeroResultado o indice do resultado a ser removido.
+     * @return valor booleano que indica o sucesso ou nao da operacao
+     */
+    public boolean removeResultado(int numeroResultado){
+        validador.validaInteiro(numeroResultado, "numeroResultado nao pode ser nulo ou negativo.");
+        try{
+            resultados.remove(numeroResultado-1);
+        } catch (Exception e){
+            validador.lancaExcecao("Resultado nao encontrado.");
+        }
+        return true;
+    }
+
+    /**
+     * Retorna a lista de todos os resultados da Atividade.
+     *
+     * @return representacao em String dos resultados da Atividade
+     */
+    public String listaResultados(){
+        String resultadosExibidos = "";
+        if (!resultados.isEmpty()) {
+            for (String resultado : resultados) {
+                resultadosExibidos += resultado + " | " ;
+            }
+        }
+        return resultadosExibidos.substring(0,resultadosExibidos.length()-3);
+    }
+
+    /**
+     * Retorna um valor booleano informando se a atividade esta associada a uma pesquisa ou nao.
+     *
+     * @return valor booleano informando se a atividade esta associada a uma pesquisa ou nao
+     */
+    public boolean isAssociada() {
+        return associada;
     }
 
     /**
@@ -136,6 +248,23 @@ public class Atividade {
      *
      * @return Uma String com a descricao da Atividade, seu Risco e os Itens pertencentes a mesma.
      */
+
+    /**
+     * Metodo responsavel por pegar a descricao da Atividade.
+     * @return a descricao da Atividade.
+     */
+    public String getDescricao() {
+        return this.descricao;
+    }
+
+    /**
+     * Metodo responsavel por pegar a descricao do do risco da Atividade.
+     * @return descricao do risco.
+     */
+    public String  getDescricaoDoRisco() {
+        return this.nivelRisco.getDescricao();
+    }
+
     @Override
     public String toString() {
         return descricao + " (" + nivelRisco.toString() + ")" + exibeItens();
@@ -166,19 +295,4 @@ public class Atividade {
         return Objects.hash(codigoIdentificador);
     }
 
-    /**
-     * Metodo responsavel por pegar a descricao da Atividade.
-     * @return a descricao da Atividade.
-     */
-    public String getDescricao() {
-        return this.descricao;
-    }
-
-    /**
-     * Metodo responsavel por pegar a descricao do do risco da Atividade.
-     * @return descricao do risco.
-     */
-    public String  getDescricaoDoRisco() {
-        return this.nivelRisco.getDescricao();
-    }
 }

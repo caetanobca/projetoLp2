@@ -207,10 +207,10 @@ public class ControllerPesquisa {
      * um objeto do tipo Problema para Pesquisa.
      *
      * @param idPesquisa Identificacao da Pesquisa.
-     * @param problema   Objeto do tipo Problema a ser desassociado.
+     *
      * @return true caso a desassociacao tenha dado certo, false caso contrario.
      */
-    public boolean desassociaProblemaEmPesquisa(String idPesquisa, Problema problema) {
+    public boolean desassociaProblemaEmPesquisa(String idPesquisa){
         boolean desassociou = false;
         if (!this.pesquisas.containsKey(idPesquisa)) {
             this.validador.lancaExcecao("Pesquisa nao encontrada.");
@@ -219,7 +219,7 @@ public class ControllerPesquisa {
             this.validador.lancaExcecao("Pesquisa desativada.");
 
         } else {
-            desassociou = this.pesquisas.get(idPesquisa).desassociaProblemaEmPesquisa(problema);
+            desassociou = this.pesquisas.get(idPesquisa).desassociaProblemaEmPesquisa();
 
         }
 
@@ -411,9 +411,55 @@ public class ControllerPesquisa {
         return todasAsPesquisas;
     }
 
-
+    /**
+     * Metodo de acesso para o mapa que armazena Pesquisa.
+     * @return um Mapa com as Pesquisas do sistema
+     */
     public Map<String, Pesquisa> getPesquisas() {
         return pesquisas;
     }
+
+    /**
+     * Associa Atividade em uma Pesquisa. Uma Atividade so pode so pode ser associada em
+     * uma Pesquisa se ela estiver ativa, ou se a atividade nao ja tiver sido associada.
+     *
+     * @param idPesquisa codigo identificador da Pesquisa
+     * @param atividade a Atividade a ser associada
+     * @return valor booleano que representa o sucesso ou nao da associacao
+     */
+    public boolean associaAtividadeEmPesquisa(String idPesquisa, Atividade atividade) {
+        validador.validaNulleVazio(idPesquisa,"Campo codigoPesquisa nao pode ser nulo ou vazio.");
+        if (!this.pesquisas.containsKey(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa nao encontrada.");
+        }
+        if (!pesquisaEhAtiva(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa desativada.");
+        }
+        return this.pesquisas.get(idPesquisa).associaAtividadeEmPesquisa(atividade);
+    }
+
+    /**
+     * Desassocia uma atividade em uma Pesquisa. Uma Atividade nao pode ser dessasociada se
+     * a pesquisa estiver desativada, ou se a atividade nao ja tiver sido associada.
+     *
+     * @param idPesquisa codigo identificador da Pesquisa
+     * @param atividade a Atividade a ser dessasociada
+     * @return valor booleano que representa o sucesso ou nao da operacao
+     */
+    public boolean desassociaAtividadeEmPesquisa(String idPesquisa, Atividade atividade) {
+        if (!this.pesquisas.containsKey(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa nao encontrada.");
+        }
+        if (!pesquisaEhAtiva(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa desativada.");
+        }
+        if(!atividade.isAssociada()){
+            return false;
+        }
+        return this.pesquisas.get(idPesquisa).desassociaAtividadeEmPesquisa(atividade);
+    }
 }
+
+
+
 

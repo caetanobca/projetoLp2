@@ -50,6 +50,12 @@ public class Pesquisa implements Comparable<Pesquisa> {
     private List<Objetivo> objetivos;
 
     /**
+     * ArrayList com todas as atividades da Pesquisa.
+     */
+    private List<Atividade> atividades;
+
+
+    /**
      * Objeto que tem funcoes que auxiliam na validacao de entradas.
      */
     private Validacao validador;
@@ -75,6 +81,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
         this.ativada = true;
         this.problemaAssociado = null;
         this.objetivos = new ArrayList<>();
+        this.atividades = new ArrayList<>();
 
     }
 
@@ -194,9 +201,9 @@ public class Pesquisa implements Comparable<Pesquisa> {
      * @param problema Objeto Problema que sera desassociado a Pesquisa.
      * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
      */
-    public boolean desassociaProblemaEmPesquisa(Problema problema) {
+    public boolean desassociaProblemaEmPesquisa() {
         boolean desassociou;
-        if (this.problemaAssociado == null || "".equals(this.problemaAssociado) || !problema.equals(problemaAssociado)){
+        if (this.problemaAssociado == null || "".equals(this.problemaAssociado)){
 
             desassociou = false;
         } else {
@@ -246,6 +253,42 @@ public class Pesquisa implements Comparable<Pesquisa> {
         }
 
         return desassociou;
+    }
+
+    /**
+     * Associa uma Atividade da Pesquisa. Uma Atividade nao pode ser associada se
+     *      * nao estiver associada em Pesquisa.
+     *
+     * @param atividade a Atividade a ser associada
+     * @return valor booleano que representa o sucesso ou nao da associacao
+     */
+    public boolean associaAtividadeEmPesquisa(Atividade atividade) {
+        if(atividades.contains(atividade)) {
+            return false;
+        } else{
+            atividades.add(atividade);
+            atividade.associa();
+            return true;
+        }
+    }
+
+    /**
+     * Desassocia uma Atividade da Pesquisa. Uma Atividade nao pode ser desassociada se
+     * nao estiver associada em Pesquisa.
+     *
+     * @param atividade a Atividade a ser dessasociada
+     * @return valor booleano que representa o sucesso ou nao da operacao
+     */
+    public boolean desassociaAtividadeEmPesquisa(Atividade atividade){
+        if (!atividades.contains(atividade)){
+            return false;
+        } else {
+            atividades.remove(atividade);
+            atividade.desassocia();
+            return true;
+        }
+
+
     }
 
 

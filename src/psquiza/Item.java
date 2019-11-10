@@ -25,6 +25,11 @@ public class Item {
     private StatusItem status;
 
     /**
+     * Duracao da realizacao do item
+     */
+    private int duracao;
+
+    /**
      * Objeto que tem funcoes que auxiliam na validacao de entradas.
      */
     private Validacao validador;
@@ -42,7 +47,7 @@ public class Item {
         this.id = id;
         this.nome = nome;
         this.status = status.PENDENTE;
-
+        this.duracao = 0;
     }
 
     /**
@@ -50,7 +55,6 @@ public class Item {
      */
     public void setStatus() {
         this.status = status.REALIZADO;
-
     }
 
     /**
@@ -62,6 +66,23 @@ public class Item {
         return status.toString();
     }
 
+    /**
+     * Retorna a duracao da realizacao do item.
+     *
+     * @return valor inteiro que representa a duracao da atividade
+     */
+    public int getDuracao() {
+        return duracao;
+    }
+
+    /**
+     * Modifica o valor da duracao de realizacao do item.
+     *
+     * @param duracao a duracao do item
+     */
+    public void setDuracao(int duracao) {
+        this.duracao = duracao;
+    }
 
     /**
      * Metodo que gera uma representação textual do Item.
@@ -97,6 +118,5 @@ public class Item {
     public int hashCode() {
         return Objects.hash(nome);
     }
-
 
 }

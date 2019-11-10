@@ -2,10 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ControllerGeral {
+public class ControllerAssociacoes {
 
     private ControllerPesquisa controllerPesquisa;
     private ControllerObjetivo controllerObjetivo;
@@ -14,7 +11,7 @@ public class ControllerGeral {
     private ControllerPesquisador controllerPesquisador;
     private Validacao validador;
 
-    public ControllerGeral(ControllerProblema controllerProblema, ControllerObjetivo controllerObjetivo,
+    public ControllerAssociacoes(ControllerProblema controllerProblema, ControllerObjetivo controllerObjetivo,
                            ControllerPesquisa controllerPesquisa, ControllerAtividade controllerAtividade,
                            ControllerPesquisador controllerPesquisador) {
         this.controllerObjetivo = controllerObjetivo;
@@ -53,11 +50,11 @@ public class ControllerGeral {
      * @param idProblema Identificacao do Problema que sera desassociado da Pesquisa.
      * @return variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
      */
-    public boolean desassociaProblema(String idPesquisa, String idProblema) {
+    public boolean desassociaProblema(String idPesquisa) {
         validador.validaNulleVazio(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
-        validador.validaNulleVazio(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
 
-        return controllerPesquisa.desassociaProblemaEmPesquisa(idPesquisa, controllerProblema.getProblema(idProblema));
+
+        return controllerPesquisa.desassociaProblemaEmPesquisa(idPesquisa);
 
     }
 
@@ -67,7 +64,7 @@ public class ControllerGeral {
      * ou nulos, caso algum seja, lancara um erro.
      *
      * @param idPesquisa Identificacao da Pesquisa que recebera um Problema associado.
-     * @param idProblema Identificacao do Problema que sera associado a uma Pesquisa.
+     * @param idObjetivo Identificacao do Problema que sera associado a uma Pesquisa.
      * @return variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
      */
     public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
@@ -84,7 +81,7 @@ public class ControllerGeral {
      * ou nulos, caso algum seja, lancara um erro.
      *
      * @param idPesquisa Identificacao da Pesquisa que recebera um Problema associado.
-     * @param idProblema Identificacao do Problema que sera associado a uma Pesquisa.
+     * @param idObjetivo Identificacao do Problema que sera associado a uma Pesquisa.
      * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
      */
     public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
@@ -161,61 +158,23 @@ public class ControllerGeral {
         return retorno;
     }
 
+    public boolean associaAtividade(String codigoPesquisa, String codigoAtividade){
+        validador.validaNulleVazio(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 
-
-
-    public String busca(String termo) {
-        validador.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
-
-        List<String> resultados = this.realizaBusca(termo);
-
-        String resultString = "";
-
-        for (int i = 0; i < resultados.size(); i++){
-            resultString += resultados.get(i) + " | ";
-        }
-
-        return resultString.substring(0, resultString.length()-3);
+        return controllerPesquisa.associaAtividadeEmPesquisa(codigoPesquisa, controllerAtividade.getAtividade(codigoAtividade));
     }
 
-    public String busca(String termo, int numeroDoResultado) {
-        validador.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
-        validador.validaInteiro(numeroDoResultado,"Numero do resultado nao pode ser negativo");
+    public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade){
+        validador.validaNulleVazio(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 
-        List<String> resultados = this.realizaBusca(termo);
-
-        if (resultados.size() < numeroDoResultado){
-            this.validador.lancaExcecao("Entidade nao encontrada.");
-        }
-
-        return resultados.get(numeroDoResultado - 1);
+        return controllerPesquisa.desassociaAtividadeEmPesquisa(codigoPesquisa, controllerAtividade.getAtividade(codigoAtividade));
     }
 
-    public int contaResultadosBusca(String termo) {
-        validador.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
 
-        List<String> resultados = this.realizaBusca(termo);
 
-        if (resultados.size() <1){
-            this.validador.lancaExcecao("Nenhum resultado encontrado");
-        }
 
-        return resultados.size();
-    }
-
-    public List<String> realizaBusca (String termo){
-        validador.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
-
-        List<String> resultados = new ArrayList<>();
-
-        resultados.addAll(this.controllerPesquisa.busca(termo));
-        resultados.addAll(this.controllerPesquisador.busca(termo));
-        resultados.addAll(this.controllerProblema.busca(termo));
-        resultados.addAll(this.controllerObjetivo.busca(termo));
-        resultados.addAll(this.controllerAtividade.busca(termo));
-
-        return resultados;
-    }
 }
 
 
