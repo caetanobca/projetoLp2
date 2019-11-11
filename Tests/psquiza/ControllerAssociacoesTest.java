@@ -53,6 +53,26 @@ class ControllerAssociacoesTest {
     }
 
     @Test
+    void associaProblemaEmPesquisaNaoCadastrada(){
+        this.controllerProblema.cadastraProblema("A falta de paciencia durante a criacao de testes no " +
+                "estudantes da graduacao de computacao", 3);
+
+        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.associaProblema("UNI1", "P1"));
+    }
+
+    @Test
+    void associaProblemaEmPesquisaDesativada(){
+        this.controllerProblema.cadastraProblema("A falta de paciencia durante a criacao de testes no " +
+                "estudantes da graduacao de computacao", 3);
+
+        this.controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao",
+                "computacao, homofobia,graduacao");
+
+        this.controllerPesquisa.encerraPesquisa("COM1", "Falta de verba");
+        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.associaProblema("COM1", "P1"));
+    }
+
+    @Test
     void associaProblemaEmPesquisaComProblema() {
         this.controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao",
                 "computacao, homofobia,graduacao");
@@ -80,6 +100,26 @@ class ControllerAssociacoesTest {
     }
 
     @Test
+    void desassociaProblemaEmPesquisaNaoCadastrada(){
+        this.controllerProblema.cadastraProblema("A falta de paciencia durante a criacao de testes no " +
+                "estudantes da graduacao de computacao", 3);
+
+        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.desassociaProblema("UNI1"));
+    }
+
+    @Test
+    void desassociaProblemaEmPesquisaDesativada(){
+        this.controllerProblema.cadastraProblema("A falta de paciencia durante a criacao de testes no " +
+                "estudantes da graduacao de computacao", 3);
+
+        this.controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao",
+                "computacao, homofobia,graduacao");
+
+        this.controllerPesquisa.encerraPesquisa("COM1", "Falta de verba");
+        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.desassociaProblema("COM1"));
+    }
+
+    @Test
     void desassociaProblemaIdPesquisaVazioOuNull() {
         assertThrows(IllegalArgumentException.class, () -> this.controllerAssociacoes.desassociaProblema(""));
         assertThrows(NullPointerException.class, () -> this.controllerAssociacoes.desassociaProblema(null));
@@ -96,6 +136,23 @@ class ControllerAssociacoesTest {
         assertTrue(controllerAssociacoes.associaObjetivo("COM1", "O2"));
         assertTrue(controllerAssociacoes.associaObjetivo("COM1", "O1"));
         assertFalse(controllerAssociacoes.associaObjetivo("COM1", "O2"));
+    }
+
+    @Test
+    void associaObjetivoEmPesquisaNaoCadastrada(){
+        this.controllerObjetivo.cadastraObjetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5);
+
+        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.associaObjetivo("UNI1", "O1"));
+    }
+    @Test
+    void associaObjetivoEmPesquisaDesativada(){
+        this.controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao",
+                "computacao, homofobia,graduacao");
+
+        this.controllerObjetivo.cadastraObjetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5);
+
+        this.controllerPesquisa.encerraPesquisa("COM1", "Falta de verba");
+        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.associaObjetivo("COM1", "O1"));
     }
 
     @Test
@@ -149,6 +206,23 @@ class ControllerAssociacoesTest {
     void desassociaObjetivosIdObjetivoVazioOuNull() {
         assertThrows(IllegalArgumentException.class, () -> this.controllerAssociacoes.desassociaObjetivo("COM1", ""));
         assertThrows(NullPointerException.class, () -> this.controllerAssociacoes.desassociaObjetivo("COM1", null));
+    }
+
+    @Test
+    void desassociaObjetivoEmPesquisaNaoCadastrada(){
+        this.controllerObjetivo.cadastraObjetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5);
+
+        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.desassociaObjetivo("UNI1", "O1"));
+    }
+    @Test
+    void desassociaObjetivoEmPesquisaDesativada(){
+        this.controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao",
+                "computacao, homofobia,graduacao");
+
+        this.controllerObjetivo.cadastraObjetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5);
+
+        this.controllerPesquisa.encerraPesquisa("COM1", "Falta de verba");
+        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.desassociaObjetivo("COM1", "O1"));
     }
 
     @Test

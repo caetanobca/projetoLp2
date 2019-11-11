@@ -473,19 +473,4 @@ class ControllerPesquisaTest {
         assertThrows(IllegalArgumentException.class, ()->teste.listaPesquisas(""));
         assertThrows(NullPointerException.class, ()->teste.listaPesquisas(null));
     }
-
-    @Test
-    void ordenaListaPesquisa(){
-
-    }
-
-    @Test
-    void ordenaListaPesquisaProblema(){
-
-    }
-
-    @Test
-    void ordenaListaPesquisaObjetivo(){
-
-    }
 }
