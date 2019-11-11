@@ -205,4 +205,103 @@ class PesquisaTest {
         assertEquals(teste1.hashCode(),teste3.hashCode());
         assertNotEquals(teste1.hashCode(), teste2.hashCode());
     }
+
+    @Test
+    void associaProblemaEmPesquisa(){
+        teste2 = new Pesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto." , "computacao, poo", "COM2");
+
+        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
+
+        assertTrue(teste2.associaProblemaEmPesquisa( problema1));
+        assertTrue(teste1.associaProblemaEmPesquisa( problema1));
+        assertFalse(teste2.associaProblemaEmPesquisa( problema1));
+    }
+
+    @Test
+    void associaProblemaEmPesquisaNaoCadastrada(){
+        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
+        Problema problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4, "P2");
+
+        this.teste1.associaProblemaEmPesquisa(problema1);
+
+        assertThrows(IllegalArgumentException.class, () -> teste1.associaProblemaEmPesquisa(problema2));
+    }
+
+    @Test
+    void associaProblemaEmPesquisaJaAssociada(){
+        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
+        Problema problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4, "P2");
+
+        teste1.associaProblemaEmPesquisa(problema1);
+        assertThrows(IllegalArgumentException.class, () -> teste1.associaProblemaEmPesquisa(problema2));
+    }
+
+    @Test
+    void desassociaProblemaEmPesquisa(){
+        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
+
+        teste1.associaProblemaEmPesquisa(problema1);
+
+        assertTrue(teste1.desassociaProblemaEmPesquisa());
+        assertFalse(teste1.desassociaProblemaEmPesquisa());
+    }
+
+    @Test
+    void associaObjetivoEmPesquisa(){
+        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
+        Objetivo objetivo2 = new Objetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5, "O2");
+
+        assertTrue(this.teste1.associaObjetivoEmPesquisa(objetivo1));
+
+        assertFalse(objetivo2.getAssociado());
+        assertTrue(this.teste1.associaObjetivoEmPesquisa(objetivo2));
+        assertTrue(objetivo2.getAssociado());
+
+        assertFalse(this.teste1.associaObjetivoEmPesquisa(objetivo1));
+    }
+
+    @Test
+    void associaObjetivoEmPesquisaNaoCadastrada(){
+        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
+        Objetivo objetivo2 = new Objetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5, "O2");
+
+        teste2 = new Pesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto." , "computacao, poo", "COM2");
+
+        this.teste1.associaObjetivoEmPesquisa(objetivo1);
+        this.teste2.associaObjetivoEmPesquisa(objetivo2);
+
+        assertThrows(IllegalArgumentException.class, () -> teste1.associaObjetivoEmPesquisa(objetivo2));
+    }
+
+    @Test
+    void associaObjetivoJaAssociado(){
+        teste2 = new Pesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto." , "computacao, poo", "COM2");
+
+        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
+
+        teste2.associaObjetivoEmPesquisa(objetivo1);
+        assertThrows(IllegalArgumentException.class, () -> teste1.associaObjetivoEmPesquisa(objetivo1));
+    }
+
+    @Test
+    void desassociaObjetivoEmPesquisa(){
+        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
+        Objetivo objetivo2 = new Objetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5, "O2");
+
+        this.teste1.associaObjetivoEmPesquisa(objetivo1);
+        assertTrue(objetivo1.getAssociado());
+        assertTrue(this.teste1.desassociaObjetivoEmPesquisa(objetivo1));
+        assertFalse(objetivo1.getAssociado());
+        assertFalse(this.teste1.desassociaObjetivoEmPesquisa(objetivo2));
+    }
+
+    @Test
+    void compareTo(){
+        teste2 = new Pesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto." , "computacao, poo", "COM2");
+        Pesquisa teste3 = new Pesquisa("Avaliacao de modelos preditivos para a extracao de caracteristicas significativas nas eleicoes brasileiras.", "avaliacao, eleicao", "AVA1");
+
+        assertEquals("COM1".compareTo("COM1"), teste1.compareTo(teste1));
+        assertEquals("COM2".compareTo("COM1"), teste1.compareTo(teste2));
+        assertEquals("AVA1".compareTo("COM1"), teste1.compareTo(teste3));
+    }
 }

@@ -198,7 +198,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
     /**
      * Metodo responsavel por desassociar um Problema da Pesquisa em que ele estava associado, verificando se o Problema
      * passado por parametro e o mesmo que ja esta associado, caso seja, a desassociacao será realizada.
-     * @param problema Objeto Problema que sera desassociado a Pesquisa.
      * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
      */
     public boolean desassociaProblemaEmPesquisa() {
