@@ -199,6 +199,86 @@ class ControllerAtividadeTest {
         assertEquals(controladorDeAtividade.contaItensRealizados("A1"),1);
     }
 
+    @Test
+    public void testaCadastraResultadoComExcecoesTest() {
+        controladorDeAtividade.cadastraAtividade("Visita tecnica a coteminas","BAIXO"
+                ,"Nenhum");
+        //Cadastrando valores nulos para codigo e resultado
+        assertThrows(NullPointerException.class,()-> controladorDeAtividade.cadastraResultado("A1",null));
+        assertThrows(NullPointerException.class,()-> controladorDeAtividade.cadastraResultado(null,"A1"));
 
+        //Cadastrando valores vazios para codigo e resultado
+        assertThrows(IllegalArgumentException.class,()-> controladorDeAtividade.cadastraResultado("A1",""));
+        assertThrows(IllegalArgumentException.class,()-> controladorDeAtividade.cadastraResultado("","A1"));
+
+        //Cadastrando resultado em atividade inexistente
+
+        assertThrows(IllegalArgumentException.class,()-> controladorDeAtividade.cadastraResultado("","A10"));
+    }
+
+    @Test
+    public void testaCadastraResultado() {
+        controladorDeAtividade.cadastraAtividade("Visita tecnica a coteminas","BAIXO"
+                ,"Nenhum");
+        controladorDeAtividade.cadastraAtividade("Roda de conversa sobre politica","ALTO",
+                "Muitas brigas");
+        assertEquals(controladorDeAtividade.cadastraResultado("A1","Satisfatorio"),1);
+        assertEquals(controladorDeAtividade.cadastraResultado("A2","Tiro,porrada e bomba"),1);
+        assertEquals(controladorDeAtividade.cadastraResultado("A1","Muito bom"),2);
+    }
+
+    @Test
+    public void testaRemoveResultadoComExcecoes() {
+        controladorDeAtividade.cadastraAtividade("Visita tecnica a coteminas","BAIXO"
+                ,"Nenhum");
+        controladorDeAtividade.cadastraAtividade("Roda de conversa sobre politica","ALTO",
+                "Muitas brigas");
+        controladorDeAtividade.cadastraResultado("A1","Satisfatorio");
+        controladorDeAtividade.cadastraResultado("A2","Tiro,porrada e bomba");
+        controladorDeAtividade.cadastraResultado("A1","Muito bom");
+
+        //Removendo resultados com codigo atividade nulo ou vazio
+        assertThrows(NullPointerException.class,()-> controladorDeAtividade.removeResultado(null,1));
+        assertThrows(IllegalArgumentException.class,()-> controladorDeAtividade.removeResultado("",1));
+
+        //Removendo resultados de atividades inexistentes
+        assertThrows(IllegalArgumentException.class,()-> controladorDeAtividade.removeResultado("A7",1));
+
+        //Testando remocao com resultado que nao existe
+        assertThrows(IllegalArgumentException.class,()-> controladorDeAtividade.removeResultado("A1",4));
+        assertThrows(IllegalArgumentException.class,()-> controladorDeAtividade.removeResultado("A2",22));
+    }
+
+    @Test
+    public void testaRemoveResultado() {
+        controladorDeAtividade.cadastraAtividade("Visita tecnica a coteminas","BAIXO"
+                ,"Nenhum");
+        controladorDeAtividade.cadastraAtividade("Roda de conversa sobre politica","ALTO",
+                "Muitas brigas");
+        controladorDeAtividade.cadastraResultado("A1","Satisfatorio");
+        controladorDeAtividade.cadastraResultado("A2","Tiro,porrada e bomba");
+        controladorDeAtividade.cadastraResultado("A1","Muito bom");
+
+        //Testando remocao feita com sucesso
+        assertTrue(controladorDeAtividade.removeResultado("A1",1));
+        assertTrue(controladorDeAtividade.removeResultado("A2",1));
+    }
+
+    @Test
+    public void testaListaResultadosComExcecoes() {
+        assertThrows(NullPointerException.class,()-> controladorDeAtividade.listaResultados(null));
+        assertThrows(IllegalArgumentException.class,()-> controladorDeAtividade.listaResultados(""));
+    }
+
+    @Test
+    public void testaListaResultados() {
+        controladorDeAtividade.cadastraAtividade("Roda de conversa sobre religiao","ALTO"
+        ,"Terceira Guerra Mundial");
+        controladorDeAtividade.cadastraResultado("A1","Muita briga");
+        controladorDeAtividade.cadastraResultado("A1","Discurssao");
+        controladorDeAtividade.cadastraResultado("A1","Bomba");
+        assertEquals(controladorDeAtividade.listaResultados("A1"),"Muita briga" +
+                " | Discurssao | Bomba");
+    }
 
 }

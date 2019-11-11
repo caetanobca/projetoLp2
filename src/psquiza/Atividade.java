@@ -3,6 +3,7 @@ package psquiza;
 import util.Validacao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,7 +47,12 @@ public class Atividade {
     /**
      * ArrayList com a lista de resultados.
      */
-    private List<String> resultados;
+    private HashMap<Integer,Resultado> resultados;
+
+    /**
+     * Contador de resultados cadastrados no sistema.
+     */
+    private int contaResultado;
 
     /**
      * Construtor da Classe Atividade. O Construtor não aceita parametros vazios, nulos ou não válidos, caso algum
@@ -71,7 +77,8 @@ public class Atividade {
         this.nivelRisco = new Risco(nivelRisco, descricaoRisco);
         this.itens = new ArrayList<Item>();
         this.associada = false;
-        this.resultados = new ArrayList<>();
+        this.resultados = new HashMap<>();
+        this.contaResultado = 0;
     }
 
     /**
@@ -197,10 +204,10 @@ public class Atividade {
      * @param resultado representacao em String do resultado da Ativivdade
      * @return valor inteiro que representa o indice do resultado.
      */
-    public int cadastraResultado(String resultado) {
-        validador.validaNulleVazio(resultado, "Resultado nao pode ser nulo ou vazio.");
-        int codigoIdentificador = resultados.size() + 1;
-        resultados.add(resultado);
+    public int cadastraResultado(Resultado resultado) {
+        int codigoIdentificador = this.contaResultado + 1;
+        resultados.put(codigoIdentificador,resultado);
+        this.contaResultado++;
         return codigoIdentificador;
     }
 
@@ -212,11 +219,10 @@ public class Atividade {
      */
     public boolean removeResultado(int numeroResultado){
         validador.validaInteiro(numeroResultado, "numeroResultado nao pode ser nulo ou negativo.");
-        try{
-            resultados.remove(numeroResultado-1);
-        } catch (Exception e){
+        if(!resultados.containsKey(numeroResultado)) {
             validador.lancaExcecao("Resultado nao encontrado.");
         }
+        resultados.remove(numeroResultado);
         return true;
     }
 
@@ -227,10 +233,8 @@ public class Atividade {
      */
     public String listaResultados(){
         String resultadosExibidos = "";
-        if (!resultados.isEmpty()) {
-            for (String resultado : resultados) {
-                resultadosExibidos += resultado + " | " ;
-            }
+        for(int chave : resultados.keySet()) {
+            resultadosExibidos+=resultados.get(chave).toString()+" | ";
         }
         return resultadosExibidos.substring(0,resultadosExibidos.length()-3);
     }
