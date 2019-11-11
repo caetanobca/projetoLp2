@@ -156,4 +156,49 @@ class ControllerAtividadeTest {
         assertThrows(NullPointerException.class,()->controladorDeAtividade.contaItensPendentes(null));
         assertThrows(IllegalArgumentException.class,()->controladorDeAtividade.contaItensPendentes(""));
     }
+
+    @Test
+    public void testaExecutaAtividadeComExcecoes() {
+        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
+        controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
+                "homofobia,graduacao");
+        controladorDeAtividade.cadastraAtividade("Realizacao de rodas de conversa para debater homofobia","BAIXO"
+                ,"Algum tipo de comportamento homofobico");
+        controllerPesquisa.associaAtividadeEmPesquisa("COM1",controladorDeAtividade.getAtividade("A1"));
+        controladorDeAtividade.cadastraItem("A1","Papel");
+        controladorDeAtividade.executaAtividade("A1",1,10);
+
+        assertThrows(NullPointerException.class,()-> controladorDeAtividade.executaAtividade(null,1,8));
+
+        //Testando Item negativo
+        assertThrows(IllegalArgumentException.class,()-> controladorDeAtividade.executaAtividade("A1",-1,10));
+
+        //Testando item com valor nulo
+        assertThrows(IllegalArgumentException.class,()-> controladorDeAtividade.executaAtividade("A1",0,10));
+
+        //Testando duracao negativa
+        assertThrows(IllegalArgumentException.class,()-> controladorDeAtividade.executaAtividade("A1",1,-1));
+
+        //Testando duracao com valor nulo
+        assertThrows(IllegalArgumentException.class,()-> controladorDeAtividade.executaAtividade("A1",1,0));
+
+        //Testando atividade inexistente
+        assertThrows(IllegalArgumentException.class,()-> controladorDeAtividade.executaAtividade("A5",1,15));
+    }
+
+    @Test
+    public void testaExecutaAtividade() {
+        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
+        controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
+                "homofobia,graduacao");
+        controladorDeAtividade.cadastraAtividade("Realizacao de rodas de conversa para debater homofobia","BAIXO"
+        ,"Algum tipo de comportamento homofobico");
+        controllerPesquisa.associaAtividadeEmPesquisa("COM1",controladorDeAtividade.getAtividade("A1"));
+        controladorDeAtividade.cadastraItem("A1","Papel");
+        controladorDeAtividade.executaAtividade("A1",1,10);
+        assertEquals(controladorDeAtividade.contaItensRealizados("A1"),1);
+    }
+
+
+
 }

@@ -159,6 +159,7 @@ public class Atividade {
      * @param duracao a duracao da execucao do item
      */
     public void executaAtividade(int codigoItem, int duracao) {
+        validador.validaInteiro(codigoItem,"CodigoItem nao pode ser nulo ou negativo");
         validador.validaInteiro(duracao,"Duracao nao pode ser nula ou negativa.");
         if (associada) {
             if(codigoItem>itens.size()){
