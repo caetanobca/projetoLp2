@@ -47,7 +47,6 @@ public class ControllerAssociacoes {
      * seja, lancara um erro.
      *
      * @param idPesquisa Identificacao da Pesquisa que tera o Problema desassociado.
-     * @param idProblema Identificacao do Problema que sera desassociado da Pesquisa.
      * @return variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
      */
     public boolean desassociaProblema(String idPesquisa) {

@@ -117,4 +117,106 @@ class AtividadeTest {
         assertFalse(atividade1.hashCode()==atividadeTudoDiferente.hashCode());
     }
 
+    @Test
+    public void testaExecutaAtividadeComExcecoes() {
+        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
+        controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
+                "homofobia,graduacao");
+        controllerPesquisa.associaAtividadeEmPesquisa("COM1",atividade1);
+        atividade1.cadastraItem("Mapa da empresa");
+
+        //Testanto valor de item nulo ou negativo
+
+        assertThrows(IllegalArgumentException.class,()-> atividade1.executaAtividade(0,10));
+        assertThrows(IllegalArgumentException.class,()-> atividade1.executaAtividade(-1,6));
+
+        //Testando valor de duracao nulo ou negativo
+
+        assertThrows(IllegalArgumentException.class,()-> atividade1.executaAtividade(1,0));
+        assertThrows(IllegalArgumentException.class,()-> atividade1.executaAtividade(1,-1));
+
+        //Testando item ja executado
+
+        atividade1.executaAtividade(1,10);
+        assertThrows(IllegalArgumentException.class,()-> atividade1.executaAtividade(1,10));
+
+        //Testando item nao encontrado
+
+        assertThrows(IllegalArgumentException.class,()-> atividade1.executaAtividade(2,10));
+
+        //Testando atividade sem associacoes a pesquisa
+
+        assertThrows(IllegalArgumentException.class,()->atividade2.executaAtividade(1,10));
+
+    }
+
+    @Test
+    public void testaExecutaAtividade() {
+        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
+        controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
+                "homofobia,graduacao");
+        controllerPesquisa.associaAtividadeEmPesquisa("COM1",atividade1);
+        atividade1.cadastraItem("Mapa da empresa");
+        atividade1.executaAtividade(1,20);
+        assertEquals(atividade1.contaItensRealizados(),1);
+    }
+
+    @Test
+    public void testaCadastraResultado() {
+        Resultado resultado1 = new Resultado("Satisfatorio");
+        Resultado resultado2 = new Resultado("Faltam analises");
+        Resultado resultado3 = new Resultado("Horrivel");
+        assertEquals(atividade1.cadastraResultado(resultado1),1);
+        assertEquals(atividade1.cadastraResultado(resultado2),2);
+        assertEquals(atividade2.cadastraResultado(resultado3),1);
+    }
+
+    @Test
+    public void testaRemoveResultadoComExcecoes() {
+        Resultado resultado1 = new Resultado("Satisfatorio");
+        atividade1.cadastraResultado(resultado1);
+
+        //Valor nulo ou negativo para resultado
+        assertThrows(IllegalArgumentException.class,()-> atividade1.removeResultado(-1));
+        assertThrows(IllegalArgumentException.class,()-> atividade2.removeResultado(0));
+
+        //Resultado inexistente no sistema
+        assertThrows(IllegalArgumentException.class,()-> atividade1.removeResultado(4));
+    }
+
+    @Test
+    public void testaRemoveResultado() {
+        Resultado resultado1 = new Resultado("Satisfatorio");
+        Resultado resultado2 = new Resultado("Faltam analises");
+        Resultado resultado3 = new Resultado("Horrivel");
+        atividade1.cadastraResultado(resultado1);
+        atividade1.cadastraResultado(resultado2);
+        atividade1.cadastraResultado(resultado3);
+        assertTrue(atividade1.removeResultado(2));
+        assertTrue(atividade1.removeResultado(1));
+        assertTrue(atividade1.removeResultado(3));
+    }
+
+    @Test
+    public void testaListaResultados() {
+        Resultado resultado1 = new Resultado("Muita briga");
+        Resultado resultado2 = new Resultado("Discurssao");
+        Resultado resultado3 = new Resultado("Bomba");
+        atividade1.cadastraResultado(resultado1);
+        atividade1.cadastraResultado(resultado2);
+        atividade1.cadastraResultado(resultado3);
+        assertEquals(atividade1.listaResultados(),"Muita briga" +
+                " | Discurssao | Bomba");
+    }
+
+    @Test
+    public void testaGetDuracao() {
+        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
+        controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
+                "homofobia,graduacao");
+        controllerPesquisa.associaAtividadeEmPesquisa("COM1",atividade1);
+        atividade1.cadastraItem("Mapa da empresa");
+        atividade1.executaAtividade(1,20);
+        assertEquals(atividade1.getDuracao(),20);
+    }
 }

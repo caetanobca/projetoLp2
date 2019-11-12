@@ -1,8 +1,10 @@
 package psquiza;
 
+import util.Validacao;
+
 /**
- * Representacao de um pesquisador que e um estudante da UFCG, o estudante extende o pesquisador, portanto
- * possui seus atributos e metodos, alem disso quando cadastrada a especialidade passa a possuir semestre e IEA.
+ * Representacao de um pesquisador que e um estudante da UFCG, o estudante implementa especialidade , portanto
+ * possui seus  metodos.
  */
 public class Estudante implements Especialidade {
 
@@ -17,22 +19,32 @@ public class Estudante implements Especialidade {
     private double IEA;
 
     /**
-     * Constroi um pesquisador a partir de seu nome, funcao, biografia, email valido,
-     * URL da foto valida e suas respectivas pesquisas. Quando e cadastrada uma especialidade
-     * em um aluno, um semestre e um IEA tambem sao construidos no mesmo.
-     * Caso qualquer atributo esteja invalido, uma excecao sera lancada.
-     * @param nome      o nome do pesquisador
-     * @param funcao    a funcao do pesquisador (estudante, professor ou externo)
-     * @param biografia a biografia do pesquisador
-     * @param email     o email do pesquisador
-     * @param fotoURL   a foto do pesquisador
+     * Objeto da classe Validacao que tem como funcao verificar se algum
+     * valor de excecao e passado no sistema.
+     */
+    private Validacao validacao;
+    /**
+     * Constroi um estudante a partir do semestre em que ele esta em curso
+     * e o indice de evasao do aluno(IEA).
+     * @param  semestre e o semestre que o aluno esta cursando
+     * @param IEA e o indice de evasao do aluno
      */
     public Estudante(int semestre, double IEA) {
+        this.validacao = new Validacao();
         this.semestre = semestre;
         this.IEA = IEA;
     }
 
+    /**
+     * Metodo que altera a especialidade de um estudante, podendo alterar
+     * seu semestre ou IEA, dependendo do valor passado. Uma excecao sera lancada
+     * caso usuario queira forneceder um atributo ou valor vazio ou nulo.
+     * @param atributo e o que o usuario deseja alterar, IEA ou semestre
+     * @param valor e o novo valor do atributo do estudante
+     */
     public void edita(String atributo, String valor){
+        validacao.validaNulleVazio(atributo,"Campo atributo nao pode ser vazio ou nulo");
+        validacao.validaNulleVazio(valor,"Campo valor nao pode ser vazio ou nulo");
         if (atributo.equals("SEMESTRE")){
             this.setSemestre(Integer.parseInt(valor));
         }else if (atributo.equals("IEA")){

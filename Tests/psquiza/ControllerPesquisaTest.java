@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ControllerPesquisaTest {
 
     ControllerPesquisa teste;
+    ControllerAtividade atividade;
 
     @BeforeEach
     void constroiControllerPesquisaTest() {
@@ -472,5 +473,56 @@ class ControllerPesquisaTest {
     void listaPesquisasOrdemVaziaOuNull(){
         assertThrows(IllegalArgumentException.class, ()->teste.listaPesquisas(""));
         assertThrows(NullPointerException.class, ()->teste.listaPesquisas(null));
+      
+    @Test  
+    void associaAtividadeEmPesquisaComExcecoesTest() {
+        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
+                "BAIXO","Alguma manifestacao homofobica");
+        assertThrows(NullPointerException.class,()->  teste.associaAtividadeEmPesquisa(null,atividade));
+        assertThrows(IllegalArgumentException.class,()-> teste.associaAtividadeEmPesquisa("",atividade));
+        assertThrows(IllegalArgumentException.class,()-> teste.associaAtividadeEmPesquisa("LEI1",atividade));
+        teste.encerraPesquisa("COM1","Corte de verbas");
+        assertThrows(IllegalArgumentException.class,()-> teste.associaAtividadeEmPesquisa("COM1",atividade));
+    }
+
+    @Test
+    void associaAtividadeTest() {
+        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
+                "BAIXO","Alguma manifestacao homofobica");
+        assertTrue(teste.associaAtividadeEmPesquisa("COM1",atividade));
+    }
+
+    @Test
+    void associaAtividadeJaAssociadaTest() {
+        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
+                "BAIXO","Alguma manifestacao homofobica");
+        teste.associaAtividadeEmPesquisa("COM1",atividade);
+        assertFalse(teste.associaAtividadeEmPesquisa("COM1",atividade));
+    }
+
+    @Test
+    void desassociaAtividadeEmPesquisaComExcecoesTest() {
+        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
+                "BAIXO","Alguma manifestacao homofobica");
+        assertThrows(NullPointerException.class,()->  teste.desassociaAtividadeEmPesquisa(null,atividade));
+        assertThrows(IllegalArgumentException.class,()-> teste.desassociaAtividadeEmPesquisa("",atividade));
+        assertThrows(IllegalArgumentException.class,()-> teste.desassociaAtividadeEmPesquisa("LEI1",atividade));
+        teste.encerraPesquisa("COM1","Corte de verbas");
+        assertThrows(IllegalArgumentException.class,()-> teste.desassociaAtividadeEmPesquisa("COM1",atividade));
+    }
+
+    @Test
+    void desassociaAtividadeTest() {
+        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
+                "BAIXO","Alguma manifestacao homofobica");
+        teste.associaAtividadeEmPesquisa("COM1",atividade);
+        assertTrue(teste.desassociaAtividadeEmPesquisa("COM1",atividade));
+    }
+
+    @Test
+    void desassociaAtividadeNaoAssociadaTest() {
+        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
+                "BAIXO","Alguma manifestacao homofobica");
+        assertFalse(teste.desassociaAtividadeEmPesquisa("COM1",atividade));
     }
 }

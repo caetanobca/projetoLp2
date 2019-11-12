@@ -447,6 +447,7 @@ public class ControllerPesquisa {
      * @return valor booleano que representa o sucesso ou nao da operacao
      */
     public boolean desassociaAtividadeEmPesquisa(String idPesquisa, Atividade atividade) {
+        validador.validaNulleVazio(idPesquisa,"Campo codigoPesquisa nao pode ser nulo ou vazio.");
         if (!this.pesquisas.containsKey(idPesquisa)) {
             this.validador.lancaExcecao("Pesquisa nao encontrada.");
         }
