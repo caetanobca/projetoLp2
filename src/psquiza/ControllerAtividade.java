@@ -220,7 +220,8 @@ public class ControllerAtividade {
         if (!atividades.containsKey(codigoAtividade)) {
             validador.lancaExcecao("Atividade nao encontrada");
         }
-        return atividades.get(codigoAtividade).cadastraResultado(resultado);
+        Resultado r = new Resultado(resultado);
+        return atividades.get(codigoAtividade).cadastraResultado(r);
     }
 
 

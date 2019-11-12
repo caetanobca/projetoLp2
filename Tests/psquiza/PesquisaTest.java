@@ -14,6 +14,7 @@ class PesquisaTest {
     void testConstroiPesquisaTest() {
         teste1 = new Pesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao,homofobia,graduacao",
                 "COM1");
+        teste2 = new Pesquisa("Cachacas paraibanas","paraiba,cachaca","PAR1");
 
     }
 
@@ -204,5 +205,27 @@ class PesquisaTest {
 
         assertEquals(teste1.hashCode(),teste3.hashCode());
         assertNotEquals(teste1.hashCode(), teste2.hashCode());
+    }
+
+    @Test
+    void associaAtividadeEmPesquisaTest() {
+        Atividade atividade1 =  new Atividade("A1","Realizacao de rodas de conversa","BAIXO"
+        ,"Algum ataque homofobico");
+        Atividade atividade2 = new Atividade("A2","Degustacao das cachacas dos engenhos paraibanos",
+                "BAIXO","Algum aluno ficar embreagado");
+        assertTrue(teste1.associaAtividadeEmPesquisa(atividade1));
+        assertTrue(teste2.associaAtividadeEmPesquisa(atividade2));
+    }
+
+    @Test
+    void associaAtividadeJaAssociadaEmPesquisaTest() {
+        Atividade atividade1 =  new Atividade("A1","Realizacao de rodas de conversa","BAIXO"
+                ,"Algum ataque homofobico");
+        Atividade atividade2 = new Atividade("A2","Degustacao das cachacas dos engenhos paraibanos",
+                "BAIXO","Algum aluno ficar embreagado");
+        teste1.associaAtividadeEmPesquisa(atividade1);
+        teste2.associaAtividadeEmPesquisa(atividade2);
+        assertFalse(teste1.associaAtividadeEmPesquisa(atividade1));
+        assertFalse(teste2.associaAtividadeEmPesquisa(atividade2));
     }
 }
