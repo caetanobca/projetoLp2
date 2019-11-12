@@ -163,19 +163,14 @@ class AtividadeTest {
 
     @Test
     public void testaCadastraResultado() {
-        Resultado resultado1 = new Resultado("Satisfatorio");
-        Resultado resultado2 = new Resultado("Faltam analises");
-        Resultado resultado3 = new Resultado("Horrivel");
-        assertEquals(atividade1.cadastraResultado(resultado1),1);
-        assertEquals(atividade1.cadastraResultado(resultado2),2);
-        assertEquals(atividade2.cadastraResultado(resultado3),1);
+
+        assertEquals(atividade1.cadastraResultado("Satisfatorio"),1);
+        assertEquals(atividade1.cadastraResultado("Horrivel"),2);
+        assertEquals(atividade2.cadastraResultado("Regular"),1);
     }
 
     @Test
     public void testaRemoveResultadoComExcecoes() {
-        Resultado resultado1 = new Resultado("Satisfatorio");
-        atividade1.cadastraResultado(resultado1);
-
         //Valor nulo ou negativo para resultado
         assertThrows(IllegalArgumentException.class,()-> atividade1.removeResultado(-1));
         assertThrows(IllegalArgumentException.class,()-> atividade2.removeResultado(0));
@@ -186,12 +181,9 @@ class AtividadeTest {
 
     @Test
     public void testaRemoveResultado() {
-        Resultado resultado1 = new Resultado("Satisfatorio");
-        Resultado resultado2 = new Resultado("Faltam analises");
-        Resultado resultado3 = new Resultado("Horrivel");
-        atividade1.cadastraResultado(resultado1);
-        atividade1.cadastraResultado(resultado2);
-        atividade1.cadastraResultado(resultado3);
+        atividade1.cadastraResultado("Satisfatorio");
+        atividade1.cadastraResultado("Uma lastima");
+        atividade1.cadastraResultado("Cenas lamentaveis");
         assertTrue(atividade1.removeResultado(2));
         assertTrue(atividade1.removeResultado(1));
         assertTrue(atividade1.removeResultado(3));
@@ -199,12 +191,9 @@ class AtividadeTest {
 
     @Test
     public void testaListaResultados() {
-        Resultado resultado1 = new Resultado("Muita briga");
-        Resultado resultado2 = new Resultado("Discurssao");
-        Resultado resultado3 = new Resultado("Bomba");
-        atividade1.cadastraResultado(resultado1);
-        atividade1.cadastraResultado(resultado2);
-        atividade1.cadastraResultado(resultado3);
+        atividade1.cadastraResultado("Muita briga");
+        atividade1.cadastraResultado("Discurssao");
+        atividade1.cadastraResultado("Bomba");
         assertEquals(atividade1.listaResultados(),"Muita briga" +
                 " | Discurssao | Bomba");
     }

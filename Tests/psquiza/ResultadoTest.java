@@ -12,8 +12,8 @@ public class ResultadoTest {
 
     @BeforeEach
     public void criaResultado() {
-        resultado1 = new Resultado("Satisfatorio");
-        resultado2 = new Resultado("Ruim");
+        resultado1 = new Resultado("Satisfatorio",1);
+        resultado2 = new Resultado("Ruim",2);
     }
 
     @Test

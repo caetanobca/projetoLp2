@@ -10,12 +10,14 @@ public class Resultado {
      * Descreve o resultado da atividade.
      */
     private String descricaoResultado;
+    private int id;
 
     /**
      * Constroi um resultado por meio de sua descricao.
      * @param descricaoResultado e a descricao do resultado
      */
-    public Resultado(String descricaoResultado) {
+    public Resultado(String descricaoResultado,int id) {
+        this.id = id;
         this.descricaoResultado = descricaoResultado;
     }
 
