@@ -38,12 +38,14 @@ public class Professor implements Especialidade {
      * @param data e a data de formacao do professor
      */
     public Professor(String formacao, String unidade, String data) {
+        this.validacao = new Validacao();
         validacao.validaNulleVazio(formacao,"Campo formacao nao pode ser nulo ou vazio");
         validacao.validaNulleVazio(unidade,"Campo unidade nao pode ser nulo ou vazio");
         validacao.validaNulleVazio(data,"Campo data nao pode ser nulo ou vazio");
         this.data = data;
         this.formacao = formacao;
         this.unidade = unidade;
+
     }
 
     /**
