@@ -67,7 +67,7 @@ class ControllerAssociacoesTest {
         this.controllerProblema.cadastraProblema("A falta de paciencia durante a criacao de testes no " +
                 "estudantes da graduacao de computacao", 3);
 
-        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.associaProblema("UNI1", "P1"));
+        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.associaProblema("AAA1", "P1"));
     }
 
     @Test
@@ -114,7 +114,7 @@ class ControllerAssociacoesTest {
         this.controllerProblema.cadastraProblema("A falta de paciencia durante a criacao de testes no " +
                 "estudantes da graduacao de computacao", 3);
 
-        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.desassociaProblema("UNI1"));
+        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.desassociaProblema("AAA1"));
     }
 
     @Test
@@ -152,7 +152,7 @@ class ControllerAssociacoesTest {
     void associaObjetivoEmPesquisaNaoCadastrada(){
         this.controllerObjetivo.cadastraObjetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5);
 
-        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.associaObjetivo("UNI1", "O1"));
+        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.associaObjetivo("AAA1", "O1"));
     }
     @Test
     void associaObjetivoEmPesquisaDesativada(){
@@ -222,7 +222,7 @@ class ControllerAssociacoesTest {
     void desassociaObjetivoEmPesquisaNaoCadastrada(){
         this.controllerObjetivo.cadastraObjetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5);
 
-        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.desassociaObjetivo("UNI1", "O1"));
+        assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.desassociaObjetivo("AAA1", "O1"));
     }
     @Test
     void desassociaObjetivoEmPesquisaDesativada(){

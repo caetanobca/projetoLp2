@@ -526,10 +526,11 @@ class ControllerPesquisaTest {
     }
 
     @Test
-    void listaPesquisasOrdemVaziaOuNull(){
-        assertThrows(IllegalArgumentException.class, ()->teste.listaPesquisas(""));
-        assertThrows(NullPointerException.class, ()->teste.listaPesquisas(null));
-      
+    void listaPesquisasOrdemVaziaOuNull() {
+        assertThrows(IllegalArgumentException.class, () -> teste.listaPesquisas(""));
+        assertThrows(NullPointerException.class, () -> teste.listaPesquisas(null));
+    }
+
     @Test  
     void associaAtividadeEmPesquisaComExcecoesTest() {
         Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",

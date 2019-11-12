@@ -297,13 +297,14 @@ class PesquisaTest {
     }
 
     @Test
-    void compareTo(){
-        teste2 = new Pesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto." , "computacao, poo", "COM2");
+    void compareTo() {
+        teste2 = new Pesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto.", "computacao, poo", "COM2");
         Pesquisa teste3 = new Pesquisa("Avaliacao de modelos preditivos para a extracao de caracteristicas significativas nas eleicoes brasileiras.", "avaliacao, eleicao", "AVA1");
 
         assertEquals("COM1".compareTo("COM1"), teste1.compareTo(teste1));
         assertEquals("COM2".compareTo("COM1"), teste1.compareTo(teste2));
         assertEquals("AVA1".compareTo("COM1"), teste1.compareTo(teste3));
+    }
 
     @Test
     void associaAtividadeEmPesquisaTest() {
