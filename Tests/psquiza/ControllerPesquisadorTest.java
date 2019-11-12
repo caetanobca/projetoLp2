@@ -3,6 +3,9 @@ package psquiza;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerPesquisadorTest {
@@ -15,98 +18,111 @@ class ControllerPesquisadorTest {
         this.controllerPesquisador.cadastraPesquisador("heisenberg", "professor",
                 "Interresado nos efeitos da metafetamina e no estudo sobre o cancer. Pesquisador principal da " +
                         "pesquisa de radigrafia a fotons, peca fundamental na pesquisa que ganhou um premio nobel.",
-                "breakingbad@2008","https://iamthedanger");
+                "breakingbad@2008", "https://iamthedanger");
     }
 
     @Test
     void cadastraPesquisador() {
         this.controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
                 "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto");
-        assertEquals("Caetano (Estudante) - Sofrido estudante de cc - caetano.albuquerque@ccc.ufcg.edu.br - https://minhafoto",
+        assertEquals("Caetano (Estudante) - Sofrido estudante de cc - caetano.albuquerque@ccc.ufcg.edu.br - " +
+                        "https://minhafoto",
                 this.controllerPesquisador.exibePesquisador("caetano.albuquerque@ccc.ufcg.edu.br"));
     }
 
     @Test
     void cadastraPesquisadorNomeNulleVazio() {
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("", "Estudante",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.cadastraPesquisador("", "Estudante",
                 "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
-        assertThrows(NullPointerException.class, ()->controllerPesquisador.cadastraPesquisador(null, "Estudante",
+        assertThrows(NullPointerException.class, () -> controllerPesquisador.cadastraPesquisador(null, "Estudante",
                 "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
     }
 
     @Test
     void cadastraPesquisadorFuncaoNulleVazio() {
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.cadastraPesquisador("Caetano", "",
                 "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
-        assertThrows(NullPointerException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", null,
+        assertThrows(NullPointerException.class, () -> controllerPesquisador.cadastraPesquisador("Caetano", null,
                 "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
     }
 
     @Test
     void cadastraPesquisadorBiografiaNulleVazio() {
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.cadastraPesquisador("Caetano",
+                "Estudante",
                 "", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
-        assertThrows(NullPointerException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+        assertThrows(NullPointerException.class, () -> controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
                 null, "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto"));
     }
 
     @Test
     void cadastraPesquisadorEmailNulleVazio() {
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.cadastraPesquisador("Caetano",
+                "Estudante",
                 "Sofrido estudante de cc", "", "https://minhafoto"));
-        assertThrows(NullPointerException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+        assertThrows(NullPointerException.class, () -> controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
                 "Sofrido estudante de cc", null, "https://minhafoto"));
     }
 
     @Test
     void cadastraPesquisadorEmailInvalido() {
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.cadastraPesquisador("Caetano",
+                "Estudante",
                 "Sofrido estudante de cc", "aa", "https://minhafoto"));
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.cadastraPesquisador("Caetano",
+                "Estudante",
                 "Sofrido estudante de cc", "1@", "https://minhafoto"));
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.cadastraPesquisador("Caetano",
+                "Estudante",
                 "Sofrido estudante de cc", "@a", "https://minhafoto"));
     }
 
     @Test
     void cadastraPesquisadorFotoInvalida() {
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.cadastraPesquisador("Caetano",
+                "Estudante",
                 "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "://minhafoto"));
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.cadastraPesquisador("Caetano",
+                "Estudante",
                 "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https/minhafoto"));
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.cadastraPesquisador("Caetano",
+                "Estudante",
                 "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "minhafoto://minhafoto"));
     }
 
     @Test
     void cadastraPesquisadorFotoNulleVazio() {
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.cadastraPesquisador("Caetano",
+                "Estudante",
                 "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", ""));
-        assertThrows(NullPointerException.class, ()->controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+        assertThrows(NullPointerException.class, () -> controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
                 "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", null));
     }
 
     @Test
     void alteraPesquisadorNome() {
-        this.controllerPesquisador.alteraPesquisador("breakingbad@2008","NOME", "Walter");
+        this.controllerPesquisador.alteraPesquisador("breakingbad@2008", "NOME", "Walter");
         assertEquals("Walter (professor) - Interresado nos efeitos da metafetamina e no estudo sobre o cancer. " +
-                "Pesquisador principal da pesquisa de radigrafia a fotons, peca fundamental na pesquisa que ganhou um premio nobel." +
-                " - breakingbad@2008 - https://iamthedanger",
+                        "Pesquisador principal da pesquisa de radigrafia a fotons, peca fundamental na pesquisa que " +
+                        "ganhou um premio nobel." +
+                        " - breakingbad@2008 - https://iamthedanger",
                 this.controllerPesquisador.exibePesquisador("breakingbad@2008"));
     }
 
     @Test
     void alteraPesquisadorFuncao() {
-        this.controllerPesquisador.alteraPesquisador("breakingbad@2008","FUNCAO", "externo");
+        this.controllerPesquisador.alteraPesquisador("breakingbad@2008", "FUNCAO", "externo");
         assertEquals("heisenberg (externo) - Interresado nos efeitos da metafetamina e no estudo sobre o cancer. " +
-                        "Pesquisador principal da pesquisa de radigrafia a fotons, peca fundamental na pesquisa que ganhou um premio nobel." +
+                        "Pesquisador principal da pesquisa de radigrafia a fotons, peca fundamental na pesquisa que " +
+                        "ganhou um premio nobel." +
                         " - breakingbad@2008 - https://iamthedanger",
                 this.controllerPesquisador.exibePesquisador("breakingbad@2008"));
     }
 
     @Test
     void alteraPesquisadorBiografia() {
-        this.controllerPesquisador.alteraPesquisador("breakingbad@2008","BIOGRAFIA", "Interresado nos efeitos da metafetamina");
+        this.controllerPesquisador.alteraPesquisador("breakingbad@2008", "BIOGRAFIA", "Interresado nos efeitos da " +
+                "metafetamina");
         assertEquals("heisenberg (professor) - Interresado nos efeitos da metafetamina" +
                         " - breakingbad@2008 - https://iamthedanger",
                 this.controllerPesquisador.exibePesquisador("breakingbad@2008"));
@@ -115,60 +131,64 @@ class ControllerPesquisadorTest {
 
     @Test
     void alteraPesquisadorEmail() {
-        this.controllerPesquisador.alteraPesquisador("breakingbad@2008","EMAIL", "breakingbad@2009");
+        this.controllerPesquisador.alteraPesquisador("breakingbad@2008", "EMAIL", "breakingbad@2009");
         assertEquals("heisenberg (professor) - Interresado nos efeitos da metafetamina e no estudo sobre o cancer. " +
-                        "Pesquisador principal da pesquisa de radigrafia a fotons, peca fundamental na pesquisa que ganhou um premio nobel." +
+                        "Pesquisador principal da pesquisa de radigrafia a fotons, peca fundamental na pesquisa que " +
+                        "ganhou um premio nobel." +
                         " - breakingbad@2009 - https://iamthedanger",
                 this.controllerPesquisador.exibePesquisador("breakingbad@2009"));
     }
 
     @Test
     void alteraPesquisadorFoto() {
-        this.controllerPesquisador.alteraPesquisador("breakingbad@2008","FOTO", "https://Cordyceps");
+        this.controllerPesquisador.alteraPesquisador("breakingbad@2008", "FOTO", "https://Cordyceps");
         assertEquals("heisenberg (professor) - Interresado nos efeitos da metafetamina e no estudo sobre o cancer. " +
-                        "Pesquisador principal da pesquisa de radigrafia a fotons, peca fundamental na pesquisa que ganhou um premio nobel." +
+                        "Pesquisador principal da pesquisa de radigrafia a fotons, peca fundamental na pesquisa que " +
+                        "ganhou um premio nobel." +
                         " - breakingbad@2008 - https://Cordyceps",
                 this.controllerPesquisador.exibePesquisador("breakingbad@2008"));
     }
 
     @Test
     void alteraPesquisadorEmailNulleVazio() {
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.alteraPesquisador("",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.alteraPesquisador("",
                 "NOME", "Walter"));
-        assertThrows(NullPointerException.class, ()->controllerPesquisador.alteraPesquisador(null,
+        assertThrows(NullPointerException.class, () -> controllerPesquisador.alteraPesquisador(null,
                 "NOME", "Walter"));
     }
+
     @Test
     void alteraPesquisadoAtributoNulleVazio() {
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.alteraPesquisador("breakingbad@2008",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.alteraPesquisador("breakingbad@2008",
                 "", "Walter"));
-        assertThrows(NullPointerException.class, ()->controllerPesquisador.alteraPesquisador("breakingbad@2008",
+        assertThrows(NullPointerException.class, () -> controllerPesquisador.alteraPesquisador("breakingbad@2008",
                 null, "Walter"));
     }
+
     @Test
     void alteraPesquisadorNovoValorNulleVazio() {
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.alteraPesquisador("breakingbad@2008",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.alteraPesquisador("breakingbad@2008",
                 "NOME", ""));
-        assertThrows(NullPointerException.class, ()->controllerPesquisador.alteraPesquisador("breakingbad@2008",
+        assertThrows(NullPointerException.class, () -> controllerPesquisador.alteraPesquisador("breakingbad@2008",
                 "NOME", null));
     }
 
     @Test
     void alteraPesquisadorNaoCadastrado() {
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.alteraPesquisador("nao@cadastrado",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.alteraPesquisador("nao@cadastrado",
                 "NOME", "nao"));
     }
 
     @Test
     void alteraPesquisadorDesativo() {
         this.controllerPesquisador.desativaPesquisador("breakingbad@2008");
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.alteraPesquisador("breakingbad@2008",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.alteraPesquisador("breakingbad@2008",
                 "NOME", "Walter"));
     }
 
     @Test
     void alteraPesquisadorFuncaoInvalida() {
-        assertThrows(IllegalArgumentException.class, ()->controllerPesquisador.alteraPesquisador("breakingbad@2008",
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisador.alteraPesquisador("breakingbad@2008",
                 "Telefone", "99999999"));
     }
 
@@ -182,18 +202,20 @@ class ControllerPesquisadorTest {
 
     @Test
     void ativaPesquisadorEmaiNulleVazio() {
-        assertThrows(IllegalArgumentException.class, ()->this.controllerPesquisador.ativaPesquisador(""));
-        assertThrows(NullPointerException.class, ()->this.controllerPesquisador.ativaPesquisador(null));
+        assertThrows(IllegalArgumentException.class, () -> this.controllerPesquisador.ativaPesquisador(""));
+        assertThrows(NullPointerException.class, () -> this.controllerPesquisador.ativaPesquisador(null));
     }
 
     @Test
     void ativaPesquisadorNaoCadastrado() {
-        assertThrows(IllegalArgumentException.class, ()->this.controllerPesquisador.ativaPesquisador("nao@cadastrado"));
+        assertThrows(IllegalArgumentException.class, () -> this.controllerPesquisador.ativaPesquisador("nao" +
+                "@cadastrado"));
     }
 
     @Test
     void ativaPesquisadorAtivo() {
-        assertThrows(IllegalArgumentException.class, ()->this.controllerPesquisador.ativaPesquisador("breakingbad@2008"));
+        assertThrows(IllegalArgumentException.class, () -> this.controllerPesquisador.ativaPesquisador("breakingbad" +
+                "@2008"));
     }
 
     @Test
@@ -205,39 +227,42 @@ class ControllerPesquisadorTest {
 
     @Test
     void desativaPesquisadorEmailNulleVazio() {
-        assertThrows(IllegalArgumentException.class, ()->this.controllerPesquisador.desativaPesquisador(""));
-        assertThrows(NullPointerException.class, ()->this.controllerPesquisador.desativaPesquisador(null));
+        assertThrows(IllegalArgumentException.class, () -> this.controllerPesquisador.desativaPesquisador(""));
+        assertThrows(NullPointerException.class, () -> this.controllerPesquisador.desativaPesquisador(null));
     }
 
     @Test
     void desativaPesquisadorNaoCadastrado() {
-        assertThrows(IllegalArgumentException.class, ()->this.controllerPesquisador.desativaPesquisador("nao@cadastrado"));
+        assertThrows(IllegalArgumentException.class, () -> this.controllerPesquisador.desativaPesquisador("nao" +
+                "@cadastrado"));
     }
 
     @Test
     void desativaPesquisadorDesativado() {
         this.controllerPesquisador.desativaPesquisador("breakingbad@2008");
-        assertThrows(IllegalArgumentException.class, ()->this.controllerPesquisador.desativaPesquisador("breakingbad@2008"));
+        assertThrows(IllegalArgumentException.class, () -> this.controllerPesquisador.desativaPesquisador(
+                "breakingbad@2008"));
     }
 
 
     @Test
     void exibePesquisador() {
         assertEquals("heisenberg (professor) - Interresado nos efeitos da metafetamina e no estudo sobre o cancer." +
-                " Pesquisador principal da pesquisa de radigrafia a fotons, peca fundamental na pesquisa que" +
-                " ganhou um premio nobel. - breakingbad@2008 - https://iamthedanger",
+                        " Pesquisador principal da pesquisa de radigrafia a fotons, peca fundamental na pesquisa que" +
+                        " ganhou um premio nobel. - breakingbad@2008 - https://iamthedanger",
                 this.controllerPesquisador.exibePesquisador("breakingbad@2008"));
     }
 
     @Test
     void exibePesquisadorEmailNulleVazio() {
-        assertThrows(IllegalArgumentException.class, ()->this.controllerPesquisador.exibePesquisador(""));
-        assertThrows(NullPointerException.class, ()->this.controllerPesquisador.exibePesquisador(null));
+        assertThrows(IllegalArgumentException.class, () -> this.controllerPesquisador.exibePesquisador(""));
+        assertThrows(NullPointerException.class, () -> this.controllerPesquisador.exibePesquisador(null));
     }
 
     @Test
     void exibePesquisadorNaoCadastrado() {
-        assertThrows(IllegalArgumentException.class, ()->this.controllerPesquisador.exibePesquisador("nao@cadastrado"));
+        assertThrows(IllegalArgumentException.class, () -> this.controllerPesquisador.exibePesquisador("nao" +
+                "@cadastrado"));
     }
 
     @Test
@@ -249,12 +274,54 @@ class ControllerPesquisadorTest {
 
     @Test
     void pesquisadorEhEmailAtivoNulleVazio() {
-        assertThrows(IllegalArgumentException.class, ()->this.controllerPesquisador.pesquisadorEhAtivo(""));
-        assertThrows(NullPointerException.class, ()->this.controllerPesquisador.pesquisadorEhAtivo(null));
+        assertThrows(IllegalArgumentException.class, () -> this.controllerPesquisador.pesquisadorEhAtivo(""));
+        assertThrows(NullPointerException.class, () -> this.controllerPesquisador.pesquisadorEhAtivo(null));
     }
 
     @Test
     void pesquisadorEhAtivoNaoCadstrado() {
-        assertThrows(IllegalArgumentException.class, ()->this.controllerPesquisador.pesquisadorEhAtivo("nao@cadastrado"));
+        assertThrows(IllegalArgumentException.class, () -> this.controllerPesquisador.pesquisadorEhAtivo("nao" +
+                "@cadastrado"));
+    }
+
+    @Test
+    void buscaTest() {
+        this.controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+                "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto");
+        this.controllerPesquisador.cadastraPesquisador("Djonga", "estudante", "Estudante de História, negro, " +
+                "anti-fascista, mineiro e da favela. Rapper que costuma lançar discos e músicas muito boas!", "djonga" +
+                "@rapper.com", "http://djongaehfoda.com");
+
+        List<String> resultado = new ArrayList<>();
+
+        resultado.add("djonga@rapper.com: Estudante de História, negro, anti-fascista, mineiro e da favela. Rapper que costuma lançar discos e músicas muito boas!");
+        resultado.add("caetano.albuquerque@ccc.ufcg.edu.br: Sofrido estudante de cc");
+        resultado.add("breakingbad@2008: Interresado nos efeitos da metafetamina e no estudo sobre o cancer. Pesquisador principal da pesquisa de radigrafia a fotons, peca fundamental na pesquisa que ganhou um premio nobel.");
+
+        assertEquals(resultado, controllerPesquisador.busca("a"));
+
+        List<String> resultado2 = new ArrayList<>();
+
+        resultado2.add("djonga@rapper.com: Estudante de História, negro, anti-fascista, mineiro e da favela. Rapper que costuma lançar discos e músicas muito boas!");
+
+        assertEquals(resultado2, controllerPesquisador.busca("anti"));
+
+        List<String> resultado3 = new ArrayList<>();
+
+        resultado3.add("caetano.albuquerque@ccc.ufcg.edu.br: Sofrido estudante de cc");
+
+        assertEquals(resultado3, controllerPesquisador.busca("frido"));
+
+        List<String> resultado4 = new ArrayList<>();
+
+        resultado4.add("breakingbad@2008: Interresado nos efeitos da metafetamina e no estudo sobre o cancer. Pesquisador principal da pesquisa de radigrafia a fotons, peca fundamental na pesquisa que ganhou um premio nobel.");
+
+        assertEquals(resultado4, controllerPesquisador.busca("nobel"));
+    }
+
+    @Test
+    void buscaTestTermoVaziouOuNull(){
+        assertThrows(IllegalArgumentException.class, ()-> controllerPesquisador.busca(""));
+        assertThrows(NullPointerException.class, ()-> controllerPesquisador.busca(null));
     }
 }
