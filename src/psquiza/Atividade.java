@@ -201,12 +201,13 @@ public class Atividade {
     /**
      * Cadastra um resultado para a atividade.
      *
-     * @param resultado representacao em String do resultado da Ativivdade
+     * @param descricaoResultado representacao em String do resultado da Ativivdade
      * @return valor inteiro que representa o indice do resultado.
      */
-    public int cadastraResultado(Resultado resultado) {
+    public int cadastraResultado(String descricaoResultado) {
         int codigoIdentificador = this.contaResultado + 1;
-        resultados.put(codigoIdentificador,resultado);
+        Resultado r = new Resultado(descricaoResultado,codigoIdentificador);
+        resultados.put(codigoIdentificador,r);
         this.contaResultado++;
         return codigoIdentificador;
     }
