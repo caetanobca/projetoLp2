@@ -208,4 +208,15 @@ class AtividadeTest {
         assertEquals(atividade1.listaResultados(),"Muita briga" +
                 " | Discurssao | Bomba");
     }
+
+    @Test
+    public void testaGetDuracao() {
+        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
+        controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
+                "homofobia,graduacao");
+        controllerPesquisa.associaAtividadeEmPesquisa("COM1",atividade1);
+        atividade1.cadastraItem("Mapa da empresa");
+        atividade1.executaAtividade(1,20);
+        assertEquals(atividade1.getDuracao(),20);
+    }
 }

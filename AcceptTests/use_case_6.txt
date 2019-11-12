@@ -33,7 +33,7 @@ expectError "Pesquisa desativada." desassociaPesquisador idPesquisa="PSI1" email
 
 #Especializando professores
 
-stackTrace cadastraEspecialidadeProfessor email="matheusgr@computacao.ufcg.edu.br" formacao="Bacharel" unidade="CC" data="01/01/1975"
+cadastraEspecialidadeProfessor email="matheusgr@computacao.ufcg.edu.br" formacao="Bacharel" unidade="CC" data="01/01/1975"
 cadastraEspecialidadeProfessor email="eliane@computacao.ufcg.edu.br" formacao="Doutorado" unidade="DSC" data="07/07/2007"
 cadastraEspecialidadeProfessor email="livia@computacao.ufcg.edu.br" formacao="Doutorado" unidade="DSC" data="20/06/2006"
 

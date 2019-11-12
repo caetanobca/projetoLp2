@@ -281,4 +281,27 @@ class ControllerAtividadeTest {
                 " | Discurssao | Bomba");
     }
 
+    @Test
+    public void testaGetDuracaoComExcecoes() {
+        //Codigo atividade nulo ou vazio
+        assertThrows(NullPointerException.class,()->controladorDeAtividade.getDuracao(null));
+        assertThrows(IllegalArgumentException.class,()->controladorDeAtividade.getDuracao(""));
+
+        //Atividade inexistente no sistema
+        assertThrows(IllegalArgumentException.class,()->controladorDeAtividade.getDuracao("A10"));
+    }
+
+    @Test
+    public void testaGetDuracao() {
+        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
+        controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
+                "homofobia,graduacao");
+        controladorDeAtividade.cadastraAtividade("Realizacao de rodas de conversa para debater homofobia","BAIXO"
+                ,"Algum tipo de comportamento homofobico");
+        controllerPesquisa.associaAtividadeEmPesquisa("COM1",controladorDeAtividade.getAtividade("A1"));
+        controladorDeAtividade.cadastraItem("A1","Papel");
+        controladorDeAtividade.executaAtividade("A1",1,10);
+        assertEquals(controladorDeAtividade.getDuracao("A1"),10);
+    }
+
 }
