@@ -2,8 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -82,25 +81,25 @@ public class ControllerPesquisa {
 
         if (!this.pesquisas.containsKey(codigo)) {
             this.validador.lancaExcecao("Pesquisa nao encontrada.");
-        }else if (!this.pesquisas.get(codigo).isAtivada()) {
+        } else if (!this.pesquisas.get(codigo).isAtivada()) {
             this.validador.lancaExcecao("Pesquisa desativada.");
         }
 
 
         if (conteudoASerAlterado.equals("CAMPO") || conteudoASerAlterado.equals("DESCRICAO")) {
-            AlterarPesquisa opcao = AlterarPesquisa.valueOf(conteudoASerAlterado);
-            if (opcao == AlterarPesquisa.DESCRICAO) {
+            AlterarPesquisaEnum opcao = AlterarPesquisaEnum.CAMPO.valueOf(conteudoASerAlterado);
+            if (opcao == AlterarPesquisaEnum.CAMPO.DESCRICAO) {
                 this.validador.validaNulleVazio(novoConteudo, "Descricao nao pode ser nula ou vazia.");
 
                 this.pesquisas.get(codigo).setDescricao(novoConteudo);
 
-            } else if (opcao == AlterarPesquisa.CAMPO) {
+            } else if (opcao == AlterarPesquisaEnum.CAMPO.CAMPO) {
                 this.validador.validaNulleVazio(novoConteudo, "Formato do campo de interesse invalido.");
-                this.validador.validaCampoDeInteresse(novoConteudo,"Formato do campo de interesse invalido.");
+                this.validador.validaCampoDeInteresse(novoConteudo, "Formato do campo de interesse invalido.");
 
                 this.pesquisas.get(codigo).setCampoDeInteresse(novoConteudo);
             }
-        }else {
+        } else {
             this.validador.lancaExcecao("Nao e possivel alterar esse valor de pesquisa.");
         }
     }
@@ -179,20 +178,12 @@ public class ControllerPesquisa {
         return this.pesquisas.get(codigo).isAtivada();
     }
 
-    public Pesquisa getPesquisa(String codigo) {
-        if (!this.pesquisas.containsKey(codigo)) {
-            this.validador.lancaExcecao("Pesquisa nao encontrada.");
-        }
-
-        return this.pesquisas.get(codigo);
-    }
-
     /**
      * Metodo responsavel por associar um Problema para uma Pesquisa, validando o Id de Pesquisa inserido e passando
      * um objeto do tipo Problema para Pesquisa.
      *
      * @param idPesquisa Identificacao da Pesquisa.
-     * @param problema Objeto do tipo Problema a ser associado.
+     * @param problema   Objeto do tipo Problema a ser associado.
      * @return true caso a associacao tenha dado certo, false caso contrario.
      */
     public boolean associaProblemaEmPesquisa(String idPesquisa, Problema problema) {
@@ -216,10 +207,10 @@ public class ControllerPesquisa {
      * um objeto do tipo Problema para Pesquisa.
      *
      * @param idPesquisa Identificacao da Pesquisa.
-     * @param problema Objeto do tipo Problema a ser desassociado.
+     *
      * @return true caso a desassociacao tenha dado certo, false caso contrario.
      */
-    public boolean desassociaProblemaEmPesquisa(String idPesquisa, Problema problema) {
+    public boolean desassociaProblemaEmPesquisa(String idPesquisa){
         boolean desassociou = false;
         if (!this.pesquisas.containsKey(idPesquisa)) {
             this.validador.lancaExcecao("Pesquisa nao encontrada.");
@@ -228,13 +219,21 @@ public class ControllerPesquisa {
             this.validador.lancaExcecao("Pesquisa desativada.");
 
         } else {
-            desassociou = this.pesquisas.get(idPesquisa).desassociaProblemaEmPesquisa(problema);
+            desassociou = this.pesquisas.get(idPesquisa).desassociaProblemaEmPesquisa();
 
         }
 
         return desassociou;
     }
 
+    /**
+     * Metodo responsavel por associar um Objetivo em uma Pesquisa, validando o Id de Pesquisa inserido e passando
+     * um objeto do tipo Objetivo para Pesquisa.
+     *
+     * @param idPesquisa Identificacao da Pesquisa.
+     * @param objetivo   Objeto do tipo Objetivo a ser associado.
+     * @return true caso a associacao tenha dado certo, false caso contrario.
+     */
     public boolean associaObjetivoEmPesquisa(String idPesquisa, Objetivo objetivo) {
         boolean associou = false;
         if (!this.pesquisas.containsKey(idPesquisa)) {
@@ -251,7 +250,14 @@ public class ControllerPesquisa {
         return associou;
     }
 
-
+    /**
+     * Metodo responsavel por desassociar um Objetivo de uma Pesquisa, validando o Id de Pesquisa inserido e passando
+     * um objeto do tipo Objetivo para Pesquisa.
+     *
+     * @param idPesquisa Identificacao da Pesquisa.
+     * @param objetivo   Objeto do tipo Objetivo a ser desassociado.
+     * @return true caso a desassociacao tenha dado certo, false caso contrario.
+     */
     public boolean desassociaObjetivoEmPesquisa(String idPesquisa, Objetivo objetivo) {
         boolean desassociou = false;
         if (!this.pesquisas.containsKey(idPesquisa)) {
@@ -269,5 +275,192 @@ public class ControllerPesquisa {
         return desassociou;
     }
 
+    /**
+     * Metedo responsavel por buscar um termo nas descricoes e nos campos de interesse das Pesquisas.
+     * @param termo Texto que sera usado como referencia na busca.
+     * @return uma lista com todos o resultados.
+     */
+    public List<String> busca(String termo) {
+        validador.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
+
+        List<String> results = new ArrayList<>();
+
+        for (String codigo: pesquisas.keySet()){
+            if (this.pesquisas.get(codigo).getDescricao().contains(termo)){
+                results.add(codigo + ": " + this.pesquisas.get(codigo).getDescricao());
+            }
+            if (this.pesquisas.get(codigo).getCampoDeInteresse().contains(termo)){
+                results.add(codigo + ": " + this.pesquisas.get(codigo).getCampoDeInteresse());
+            }
+        }
+
+        Collections.sort(results, new ComparadorBusca());
+
+        return results;
+    }
+
+  /**
+     * Metodo responsavel por listar, em uma String, todas as pesquisas cadastradas de acordo com o criterio recebido.
+     * O Metodo nao aceita valores diferentes de: "PROBLEMA", "OBJETIVOS", "PESQUISA".
+     *
+     * @param ordem Criterio de ordenacao das Pesquisas.
+     * @return String com a representacao textual de todas as Pesquisas ordenadas de acordo com o criterio inserido
+     * na variavel ordem.
+     */
+    public String listaPesquisas(String ordem) {
+        validador.validaTipoOrdenacao(ordem, "Valor invalido da ordem");
+        ArrayList<Pesquisa> todasAsPesquisas = new ArrayList<>();
+
+        if (ordem.equals("PROBLEMA")) {
+            todasAsPesquisas = ordenaListaPesquisaProblema();
+        } else if (ordem.equals("OBJETIVOS")) {
+            todasAsPesquisas = ordenaListaPesquisaObjetivo();
+        } else if (ordem.equals("PESQUISA")) {
+            todasAsPesquisas = ordenaListaPesquisa();
+
+        }
+
+        String listaDasPesquisas = "";
+        if (!todasAsPesquisas.isEmpty()) {
+            for (Pesquisa pesquisa : todasAsPesquisas) {
+                listaDasPesquisas += pesquisa.toString() + " | ";
+            }
+
+            listaDasPesquisas = listaDasPesquisas.substring(0, listaDasPesquisas.length() - 3);
+        }
+
+        return listaDasPesquisas;
+    }
+
+    /**
+     * Metodo privado que cria um ArrayList com todas as Pesquisas e as ordena de acordo com seu Codigo de
+     * Identificacao, do maior para o menor codigo.
+     *
+     * @return um ArrayList com todas as Pesquisas.
+     */
+    private ArrayList<Pesquisa> ordenaListaPesquisa() {
+        ArrayList<Pesquisa> pesquisasArray = new ArrayList<>();
+        for (Pesquisa pesquisa : pesquisas.values()) {
+            pesquisasArray.add(pesquisa);
+        }
+
+        Collections.sort(pesquisasArray);
+        return pesquisasArray;
+    }
+
+    /**
+     * Metodo privado que cria um ArrayList com todas as Pesquisas e as ordena de acordo com a identificacao de Problema
+     * associado a elas, caso a Pesquisa nao tenha Problema associado, ela deve vir apos as pesquisas com Problema,
+     * ordenadas de acordo com sem codigo identificador, do maior para o menor.
+     *
+     * @return um ArrayList com todas as Pesquisas.
+     */
+    private ArrayList<Pesquisa> ordenaListaPesquisaProblema() {
+        ArrayList<Pesquisa> pesquisasComProblema = new ArrayList<>();
+        ArrayList<Pesquisa> pesquisasSemProblema = new ArrayList<>();
+
+        for (Pesquisa pesquisa : pesquisas.values()) {
+            if (pesquisa.getProblemaAssociado() == null) {
+                pesquisasSemProblema.add(pesquisa);
+            } else {
+                pesquisasComProblema.add(pesquisa);
+            }
+        }
+
+        Collections.sort(pesquisasComProblema, new ComparadorPesquisaPorProblema());
+
+        Collections.sort(pesquisasSemProblema);
+
+        ArrayList<Pesquisa> todasAsPesquisas = new ArrayList<>();
+
+        todasAsPesquisas.addAll(pesquisasComProblema);
+        todasAsPesquisas.addAll(pesquisasSemProblema);
+
+        return todasAsPesquisas;
+    }
+
+    /**
+     * Metodo privado que cria um ArrayList com todas as Pesquisas e as ordena de acordo com a quantidade de Objetivos
+     * associado a Pesquisa. Caso tenha Pesquisas com a mesma quantidade de objetivos, deve-se vir primeiro a Pesquisa
+     * com objeitvo de maior Id. Para as pesquisas sem Objetivo, devem ser ordenadas de acordo com sem codigo
+     * identificador, do maior para o menor.
+     *
+     * @return um ArrayList com todas as Pesquisas.
+     */
+    private ArrayList<Pesquisa> ordenaListaPesquisaObjetivo() {
+        ArrayList<Pesquisa> pesquisasComObjetivo = new ArrayList<>();
+        ArrayList<Pesquisa> pesquisasSemObjetivo = new ArrayList<>();
+
+        for (Pesquisa pesquisa : pesquisas.values()) {
+            if (!pesquisa.getObjetivosAssociados().isEmpty()) {
+                pesquisasComObjetivo.add(pesquisa);
+            } else {
+                pesquisasSemObjetivo.add(pesquisa);
+            }
+        }
+
+        Collections.sort(pesquisasComObjetivo, new ComparadorPesquisaPorObjetivo());
+
+        Collections.sort(pesquisasSemObjetivo);
+
+        ArrayList<Pesquisa> todasAsPesquisas = new ArrayList<>();
+
+        todasAsPesquisas.addAll(pesquisasComObjetivo);
+        todasAsPesquisas.addAll(pesquisasSemObjetivo);
+
+        return todasAsPesquisas;
+    }
+
+    /**
+     * Metodo de acesso para o mapa que armazena Pesquisa.
+     * @return um Mapa com as Pesquisas do sistema
+     */
+    public Map<String, Pesquisa> getPesquisas() {
+        return pesquisas;
+    }
+
+    /**
+     * Associa Atividade em uma Pesquisa. Uma Atividade so pode so pode ser associada em
+     * uma Pesquisa se ela estiver ativa, ou se a atividade nao ja tiver sido associada.
+     *
+     * @param idPesquisa codigo identificador da Pesquisa
+     * @param atividade a Atividade a ser associada
+     * @return valor booleano que representa o sucesso ou nao da associacao
+     */
+    public boolean associaAtividadeEmPesquisa(String idPesquisa, Atividade atividade) {
+        validador.validaNulleVazio(idPesquisa,"Campo codigoPesquisa nao pode ser nulo ou vazio.");
+        if (!this.pesquisas.containsKey(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa nao encontrada.");
+        }
+        if (!pesquisaEhAtiva(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa desativada.");
+        }
+        return this.pesquisas.get(idPesquisa).associaAtividadeEmPesquisa(atividade);
+    }
+
+    /**
+     * Desassocia uma atividade em uma Pesquisa. Uma Atividade nao pode ser dessasociada se
+     * a pesquisa estiver desativada, ou se a atividade nao ja tiver sido associada.
+     *
+     * @param idPesquisa codigo identificador da Pesquisa
+     * @param atividade a Atividade a ser dessasociada
+     * @return valor booleano que representa o sucesso ou nao da operacao
+     */
+    public boolean desassociaAtividadeEmPesquisa(String idPesquisa, Atividade atividade) {
+        validador.validaNulleVazio(idPesquisa,"Campo codigoPesquisa nao pode ser nulo ou vazio.");
+        if (!this.pesquisas.containsKey(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa nao encontrada.");
+        }
+        if (!pesquisaEhAtiva(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa desativada.");
+        }
+        if(!atividade.isAssociada()){
+            return false;
+        }
+        return this.pesquisas.get(idPesquisa).desassociaAtividadeEmPesquisa(atividade);
+    }
 }
+
+
+
 

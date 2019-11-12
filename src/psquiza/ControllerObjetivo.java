@@ -2,7 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Entidade responsavel por armazenar e controlar os objetivos cadastrados no sistema. Essa entidade vai possuir um
@@ -112,5 +112,23 @@ public class ControllerObjetivo {
     }
 
 
+    /**
+     * Metedo responsavel por buscar um termo nas descricoes dos Objetivos.
+     * @param termo Texto que sera usado como referencia na busca.
+     * @return uma lista com todos o resultados.
+     */
+    public List<String> busca(String termo) {
+        validacao.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
 
+        List<String> results = new ArrayList<>();
+
+        for (String codigo: objetivos.keySet()){
+            if (this.objetivos.get(codigo).getDescricao().contains(termo)){
+                results.add(codigo + ": " + this.objetivos.get(codigo).getDescricao());
+            }
+        }
+
+        Collections.sort(results, new ComparadorBusca());
+        return results;
+    }
 }

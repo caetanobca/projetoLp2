@@ -50,6 +50,14 @@ public class Problema {
     }
 
     /**
+     * Metodo responsavel por pegar o Id do Problema.
+     * @return
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
      * Representação de um problema como objeto, no formato "DESCRICAO - VIABILIDADE".
      * @return a string que representa o problema
      */
@@ -81,5 +89,13 @@ public class Problema {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    /**
+     * Metodo responsavel por pegar a descricao do Problema.
+     * @return descricao da Pesquisa.
+     */
+    public String getDescricao() {
+        return descricao;
     }
 }

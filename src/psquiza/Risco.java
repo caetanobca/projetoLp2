@@ -52,4 +52,13 @@ public class Risco {
     public String toString() {
         return nivelRisco + " - " + descricao;
     }
+
+    /**
+     * Metodo responsavel por pegar o valor da variavel descricao.
+     *
+     * @return o valor da variavel descricao.
+     */
+    public String getDescricao() {
+        return this.descricao;
+    }
 }

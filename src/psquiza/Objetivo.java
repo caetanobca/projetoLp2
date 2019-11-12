@@ -9,7 +9,8 @@ import java.util.Objects;
  * definindo a finalidade da pesquisa. Os objetivos sao divididos em dois subgrupos(Geral e Especifico),
  * onde os especificos sao delimitados e comumente estruturados dentro de um objetivo geral, este que por sua vez, busca
  * de maneira mais abrangente e que responde diretamente ao problema da pesquisa. Um objetivo geral, pode vir a
- * nao resolver totalmente o problema apresentado, mas e considerado como um passo na direcao da solucao de tal problema,
+ * nao resolver totalmente o problema apresentado, mas e considerado como um passo na direcao da solucao de tal
+ * problema,
  * todos os objetivos devem ser claros,diretos e viaveis e sao caracterizados pelo seu tipo, descricao
  * aderencia e viabilidade.
  */
@@ -55,18 +56,19 @@ public class Objetivo {
 
     /**
      * Constroi um objetivo, por meio de seu tipo,descricao,aderencia e viabilidade.
-     * @param tipo e o tipo do objetivo
-     * @param descricao e a descricao do objetivo
-     * @param aderencia e a aderencia ao problema do objetivo
+     *
+     * @param tipo        e o tipo do objetivo
+     * @param descricao   e a descricao do objetivo
+     * @param aderencia   e a aderencia ao problema do objetivo
      * @param viabilidade e a viabilidade do objetivo
-     * @param id e o id do objetivo e seu identificador unico
+     * @param id          e o id do objetivo e seu identificador unico
      */
-    public Objetivo(String tipo,String descricao,int aderencia,int viabilidade,String id){
+    public Objetivo(String tipo, String descricao, int aderencia, int viabilidade, String id) {
         this.validacao = new Validacao();
-        validacao.validaNulleVazio(tipo,"Campo tipo nao pode ser nulo ou vazio.");
-        validacao.validaNulleVazio(descricao,"Campo descricao nao pode ser nulo ou vazio.");
-        validacao.validaViabilidadeOuAderencia(aderencia,"Valor invalido de aderencia");
-        validacao.validaViabilidadeOuAderencia(viabilidade,"Valor invalido de viabilidade.");
+        validacao.validaNulleVazio(tipo, "Campo tipo nao pode ser nulo ou vazio.");
+        validacao.validaNulleVazio(descricao, "Campo descricao nao pode ser nulo ou vazio.");
+        validacao.validaViabilidadeOuAderencia(aderencia, "Valor invalido de aderencia");
+        validacao.validaViabilidadeOuAderencia(viabilidade, "Valor invalido de viabilidade.");
         validacao.validaTipoObjetivo(tipo, "Valor invalido de tipo");
         this.tipo = TipoObjetivo.valueOf(tipo);
         this.descricao = descricao;
@@ -77,22 +79,44 @@ public class Objetivo {
 
     }
 
-    public boolean getAssociado(){
+    /**
+     * Metodo de acesso a variavel associado, ou seja, o metodo informa se o Objetivo ja esta associado com alguma
+     * Pesquisa.
+     *
+     * @return variavel booleana, true caso ja esteja associado a alguma pesquisa, false caso contrario.
+     */
+    public boolean getAssociado() {
         return associado;
     }
 
-    public void setAssociado(boolean associado){
+    /**
+     * Metodo responsavel por alterar a variavel associado. Caso o Objetivo seja associado a alguma pesquisa, esse
+     * metodo sera chamado e ira alterar a variavel associado para true. Caso seja desassociado, o metodo sera
+     * chamado a fim de alterar a variavel associado para false
+     *
+     * @param associado um booleano com true ou false, true caso seja para associa-lo, ou false caso contrario.
+     */
+    public void setAssociado(boolean associado) {
         this.associado = associado;
+    }
+
+    /**
+     * Metodo de acesso ao Id de Objetivo.
+     * @return String com o Id do Objetivo.
+     */
+    public String getId() {
+        return id;
     }
 
     /**
      * Apresenta a String no formato "TIPO - DESCRICAO - VALOR". Onde o valor e a soma
      * aritmetica da viabilidade com a aderencia do objetivo.
+     *
      * @return a representacao de um objetivo como objeto
      */
     @Override
     public String toString() {
-        return this.tipo+" - "+this.descricao+" - "+(this.viabilidade+this.aderencia);
+        return this.tipo + " - " + this.descricao + " - " + (this.viabilidade + this.aderencia);
     }
 
     /**
@@ -118,5 +142,13 @@ public class Objetivo {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    /**
+     * Metodo responsavel por pegar a descricao do Objetivo.
+     * @return descricao da Pesquisa.
+     */
+    public String getDescricao() {
+        return descricao;
     }
 }

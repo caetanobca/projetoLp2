@@ -10,7 +10,7 @@ import java.util.Objects;
  * Classe que representa uma pesquisa, que tem descricao, campo de interesse, codigo, e uma variavel que indica
  * se esta ativa ou encerrada
  */
-public class Pesquisa {
+public class Pesquisa implements Comparable<Pesquisa> {
 
     /**
      * Problema associado a essa pesquisa.
@@ -50,6 +50,12 @@ public class Pesquisa {
     private List<Objetivo> objetivos;
 
     /**
+     * ArrayList com todas as atividades da Pesquisa.
+     */
+    private List<Atividade> atividades;
+
+
+    /**
      * Objeto que tem funcoes que auxiliam na validacao de entradas.
      */
     private Validacao validador;
@@ -58,9 +64,9 @@ public class Pesquisa {
      * Construtor da Classe Atividade. O Construtor não aceita parametros vazios, nulos ou não válidos, caso algum
      * valor seja, ele lançara um erro.
      *
-     * @param descricao         Descricao da Pesquisa
-     * @param campoDeInteresse  Campos de interesse que estao associados a esta Pesquisa
-     * @param codigo            Indentificador unico da pesquisa, gerado a partir do campo de interesse.
+     * @param descricao        Descricao da Pesquisa
+     * @param campoDeInteresse Campos de interesse que estao associados a esta Pesquisa
+     * @param codigo           Indentificador unico da pesquisa, gerado a partir do campo de interesse.
      */
     public Pesquisa(String descricao, String campoDeInteresse, String codigo) {
         this.validador = new Validacao();
@@ -75,6 +81,7 @@ public class Pesquisa {
         this.ativada = true;
         this.problemaAssociado = null;
         this.objetivos = new ArrayList<>();
+        this.atividades = new ArrayList<>();
 
     }
 
@@ -134,6 +141,39 @@ public class Pesquisa {
         this.ativada = true;
     }
 
+    /**
+     * Metodo de acesso ao Problema associado a Pesquisa.
+     *
+     * @return Um Objeto do tipo Problema
+     */
+    public Problema getProblemaAssociado() {
+        return problemaAssociado;
+    }
+
+    /**
+     * Metodo de acesso ao ArrayList de Objetivos associados a Pesquisa.
+     *
+     * @return ArrayList de Objetivo.
+     */
+    public List<Objetivo> getObjetivosAssociados() {
+        return objetivos;
+    }
+
+    /**
+     * Metodo de acesso ao Codigo de identificao da Pesquisa
+     * @return Uma String com o Codigo de identificacao da Pesquisa.
+     */
+    public String getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * Metodo responsvel por receber um Problema como parametro, verificar se a Pesquisa ja tem associacao com algum
+     * problema, e caso nao tenha,  associa-lo a Pesquisa.
+     *
+     * @param problema Objeto Problema que sera associado a Pesquisa.
+     * @return  variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
+     */
     public boolean associaProblemaEmPesquisa(Problema problema) {
         boolean associou;
 
@@ -155,9 +195,14 @@ public class Pesquisa {
         return associou;
     }
 
-    public boolean desassociaProblemaEmPesquisa(Problema problema) {
+    /**
+     * Metodo responsavel por desassociar um Problema da Pesquisa em que ele estava associado, verificando se o Problema
+     * passado por parametro e o mesmo que ja esta associado, caso seja, a desassociacao será realizada.
+     * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
+     */
+    public boolean desassociaProblemaEmPesquisa() {
         boolean desassociou;
-        if (this.problemaAssociado == null || "".equals(this.problemaAssociado)) {
+        if (this.problemaAssociado == null || "".equals(this.problemaAssociado)){
 
             desassociou = false;
         } else {
@@ -168,6 +213,13 @@ public class Pesquisa {
         return desassociou;
     }
 
+    /**
+     * Metodo responsvel por receber um Objetivo como parametro, verificar se o Objetivo ja tem associacao com alguma
+     * Pesquisa, e caso nao tenha,  associa-lo a Pesquisa.
+     *
+     * @param objetivo Objeto Objetivo que sera associado a Pesquisa.
+     * @return  variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
+     */
     public boolean associaObjetivoEmPesquisa(Objetivo objetivo) {
         boolean associou = false;
 
@@ -184,6 +236,12 @@ public class Pesquisa {
         return associou;
     }
 
+    /**
+     * Metodo responsavel por desassociar um Objetivo da Pesquisa em que ele estava associado, verificando se o Problema
+     * passado por parametro esta no ArrayList de Objetivos associados, caso esteja, a desassociacao sera realizada.
+     * @param objetivo Objeto Problema que sera desassociado a Pesquisa.
+     * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
+     */
     public boolean desassociaObjetivoEmPesquisa(Objetivo objetivo) {
         boolean desassociou = false;
 
@@ -195,6 +253,43 @@ public class Pesquisa {
 
         return desassociou;
     }
+
+    /**
+     * Associa uma Atividade da Pesquisa. Uma Atividade nao pode ser associada se
+     *      * nao estiver associada em Pesquisa.
+     *
+     * @param atividade a Atividade a ser associada
+     * @return valor booleano que representa o sucesso ou nao da associacao
+     */
+    public boolean associaAtividadeEmPesquisa(Atividade atividade) {
+        if(atividades.contains(atividade)) {
+            return false;
+        } else{
+            atividades.add(atividade);
+            atividade.associa();
+            return true;
+        }
+    }
+
+    /**
+     * Desassocia uma Atividade da Pesquisa. Uma Atividade nao pode ser desassociada se
+     * nao estiver associada em Pesquisa.
+     *
+     * @param atividade a Atividade a ser dessasociada
+     * @return valor booleano que representa o sucesso ou nao da operacao
+     */
+    public boolean desassociaAtividadeEmPesquisa(Atividade atividade){
+        if (!atividades.contains(atividade)){
+            return false;
+        } else {
+            atividades.remove(atividade);
+            atividade.desassocia();
+            return true;
+        }
+
+
+    }
+
 
     /**
      * Metodo que cria uma representacao textual da pesquisa.
@@ -224,5 +319,27 @@ public class Pesquisa {
     @Override
     public int hashCode() {
         return Objects.hash(codigo);
+    }
+
+
+    /**
+     * Metodo responsavel por pegar a descricao da Pesquisa.
+     * @return descricao da Pesquisa.
+     */
+    public String getDescricao() {
+        return descricao;
+    }
+
+    /**
+     * Metodo responsavel por pegar os campos de interesse da Pesquisa.
+     * @return campos de interesse da Pesquisa.
+     */
+    public String getCampoDeInteresse() {
+        return campoDeInteresse;
+    }
+
+    @Override
+    public int compareTo(Pesquisa o) {
+        return o.getCodigo().compareTo(codigo);
     }
 }

@@ -2,6 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -44,12 +45,24 @@ public class Pesquisador {
      */
     private boolean ativo;
 
+    /**
+     * Objeto da classe Validacao, que tem como funcao, lancar excecoes caso seja necessario(Entradas nulas e vazias).
+     */
     private Validacao validador;
 
     /**
-     * Constroi um pesquisador a partir de seu nome, funcao, biografia, email valido e a URL da foto valida.
+     * Sao as pesquisas que um pesquisador possui cadastradas junto a ele.
+     */
+    private ArrayList<String> pesquisas;
+
+    private boolean especializado;
+
+    private Especialidade especialidade;
+
+    /**
+     * Constroi um pesquisador a partir de seu nome, funcao, biografia, email valido,
+     * URL da foto valida e suas respectivas pesquisas.
      * Caso qualquer atributo esteja invalido, uma excecao sera lancada.
-     *
      * @param nome o nome do pesquisador
      * @param funcao a funcao do pesquisador (estudante, professor ou externo)
      * @param biografia a biografia do pesquisador
@@ -65,12 +78,22 @@ public class Pesquisador {
         validador.validaNulleVazio(fotoURL, "Campo fotoURL nao pode ser nulo ou vazio.");
         validador.validaEmail(email, "Formato de email invalido.");
         validador.validaFoto(fotoURL, "Formato de foto invalido.");
+
         this.nome = nome;
         this.funcao = funcao;
         this.biografia = biografia;
         this.email = email;
         this.fotoURL = fotoURL;
         this.ativo = true;
+        this.pesquisas = new ArrayList<>();
+    }
+
+    public boolean isEspecializado() {
+        return especializado;
+    }
+
+    public void setEspecializado(boolean especializado) {
+        this.especializado = especializado;
     }
 
     /**
@@ -160,6 +183,33 @@ public class Pesquisador {
     }
 
     /**
+     * Adiciona uma nova pesquisa a lista de pesquisas que o pesquisador possui. Uma excecao sera lancada caso o usuario
+     * tente passar ao sistema um idPesquisa nulo ou vazio.
+     * @param idPesquisa e o identificador unico da pesquisa que sera adicionado
+     */
+   public void adicionaPesquisa(String idPesquisa) {
+        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
+        pesquisas.add(idPesquisa);
+   }
+
+    public void removePesquisa(String idPesquisa) {
+        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
+        pesquisas.remove(idPesquisa);
+    }
+
+    /**
+     * Metodo que retorna ao usuario a lista com as pesquisas do pesquisador.
+     * @return o ArrayList com todas as pesquisas de um pesquisador
+     */
+    public ArrayList<String> getPesquisas() {
+        return pesquisas;
+    }
+
+    public String getFuncao() {
+        return funcao;
+    }
+
+    /**
      * Retorna uma representacao em String do pesquisador. A representacao segue o formato:
      * "NOME (FUNCAO) - BIOGRAFIA - EMAIL - FOTOURL".
      *
@@ -195,4 +245,37 @@ public class Pesquisador {
         return Objects.hash(email);
     }
 
+    /**
+     * Metodo responsavel por pegar a biografia do Pesquisador.
+     * @return biografia do Pesquisador.
+     */
+    public String getBiografia() {
+        return this.biografia;
+    }
+
+    
+
+    public void especializaProfessor(String formacao, String unidade, String data) {
+        this.especialidade = new Professor(formacao, unidade, data);
+    }
+
+    public void especializaEstudante(int semestre, double IEA) {
+        this.especialidade = new Estudante(semestre, IEA);
+    }
+
+    public void alteraEspecialidade(String atributo, int valorUsarSemestre) {
+        this.especialidade.edita(atributo, valorUsarSemestre + "");
+    }
+
+    public void alteraEspecialidade(String atributo,double valorUsarIEA) {
+        this.especialidade.edita(atributo, valorUsarIEA + "");
+    }
+
+    public void alteraEspecialidade(String atributo, String novoValor) {
+        this.especialidade.edita(atributo, novoValor);
+    }
+
+    public String exibeEspecializado() {
+        return this.toString() + this.especialidade.toString();
+    }
 }

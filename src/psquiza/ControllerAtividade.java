@@ -2,8 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Classe responssavel por gerenciar as Atividades cadastradas no sistema. As Atividades sao armazenadas em um mapa
@@ -175,6 +174,124 @@ public class ControllerAtividade {
         }
 
         return itensPendentes;
+    }
+
+    /**
+     * Retorna uma Atividade com base no codigo identificador unico dela.
+     *
+     * @param id o codigo identificador unico
+     * @return a Atividade com o codigo identificador procurado
+     */
+    public Atividade getAtividade(String id) {
+        if(!this.atividades.containsKey(id)) {
+            validador.lancaExcecao("Atividade nao encontrada");
+        }
+        return this.atividades.get(id);
+    }
+
+    /**
+     * Executa um item de uma atividade. Cada execucao de item possui uma duracao.
+     *
+     * @param codigoAtividade codigo da Atividade a ser executada
+     * @param item item da atividade a ser executado
+     * @param duracao duracao da execucao do item na Atividade
+     */
+    public void executaAtividade(String codigoAtividade, int item, int duracao) {
+        validador.validaNulleVazio(codigoAtividade,"Campo codigoAtividade nao pode ser nulo ou vazio.");
+        validador.validaInteiro(item,"Item nao pode ser nulo ou negativo.");
+        validador.validaInteiro(duracao,"Duracao nao pode ser nula ou negativa.");
+        if (!atividades.containsKey(codigoAtividade)) {
+            validador.lancaExcecao("Atividade nao encontrada");
+        }
+        atividades.get(codigoAtividade).executaAtividade(item,duracao);
+    }
+
+    /**
+     * Cadastra um Resultado na Atividade. Cada resultado retorna um identificador unico inteiro com base
+     * na ordem de insercao do resultado.
+     *
+     * @param codigoAtividade identificador da atividade, em String
+     * @param resultado representacao em String do resultado da atividade
+     * @return valor inteiro do indentificador inteiro de resultado
+     */
+    public int cadastraResultado(String codigoAtividade, String resultado){
+        validador.validaNulleVazio(codigoAtividade,"Campo codigoAtividade nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(resultado,"Resultado nao pode ser nulo ou vazio.");
+        if (!atividades.containsKey(codigoAtividade)) {
+            validador.lancaExcecao("Atividade nao encontrada");
+        }
+        return atividades.get(codigoAtividade).cadastraResultado(resultado);
+    }
+
+
+    /**
+     * Remove um resultado de uma atividade com base nos identificadores de Resultado e Atividade.
+     * Retorna um booleano informando o sucesso ou nao da operacao.
+     *
+     * @param codigoAtividade codigo identificador da atividade, em String
+     * @param numeroResultado codigo idenficiador do resultado, em inteiro
+     * @return valor booleano informando o sucesso ou nao da atividade
+     */
+    public boolean removeResultado(String codigoAtividade, int numeroResultado){
+        validador.validaNulleVazio(codigoAtividade,"Campo codigoAtividade nao pode ser nulo ou vazio.");
+        validador.validaInteiro(numeroResultado,"numeroResultado nao pode ser nulo ou negativo.");
+        if (!atividades.containsKey(codigoAtividade)) {
+            validador.lancaExcecao("Atividade nao encontrada");
+        }
+        return atividades.get(codigoAtividade).removeResultado(numeroResultado);
+    }
+
+    /**
+     * Retorna a lista de todos os resultados de uma certa Atividade.
+     *
+     * @param codigoAtividade codigo identificador da atividade em String
+     * @return representacao em String dos resultados da Atividade
+     */
+    public String listaResultados(String codigoAtividade){
+        validador.validaNulleVazio(codigoAtividade,"Campo codigoAtividade nao pode ser nulo ou vazio.");
+        if (!atividades.containsKey(codigoAtividade)) {
+            validador.lancaExcecao("Atividade nao encontrada");
+        }
+        return atividades.get(codigoAtividade).listaResultados();
+    }
+
+    /**
+     * Retorna a duracacao da realizacao de todos os itens de uma Atividade.
+     *
+     * @return valor inteiro que representa a duracao da realizacao da atividade
+     */
+    public int getDuracao(String codigoAtividade){
+        validador.validaNulleVazio(codigoAtividade,"Campo codigoAtividade nao pode ser nulo ou vazio.");
+        if(!atividades.containsKey(codigoAtividade)){
+            validador.lancaExcecao("Atividade nao encontrada");
+        }
+        return atividades.get(codigoAtividade).getDuracao();
+    }
+
+    /**
+     * Metedo responsavel por buscar um termo nas descricoes e nas descricoes dos risco das Atividades.
+     * @param termo Texto que sera usado como referencia na busca.
+     * @return uma lista com todos o resultados.
+     */
+    public List<String> busca(String termo) {
+        validador.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
+
+        List<String> results = new ArrayList<>();
+
+        List<String> buscaDescricao = new ArrayList<>();
+
+        for (String codigo: atividades.keySet()){
+            if (this.atividades.get(codigo).getDescricao().contains(termo)){
+                results.add(codigo + ": " + this.atividades.get(codigo).getDescricao());
+            }
+            if (this.atividades.get(codigo).getDescricaoDoRisco().contains(termo)){
+                results.add(codigo + ": " + this.atividades.get(codigo).getDescricaoDoRisco());
+            }
+        }
+
+        Collections.sort(results, new ComparadorBusca());
+
+        return results;
     }
 }
 
