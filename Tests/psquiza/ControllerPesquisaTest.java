@@ -3,6 +3,9 @@ package psquiza;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerPesquisaTest {
@@ -249,15 +252,15 @@ class ControllerPesquisaTest {
         String msg2 = "COM2 - Racismo na graduacao de Ciencias da Computacao - computacao,racismo,graduacao";
         String msg3 = "SAU1 - Saude Mental dos estudantes da area de exatas - saude mental, estudantes,exatas";
 
-        assertEquals(msg1,teste.exibePesquisa("COM1"));
-        assertEquals(msg2,teste.exibePesquisa("COM2"));
-        assertEquals(msg3,teste.exibePesquisa("SAU1"));
+        assertEquals(msg1, teste.exibePesquisa("COM1"));
+        assertEquals(msg2, teste.exibePesquisa("COM2"));
+        assertEquals(msg3, teste.exibePesquisa("SAU1"));
     }
 
     @Test
-    void exibePesquisaNaoCadastrada(){
-        assertThrows(IllegalArgumentException.class, ()->teste.exibePesquisa("UNI1"));
-        assertThrows(IllegalArgumentException.class, ()->teste.exibePesquisa("COM2"));
+    void exibePesquisaNaoCadastrada() {
+        assertThrows(IllegalArgumentException.class, () -> teste.exibePesquisa("UNI1"));
+        assertThrows(IllegalArgumentException.class, () -> teste.exibePesquisa("COM2"));
     }
 
     @Test
@@ -270,16 +273,69 @@ class ControllerPesquisaTest {
 
     @Test
     void pesquisaEhAtivaCodigoVazioOuNull() {
-        assertThrows(IllegalArgumentException.class, ()->teste.pesquisaEhAtiva(""));
-        assertThrows(NullPointerException.class, ()->teste.pesquisaEhAtiva(null));
+        assertThrows(IllegalArgumentException.class, () -> teste.pesquisaEhAtiva(""));
+        assertThrows(NullPointerException.class, () -> teste.pesquisaEhAtiva(null));
 
     }
 
     @Test
     void pesquisaEhAtivaPesquisaNaoEncontrada() {
-        assertThrows(IllegalArgumentException.class, ()->teste.pesquisaEhAtiva("COM2"));
-        assertThrows(IllegalArgumentException.class, ()->teste.pesquisaEhAtiva("UNI2"));
+        assertThrows(IllegalArgumentException.class, () -> teste.pesquisaEhAtiva("COM2"));
+        assertThrows(IllegalArgumentException.class, () -> teste.pesquisaEhAtiva("UNI2"));
 
+    }
+
+    @Test
+    void buscaTest() {
+
+        teste.cadastraPesquisa("Racismo na graduacao de Ciencias da Computacao", "computacao," +
+                "racismo,graduacao");
+        teste.cadastraPesquisa("Saude Mental dos estudantes da area de exatas", "saude mental, " +
+                "estudantes,exatas");
+
+        List<String> resultado = new ArrayList<>();
+
+        resultado.add("SAU1: Saude Mental dos estudantes da area de exatas");
+        resultado.add("SAU1: saude mental, estudantes,exatas");
+        resultado.add("COM2: Racismo na graduacao de Ciencias da Computacao");
+        resultado.add("COM2: computacao,racismo,graduacao");
+        resultado.add("COM1: Homofobia na graduacao de Ciencias da Computacao");
+        resultado.add("COM1: computacao,homofobia,graduacao");
+
+        assertEquals(resultado,teste.busca("a"));
+
+        List<String> resultado2 = new ArrayList<>();
+
+        resultado2.add("COM2: Racismo na graduacao de Ciencias da Computacao");
+        resultado2.add("COM2: computacao,racismo,graduacao");
+        resultado2.add("COM1: Homofobia na graduacao de Ciencias da Computacao");
+        resultado2.add("COM1: computacao,homofobia,graduacao");
+
+        assertEquals(resultado2,teste.busca("graduacao"));
+
+        List<String> resultado3 = new ArrayList<>();
+
+        resultado3.add("SAU1: Saude Mental dos estudantes da area de exatas");
+
+        assertEquals(resultado3,teste.busca("Mental"));
+
+        List<String> resultado4 = new ArrayList<>();
+
+        resultado4.add("COM2: Racismo na graduacao de Ciencias da Computacao");
+
+        assertEquals(resultado4,teste.busca("Racismo"));
+
+        List<String> resultado5 = new ArrayList<>();
+
+        resultado5.add("COM1: Homofobia na graduacao de Ciencias da Computacao");
+
+        assertEquals(resultado5,teste.busca("Homofobia"));
+    }
+
+    @Test
+    void buscaTestTermoVaziouOuNull(){
+        assertThrows(IllegalArgumentException.class, ()-> teste.busca(""));
+        assertThrows(NullPointerException.class, ()-> teste.busca(null));
     }
 
     @Test

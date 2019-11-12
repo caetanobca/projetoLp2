@@ -299,7 +299,7 @@ public class ControllerPesquisa {
         return results;
     }
 
-  /*
+  /**
      * Metodo responsavel por listar, em uma String, todas as pesquisas cadastradas de acordo com o criterio recebido.
      * O Metodo nao aceita valores diferentes de: "PROBLEMA", "OBJETIVOS", "PESQUISA".
      *

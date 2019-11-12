@@ -68,7 +68,7 @@ public class ControllerBusca {
             return resultados.size();
         }
 
-        public List<String> realizaBusca (String termo){
+        private List<String> realizaBusca (String termo){
             validador.validaNulleVazio(termo, "Campo termo nao pode ser nulo ou vazio.");
 
             List<String> resultados = new ArrayList<>();

@@ -3,8 +3,11 @@ package psquiza;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ControllerProblemaTest {
 
@@ -76,5 +79,44 @@ class ControllerProblemaTest {
             controllerProblema.exibeProblema("");});
         assertThrows(NullPointerException.class, () -> {
             controllerProblema.exibeProblema(null);});
+    }
+
+    @Test
+    void buscaTest(){
+        controllerProblema.cadastraProblema("A problematica da falta de espelhos nos banheiros da UFCG",5);
+
+        List<String> resultado = new ArrayList<>();
+
+        resultado.add("P3: A problematica da falta de espelhos nos banheiros da UFCG");
+        resultado.add("P2: O problema do barulho incessante durante a hora do almoco no LCC-2");
+        resultado.add("P1: A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao");
+
+        assertEquals(resultado,controllerProblema.busca("a"));
+
+        List<String> resultado2 = new ArrayList<>();
+
+        resultado2.add("P1: A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao");
+
+        assertEquals(resultado2, controllerProblema.busca("testes"));
+
+
+        List<String> resultado3 = new ArrayList<>();
+
+        resultado3.add("P2: O problema do barulho incessante durante a hora do almoco no LCC-2");
+
+        assertEquals(resultado3, controllerProblema.busca("barulho"));
+
+        List<String> resultado4 = new ArrayList<>();
+
+        resultado4.add("P3: A problematica da falta de espelhos nos banheiros da UFCG");
+
+        assertEquals(resultado4, controllerProblema.busca("UFCG"));
+
+    }
+
+    @Test
+    void buscaTestTermoVaziouOuNull(){
+        assertThrows(IllegalArgumentException.class, ()-> controllerProblema.busca(""));
+        assertThrows(NullPointerException.class, ()-> controllerProblema.busca(null));
     }
 }

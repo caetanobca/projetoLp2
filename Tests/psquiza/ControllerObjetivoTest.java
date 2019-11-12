@@ -4,7 +4,11 @@ package psquiza;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ControllerObjetivoTest {
 
@@ -117,5 +121,45 @@ class ControllerObjetivoTest {
             controllerObjetivo.exibeObjetivo(null);});
         assertThrows(IllegalArgumentException.class, () -> {
             controllerObjetivo.exibeObjetivo("O3");});
+    }
+
+    @Test
+    void buscaTest(){
+
+        controllerObjetivo.cadastraObjetivo("ESPECIFICO", "Realizar praticas de Yoga durante o almoco no LCC-2",3,1);
+
+        List<String> resultado = new ArrayList<>();
+
+        resultado.add("O3: Realizar praticas de Yoga durante o almoco no LCC-2");
+        resultado.add("O2: Criar bonfiicacao aos melhores testadores de cada turma");
+        resultado.add("O1: Aumentar o interesse dos alunos em realizar testes nas aulas de programacao");
+
+        assertEquals(resultado, controllerObjetivo.busca("a"));
+
+        List<String> resultado2 = new ArrayList<>();
+
+        resultado2.add("O3: Realizar praticas de Yoga durante o almoco no LCC-2");
+
+        assertEquals(resultado2, controllerObjetivo.busca("Yoga"));
+
+        List<String> resultado3 = new ArrayList<>();
+
+
+        resultado3.add("O2: Criar bonfiicacao aos melhores testadores de cada turma");
+
+        assertEquals(resultado3, controllerObjetivo.busca("testadores"));
+
+        List<String> resultado4 = new ArrayList<>();
+
+        resultado4.add("O1: Aumentar o interesse dos alunos em realizar testes nas aulas de programacao");
+
+        assertEquals(resultado4, controllerObjetivo.busca("alunos"));
+
+    }
+
+    @Test
+    void buscaTestTermoVaziouOuNull(){
+        assertThrows(IllegalArgumentException.class, ()-> controllerObjetivo.busca(""));
+        assertThrows(NullPointerException.class, ()-> controllerObjetivo.busca(null));
     }
 }
