@@ -293,5 +293,58 @@ public class ControllerAtividade {
 
         return results;
     }
+
+    public void defineProximaAtividade(String idPrecedente,String idSubsquente) {
+        boolean contem = false;
+        validador.validaNulleVazio(idPrecedente,"Atividade nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(idSubsquente,"Atividade nao pode ser nulo ou vazio.");
+        if(!atividades.containsKey(idSubsquente) || (!atividades.containsKey(idPrecedente))) {
+            validador.lancaExcecao("Atividade nao encontrada.");
+        }
+        if(!atividades.get(idPrecedente).getSubsequente().equals("")) {
+            validador.lancaExcecao("Atividade ja possui uma subsequente.");
+        }
+        for(String chave : atividades.keySet()) {
+            if(atividades.get(chave).getPrecedentes().contains(idSubsquente)) {
+                contem = true;
+            }
+        }
+        if(contem==true) {
+            validador.lancaExcecao("Criacao de loops negada.");
+        }
+        atividades.get(idPrecedente).setSubsequente(idSubsquente);
+        boolean verifica = false;
+        for(String chave : atividades.keySet()) {
+            if(atividades.get(chave).getSubsequente().equals(idSubsquente)) {
+                verifica = true;
+            }
+        }
+        for(int i=0;i<atividades.get(idPrecedente).getPrecedentes().size();i++){
+            atividades.get(idSubsquente).adicionaPrecedente(atividades.get(idPrecedente).getPrecedentes().get(i));
+        }
+        atividades.get(idSubsquente).adicionaPrecedente(idPrecedente);
+    }
+
+    public int contaProximos(String idPrecedente) {
+        validador.validaNulleVazio(idPrecedente,"Atividade nao pode ser nulo ou vazio.");
+        if(!atividades.containsKey(idPrecedente)) {
+            validador.lancaExcecao("Atividade nao encontrada.");
+        }
+        int contador = 0;
+        String compare = atividades.get(idPrecedente).getSubsequente();
+        while(true) {
+            if(compare.equals("")) {
+                break;
+            }else {
+                contador++;
+                idPrecedente = compare;
+                compare = atividades.get(compare).getSubsequente();
+            }
+        }
+
+        return contador;
+
+    }
+
 }
 

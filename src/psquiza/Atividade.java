@@ -2,10 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Classe que representa uma Atividade a ser realizada afim de obter resultados. Cada atividade planejada apresenta
@@ -54,6 +51,10 @@ public class Atividade {
      */
     private int contaResultado;
 
+    private List<String> precedentes;
+
+    private String subsequente;
+
     /**
      * Construtor da Classe Atividade. O Construtor não aceita parametros vazios, nulos ou não válidos, caso algum
      * valor seja, ele lançara um erro.
@@ -79,6 +80,8 @@ public class Atividade {
         this.associada = false;
         this.resultados = new HashMap<>();
         this.contaResultado = 0;
+        this.precedentes = new ArrayList<>();
+        this.subsequente = "";
     }
 
     /**
@@ -269,6 +272,32 @@ public class Atividade {
      */
     public String  getDescricaoDoRisco() {
         return this.nivelRisco.getDescricao();
+    }
+
+    public void adicionaPrecedente(String idAtividade) {
+        this.precedentes.add(idAtividade);
+    }
+
+    public void setSubsequente(String subsequente) {
+        this.subsequente = subsequente;
+    }
+
+    public String getSubsequente() {
+        return subsequente;
+    }
+
+    public List<String> getPrecedentes() {
+        return precedentes;
+    }
+
+    public boolean contemPrecedente(String idPrecedente) {
+        boolean retorno = false;
+        for(int i=0;i<precedentes.size();i++) {
+            if(idPrecedente.equals(precedentes.get(i))) {
+                retorno = true;
+            }
+        }
+        return retorno;
     }
 
     @Override
