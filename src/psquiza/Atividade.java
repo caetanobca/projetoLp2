@@ -51,8 +51,17 @@ public class Atividade {
      */
     private int contaResultado;
 
+    /**
+     * Lista que armazena os Id's das atividades que por ordem de definicao
+     * provavelmente serao executadas antes desta atividade.
+     */
     private List<String> precedentes;
 
+    /**
+     * Atividade que por ordem de definicao, provavelmente sera executada
+     * depois desta atividade.Cada atividade pode possuir apenas uma atividade
+     * subsequente. A subsequente e inicializada por padrao com uma String vazia.
+     */
     private String subsequente;
 
     /**
@@ -274,22 +283,49 @@ public class Atividade {
         return this.nivelRisco.getDescricao();
     }
 
+    /**
+     * Metodo que tem como funcao adicionar a atividade o id das atividades
+     * que foram definidas para serem executadas anteriormente.
+     * @param idAtividade e o codigo da atividade que sera adicionado a precedencia
+     */
     public void adicionaPrecedente(String idAtividade) {
         this.precedentes.add(idAtividade);
     }
 
+    /**
+     * Metodo responsavel por alterar a ordem de sequencia das atividades, pois
+     * altera o subsequente.
+     * @param subsequente e a atividade que sera executada posteriormente
+     */
     public void setSubsequente(String subsequente) {
         this.subsequente = subsequente;
     }
 
+    /**
+     * Metodo que retona o Id da atividade subsequente.
+     * @return o Id da atividade subsequente
+     */
     public String getSubsequente() {
         return subsequente;
     }
 
+    /**
+     * Metodo que retorna a lista com as atividades precedentes.
+     * @return a lista com os Id's das atividades precedentes
+     */
     public List<String> getPrecedentes() {
         return precedentes;
     }
 
+    /**
+     * Metodo responsavel por verificar se uma atividade e precedente desta atividade. Para
+     * realizar a verificacao, o Id da atividade que se deseja verificar e passado, caso este
+     * id esteja contido na lista de precedentes o valor true e retornado, caso contrario
+     * o valor false e retornado.
+     * @param idPrecedente e o id que deseja se verificar se esta contido na precedencia
+     * @return um valor booleano que dara a resposta se o valor de id informado esta contido
+     * na lista de precedencias
+     */
     public boolean contemPrecedente(String idPrecedente) {
         boolean retorno = false;
         for(int i=0;i<precedentes.size();i++) {
@@ -300,9 +336,14 @@ public class Atividade {
         return retorno;
     }
 
-    public void removePrecedente(String retirar) {
-        if(precedentes.contains(retirar)) {
-            precedentes.remove(retirar);
+    /**
+     * Metodo responsavel por remover da lista de precedencia algum valor desejado pelo usuario.
+     * Para realizar a remocao, o id que deseja ser removido pelo usuario e passado como parametro.
+     * @param idRemover e o id que o usuario deseja remover da lista de precedencia
+     */
+    public void removePrecedente(String idRemover) {
+        if(precedentes.contains(idRemover)) {
+            precedentes.remove(idRemover);
         }
     }
 

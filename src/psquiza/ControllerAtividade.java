@@ -294,6 +294,16 @@ public class ControllerAtividade {
         return results;
     }
 
+    /**
+     * Metodo responsavel por definir qual sera a proxima atividade a ser executada, criando assim
+     * uma ordem de execucao, que nao necessariamente precisa ser seguida, mas que e util para melhor
+     * aproveitamento. Para definir a ordem, o metodo recebe duas strings com ids de atividades, uma e
+     * a precedente e outra a subsequente, apos verificar as excecoes(Valores nulos,vazios,inexistentes ou
+     * atividade precedente ja possuir uma subsequente) o metodo armazena nas atividades que possuem os
+     * respecitvos ids as informacoes de precedencia e subsequencia.
+     * @param idPrecedente e o id da atividade precedente
+     * @param idSubsquente e o id da atividade subsequente
+     */
     public void defineProximaAtividade(String idPrecedente,String idSubsquente) {
         boolean contem = false;
         validador.validaNulleVazio(idPrecedente,"Atividade nao pode ser nulo ou vazio.");
@@ -325,6 +335,13 @@ public class ControllerAtividade {
         atividades.get(idSubsquente).adicionaPrecedente(idPrecedente);
     }
 
+    /**
+     * Metodo que tem como funcao retornar um valor inteiro que informa ao usuario quantas atividades
+     * restam ser realizadas se a ordem for seguida. Uma excecao e lancada caso usuario informe um id
+     * nulo,vazio ou inexistente no sistema.
+     * @param idPrecedente e o id do qual se ira partir para saber quantas atividades restam ser executadas
+     * @return o numero inteiro de atividades que faltam ser realizadas
+     */
     public int contaProximos(String idPrecedente) {
         validador.validaNulleVazio(idPrecedente,"Atividade nao pode ser nulo ou vazio.");
         if(!atividades.containsKey(idPrecedente)) {
@@ -346,6 +363,13 @@ public class ControllerAtividade {
 
     }
 
+    /**
+     * Metodo responsavel por retirar uma atividade de determinada ordem de execucao, para o metodo
+     * funcionar, ele recebe o id da atividade, e retira este id de todas as listas de precedencia e da
+     * subsequencia em que ele estava. Uma excecao sera lancada, caso usuario informe um id nulo,vazio ou
+     * inexistente.
+     * @param idPrecedente e o id que se deseja remover da ordem
+     */
     public void tiraProximaAtividade(String idPrecedente) {
         validador.validaNulleVazio(idPrecedente,"Atividade nao pode ser nulo ou vazio.");
         if(!atividades.containsKey(idPrecedente)) {
@@ -360,6 +384,13 @@ public class ControllerAtividade {
         atividade.setSubsequente("");
     }
 
+    /**
+     * Metodo responsavel por retornar ao usuario a atividade que sera executada apos x
+     * atividades.
+     * @param idAtividade e o id da atividade que esta sendo executada
+     * @param enesimaAtividade e o valor de quantas atividades depois o usuario deseja saber
+     * @return
+     */
     public String pegaProximo(String idAtividade,int enesimaAtividade) {
         validador.validaNulleVazio(idAtividade,"Atividade nao pode ser nulo ou vazio.");
         if(enesimaAtividade<=0) {
@@ -384,6 +415,12 @@ public class ControllerAtividade {
         return retorno;
     }
 
+    /**
+     * Metodo que retorna a string com o id da atividade com maior risco de ser executada, ou seja
+     * a atividade que e executada por ultimo no sistema.
+     * @param idAtividade e o id da atividade que esta em uma ordem
+     * @return o valor da ultima string subsequente da ordem
+     */
     public String pegaMaiorRiscoAtividades(String idAtividade) {
         validador.validaNulleVazio(idAtividade,"Atividade nao pode ser nulo ou vazio.");
         if(!atividades.containsKey(idAtividade)) {
