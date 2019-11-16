@@ -209,4 +209,11 @@ public class Facade {
         this.controllerAtividade.tiraProximaAtividade(idPrecedente);
     }
 
+    public String pegaProximo(String idAtividade,int enesimaAtividade) {
+        return this.controllerAtividade.pegaProximo(idAtividade,enesimaAtividade);
+    }
+
+    public String pegaMaiorRiscoAtividades(String idAtividade) {
+        return this.controllerAtividade.pegaMaiorRiscoAtividades(idAtividade);
+    }
 }

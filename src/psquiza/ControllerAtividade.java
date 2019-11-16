@@ -360,5 +360,49 @@ public class ControllerAtividade {
         atividade.setSubsequente("");
     }
 
+    public String pegaProximo(String idAtividade,int enesimaAtividade) {
+        validador.validaNulleVazio(idAtividade,"Atividade nao pode ser nulo ou vazio.");
+        if(enesimaAtividade<=0) {
+            validador.lancaExcecao("EnesimaAtividade nao pode ser negativa ou zero.");
+        }
+        String retorno = "";
+        int contador = 0;
+        String compare = atividades.get(idAtividade).getSubsequente();
+        while(true) {
+            if(contador==enesimaAtividade) {
+                retorno = idAtividade;
+                break;
+            }else if(compare.equals("")) {
+                validador.lancaExcecao("Atividade inexistente.");
+            }else {
+                contador++;
+                idAtividade = compare;
+                compare = atividades.get(idAtividade).getSubsequente();
+            }
+
+        }
+        return retorno;
+    }
+
+    public String pegaMaiorRiscoAtividades(String idAtividade) {
+        validador.validaNulleVazio(idAtividade,"Atividade nao pode ser nulo ou vazio.");
+        if(!atividades.containsKey(idAtividade)) {
+            validador.lancaExcecao("Atividade nao encontrada.");
+        }
+        if(atividades.get(idAtividade).getSubsequente().equals("")) {
+            validador.lancaExcecao("Nao existe proxima atividade.");
+        }
+        String compare = atividades.get(idAtividade).getSubsequente();
+        while(true) {
+            if(compare.equals("")) {
+                break;
+            }else {
+                idAtividade = compare;
+                compare = atividades.get(idAtividade).getSubsequente();
+            }
+        }
+        return idAtividade;
+    }
+
 }
 
