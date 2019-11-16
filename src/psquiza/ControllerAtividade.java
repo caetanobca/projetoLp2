@@ -346,5 +346,19 @@ public class ControllerAtividade {
 
     }
 
+    public void tiraProximaAtividade(String idPrecedente) {
+        validador.validaNulleVazio(idPrecedente,"Atividade nao pode ser nulo ou vazio.");
+        if(!atividades.containsKey(idPrecedente)) {
+            validador.lancaExcecao("Atividade nao encontrada.");
+        }
+        String retirar = atividades.get(idPrecedente).getSubsequente();
+        for(String chave : atividades.keySet()) {
+            Atividade atividade = atividades.get(chave);
+            atividade.removePrecedente(retirar);
+        }
+        Atividade atividade = atividades.get(idPrecedente);
+        atividade.setSubsequente("");
+    }
+
 }
 

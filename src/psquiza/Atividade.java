@@ -300,6 +300,12 @@ public class Atividade {
         return retorno;
     }
 
+    public void removePrecedente(String retirar) {
+        if(precedentes.contains(retirar)) {
+            precedentes.remove(retirar);
+        }
+    }
+
     @Override
     public String toString() {
         return descricao + " (" + nivelRisco.toString() + ")" + exibeItens();

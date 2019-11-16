@@ -205,4 +205,8 @@ public class Facade {
         return this.controllerAtividade.contaProximos(idPrecedente);
     }
 
+    public void tiraProximaAtividade(String idPrecedente) {
+        this.controllerAtividade.tiraProximaAtividade(idPrecedente);
+    }
+
 }
