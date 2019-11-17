@@ -119,4 +119,7 @@ public class Item {
         return Objects.hash(nome);
     }
 
+    public int getId() {
+        return id;
+    }
 }

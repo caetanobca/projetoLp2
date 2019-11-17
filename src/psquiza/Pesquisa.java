@@ -428,9 +428,9 @@ public class Pesquisa implements Comparable<Pesquisa> {
 
                 resumo +=  System.lineSeparator() + "        - " + atividade[0];
 
-                for (int i = 1; i < atividade.length; i++){
-                    resumo += System.lineSeparator() + "            -" + atividade[i].split("-")[0]
-                            +"- " + "ITEM"+ i;
+                for (int i = 0; i < atividade.length -1; i++){
+                    resumo += System.lineSeparator() + "            - " + a.getItens().get(i).getStatus()
+                            +" - " + "ITEM"+ a.getItens().get(i).getId();
                 }
             }
         }
@@ -470,8 +470,10 @@ public class Pesquisa implements Comparable<Pesquisa> {
                         a.getDescricao();
 
                 for (int i = 0; i < a.getItens().size(); i++){
-                    resultado += System.lineSeparator() + "            - ITEM" + (i+1)+ " - "
-                            + a.getItens().get(i).getDuracao();
+                    if (a.getItens().get(i).getDuracao() != 0) {
+                        resultado += System.lineSeparator() + "            - ITEM" + a.getItens().get(i).getId() + " - "
+                                + a.getItens().get(i).getDuracao();
+                    }
                 }
 
                 for (int i : a.getResultados().keySet()){
