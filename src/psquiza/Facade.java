@@ -1,5 +1,7 @@
 package psquiza;
 
+import java.io.IOException;
+
 public class Facade {
     private ControllerPesquisa controllerPesquisa;
     private ControllerProblema controllerProblema;
@@ -196,4 +198,12 @@ public class Facade {
     public String listaPesquisadores(String tipo) {
         return this.controllerPesquisador.listaPesquisadores(tipo);
     }
+
+    public void gravarResumo(String codigoPesquisa) throws IOException {
+        this.controllerPesquisa.gravaResumo(codigoPesquisa);
+    }
+    public void gravarResultados(String codigoPesquisa) throws IOException {
+        this.controllerPesquisa.gravaResultados(codigoPesquisa);
+    }
+
 }

@@ -11,7 +11,7 @@ import java.util.Objects;
  * Classe que representa uma Atividade a ser realizada afim de obter resultados. Cada atividade planejada apresenta
  * uma descricao do que deve ser feito, uma duracao planejada, resultados esperados e um risco associado.
  */
-public class Atividade {
+public class Atividade implements Comparable<Atividade> {
 
     /**
      * Codigo identificador da Atividade, cada atividade eh identificada por uma String com o codigo A + valor
@@ -301,4 +301,18 @@ public class Atividade {
         return Objects.hash(codigoIdentificador);
     }
 
+
+
+    @Override
+    public int compareTo(Atividade o) {
+        return this.codigoIdentificador.compareTo(o.codigoIdentificador);
+    }
+
+    public List<Item> getItens() {
+        return itens;
+    }
+
+    public HashMap<Integer, Resultado> getResultados() {
+        return resultados;
+    }
 }

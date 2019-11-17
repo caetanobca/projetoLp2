@@ -243,33 +243,7 @@ public class ControllerPesquisador {
         return pesquisadores;
     }
 
-    /**
-     * Metodo responsavel por associar uma pesquisa a determinado pesquisador, para identificacao de qual pesquisa e qual
-     * pesquisador serao relacionados, o idPesquisa e o emailPesquisador sao utilizados. Uma excecao e lancada caso o usuario
-     * queira fornecer algum valor nulo ou vazio para os parametros.
-     * @param idPesquisa e o identificador unico da pesquisa
-     * @param emailPesquisador e o email e identificador unico do pesquisador
-     */
-    public void associaPesquisador(String idPesquisa, String emailPesquisador) {
-        validador.validaNulleVazio(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
-        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
-        Pesquisador pesquisador = pesquisadores.get(emailPesquisador);
-        pesquisador.adicionaPesquisa(idPesquisa);
-    }
 
-    /**
-     * Metodo responsavel por desassociar uma pesquisa de um determinado pesquisador, para identificacao de qual pesquisa e qual
-     * pesquisador serao desassociados, o idPesquisa e o emailPesquisador sao utilizados. Uma excecao e lancada caso o usuario
-     * queira fornecer algum valor nulo ou vazio para os parametros.
-     * @param idPesquisa e o identificador unico da pesquisa
-     * @param emailPesquisador e o email e identificador unico do pesquisador
-     */
-    public void desassociaPesquisador(String idPesquisa,String emailPesquisador) {
-        validador.validaNulleVazio(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
-        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
-        Pesquisador pesquisador = pesquisadores.get(emailPesquisador);
-        pesquisador.removePesquisa(idPesquisa);
-    }
 
     /**
      * Metodo responsavel por cadastrar uma especialidade em um professor, o email do professor e utilizado
@@ -370,5 +344,12 @@ public class ControllerPesquisador {
         }
         retorno = retorno.substring(0,retorno.length()-3);
         return retorno;
+    }
+
+    public Pesquisador getPesquisador(String emailPesquisador) {
+        if (this.pesquisadores.containsKey(emailPesquisador)){
+            return this.pesquisadores.get(emailPesquisador);
+        }
+        throw new IllegalArgumentException();
     }
 }
