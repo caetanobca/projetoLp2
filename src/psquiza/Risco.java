@@ -61,4 +61,9 @@ public class Risco {
     public String getDescricao() {
         return this.descricao;
     }
+
+    public NivelRisco getNivelRisco() {
+        return nivelRisco;
+    }
 }
+

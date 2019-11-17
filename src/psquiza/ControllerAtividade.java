@@ -416,8 +416,8 @@ public class ControllerAtividade {
     }
 
     /**
-     * Metodo que retorna a string com o id da atividade com maior risco de ser executada, ou seja
-     * a atividade que e executada por ultimo no sistema.
+     * Metodo que retorna a string com o id da atividade com maior risco de ser executada na ordem
+     * de execucao.
      * @param idAtividade e o id da atividade que esta em uma ordem
      * @return o valor da ultima string subsequente da ordem
      */
@@ -429,16 +429,30 @@ public class ControllerAtividade {
         if(atividades.get(idAtividade).getSubsequente().equals("")) {
             validador.lancaExcecao("Nao existe proxima atividade.");
         }
-        String compare = atividades.get(idAtividade).getSubsequente();
+        String compare = atividades.get(idAtividade).getNivelRisco();
+        String retorno = idAtividade;
         while(true) {
-            if(compare.equals("")) {
+            if(atividades.get(idAtividade).getSubsequente().equals("")) {
                 break;
             }else {
-                idAtividade = compare;
-                compare = atividades.get(idAtividade).getSubsequente();
+                idAtividade = atividades.get(idAtividade).getSubsequente();
+                if(compare.equals("BAIXO")) {
+                    compare = atividades.get(idAtividade).getNivelRisco();
+                    retorno = idAtividade;
+                }else if(compare.equals("MEDIO")) {
+                    if(atividades.get(idAtividade).getNivelRisco().equals("MEDIO") ||atividades.get(idAtividade).getDescricaoDoRisco().equals("MEDIO")) {
+                        compare = atividades.get(idAtividade).getNivelRisco();
+                        retorno = idAtividade;
+                    }
+                }else if(compare.equals("ALTO")) {
+                    if(atividades.get(idAtividade).getNivelRisco().equals("ALTO")) {
+                        compare = atividades.get(idAtividade).getNivelRisco();
+                        retorno = idAtividade;
+                    }
+                }
             }
         }
-        return idAtividade;
+        return retorno;
     }
 
 }

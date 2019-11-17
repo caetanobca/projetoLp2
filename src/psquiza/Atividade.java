@@ -283,6 +283,11 @@ public class Atividade {
         return this.nivelRisco.getDescricao();
     }
 
+    public Risco getNivelRisco() {
+        return Enum.valueOf(NivelRisco.class,this.nivelRisco.getNivelRisco());
+    }
+
+
     /**
      * Metodo que tem como funcao adicionar a atividade o id das atividades
      * que foram definidas para serem executadas anteriormente.
@@ -371,7 +376,7 @@ public class Atividade {
     /**
      * Método que retorna um inteiro único baseado no codigo identificador da Atividade.
      * @return inteiro único baseado no codigo identificador da Atividade.
-     */
+    g */
     @Override
     public int hashCode() {
         return Objects.hash(codigoIdentificador);
