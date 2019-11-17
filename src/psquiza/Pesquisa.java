@@ -410,7 +410,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
                 + this.problemaAssociado.getId() + " - " +this.problemaAssociado.toString();
         }
         if (this.objetivos.size() > 0) {
-            resumo +=  System.lineSeparator() +  "     - Objetivo:";
+            resumo +=  System.lineSeparator() +  "     - Objetivos:";
             Collections.sort(objetivos);
 
             for (Objetivo o : objetivos){

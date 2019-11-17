@@ -305,7 +305,12 @@ public class Atividade implements Comparable<Atividade> {
 
     @Override
     public int compareTo(Atividade o) {
-        return this.codigoIdentificador.compareTo(o.codigoIdentificador);
+        if (Integer.parseInt(this.codigoIdentificador.substring(1)) > Integer.parseInt(o.codigoIdentificador.substring(1))){
+            return 1;
+        }else if (Integer.parseInt(this.codigoIdentificador.substring(1)) < Integer.parseInt(o.codigoIdentificador.substring(1))) {
+            return -1;
+        }
+        return 0;
     }
 
     public List<Item> getItens() {

@@ -154,6 +154,11 @@ public class Objetivo implements Comparable<Objetivo> {
 
     @Override
     public int compareTo(Objetivo o) {
-        return this.id.compareTo(o.getId());
+        if (Integer.parseInt(this.id.substring(1)) > Integer.parseInt(o.getId().substring(1))){
+            return 1;
+        }else if (Integer.parseInt(this.id.substring(1)) < Integer.parseInt(o.getId().substring(1))) {
+            return -1;
+        }
+        return 0;
     }
 }
