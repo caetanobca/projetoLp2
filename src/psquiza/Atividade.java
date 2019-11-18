@@ -217,6 +217,14 @@ public class Atividade implements Comparable<Atividade>, Serializable{
     }
 
     /**
+     * Metodo que retorna o codigo identificador da Atividade
+     * @return o codigo identificador unico da Atividade
+     */
+    public String getCodigoIdentificador() {
+        return codigoIdentificador;
+    }
+
+    /**
      * Cadastra um resultado para a atividade.
      *
      * @param descricaoResultado representacao em String do resultado da Ativivdade
@@ -289,10 +297,13 @@ public class Atividade implements Comparable<Atividade>, Serializable{
         return this.nivelRisco.getDescricao();
     }
 
+    /**
+     * Metodo que retorna o NivelRisco da execucao da Atividade
+     * @return o NivelRisco associado a Atividade
+     */
     public String getNivelRisco() {
         return nivelRisco.getNivelRisco();
     }
-
 
     /**
      * Metodo que tem como funcao adicionar a atividade o id das atividades
@@ -387,7 +398,6 @@ public class Atividade implements Comparable<Atividade>, Serializable{
     public int hashCode() {
         return Objects.hash(codigoIdentificador);
     }
-
 
 
     @Override

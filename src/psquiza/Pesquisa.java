@@ -181,6 +181,28 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
     }
 
     /**
+     * Retorna as Atividades associadas a essa pesquisa.
+     * @return as Atividades associadas a essa pesquisa
+     */
+    public List<Atividade> getAtividades() {
+        return atividades;
+    }
+
+    /**
+     * Retorna a informacao se a Atividada ha ou nao Itens
+     * pendentes.
+     * @return valor booleano informando se ha itens pendentes ou nao
+     */
+    public boolean hasPendencias(){
+        for (Atividade atividade : atividades){
+            if (atividade.contaItensPendentes() > 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Metodo responsvel por receber um Problema como parametro, verificar se a Pesquisa ja tem associacao com algum
      * problema, e caso nao tenha,  associa-lo a Pesquisa.
      *

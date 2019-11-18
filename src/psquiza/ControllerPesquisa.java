@@ -3,7 +3,7 @@ package psquiza;
 import util.Validacao;
 
 import java.io.Serializable;
-import java.io.IOException
+import java.io.IOException;
 import java.util.*;
 
 

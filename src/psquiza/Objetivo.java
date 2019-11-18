@@ -16,7 +16,7 @@ import java.util.Objects;
  * aderencia e viabilidade.
  */
 
-public class Objetivo implements Comparable<Objetivo>, implements Serializable {
+public class Objetivo implements Comparable<Objetivo>, Serializable {
 
 
     /**
