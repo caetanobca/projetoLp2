@@ -14,7 +14,7 @@ import java.util.Objects;
  * todos os objetivos devem ser claros,diretos e viaveis e sao caracterizados pelo seu tipo, descricao
  * aderencia e viabilidade.
  */
-public class Objetivo {
+public class Objetivo implements Comparable<Objetivo> {
 
     /**
      * E o tipo do objetivo que varia entre Geral ou Especifico.
@@ -150,5 +150,15 @@ public class Objetivo {
      */
     public String getDescricao() {
         return descricao;
+    }
+
+    @Override
+    public int compareTo(Objetivo o) {
+        if (Integer.parseInt(this.id.substring(1)) > Integer.parseInt(o.getId().substring(1))){
+            return 1;
+        }else if (Integer.parseInt(this.id.substring(1)) < Integer.parseInt(o.getId().substring(1))) {
+            return -1;
+        }
+        return 0;
     }
 }

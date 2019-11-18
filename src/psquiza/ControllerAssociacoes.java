@@ -99,29 +99,23 @@ public class ControllerAssociacoes {
      * @param emailPesquisador e o email e identificador unico do pesquisador
      */
     public boolean associaPesquisador(String idPesquisa,String emailPesquisador) {
-        boolean retorno;
         validador.validaNulleVazio(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
         validador.validaNulleVazio(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
         if(!controllerPesquisa.getPesquisas().containsKey(idPesquisa)) {
             validador.lancaExcecao("Pesquisa nao encontrada.");
         }
-        if(controllerPesquisa.getPesquisas().get(idPesquisa).isAtivada()==false) {
+        if(!controllerPesquisa.getPesquisas().get(idPesquisa).isAtivada()) {
             validador.lancaExcecao("Pesquisa desativada.");
         }
         if(!controllerPesquisador.getPesquisadores().containsKey(emailPesquisador)) {
             validador.lancaExcecao("Pesquisador nao encontrado.");
         }
-        if(controllerPesquisador.getPesquisadores().get(emailPesquisador).isAtivo()==false) {
+        if(!this.controllerPesquisador.getPesquisador(emailPesquisador).isAtivo()) {
             validador.lancaExcecao("Pesquisador desativado");
         }
-        if(controllerPesquisador.getPesquisadores().get(emailPesquisador).getPesquisas().contains(idPesquisa)) {
-            retorno =  false;
-        }else {
-            Pesquisa pesquisa = controllerPesquisa.getPesquisas().get(idPesquisa);
-            controllerPesquisador.associaPesquisador(idPesquisa, emailPesquisador);
-            retorno = true;
-        }
-        return retorno;
+
+        return this.controllerPesquisa.associaPesquisador(idPesquisa,
+                this.controllerPesquisador.getPesquisador(emailPesquisador));
     }
 
     /**
@@ -132,7 +126,6 @@ public class ControllerAssociacoes {
      * @param emailPesquisador e o email e identificador unico do pesquisador
      */
     public boolean desassociaPesquisador(String idPesquisa,String emailPesquisador) {
-        boolean retorno;
         validador.validaNulleVazio(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
         validador.validaNulleVazio(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
         if(!controllerPesquisa.getPesquisas().containsKey(idPesquisa)) {
@@ -147,14 +140,9 @@ public class ControllerAssociacoes {
         if(controllerPesquisador.getPesquisadores().get(emailPesquisador).isAtivo()==false) {
             validador.lancaExcecao("Pesquisador desativado");
         }
-        if(controllerPesquisador.getPesquisadores().get(emailPesquisador).getPesquisas().contains(idPesquisa)) {
-            Pesquisa pesquisa = controllerPesquisa.getPesquisas().get(idPesquisa);
-            controllerPesquisador.desassociaPesquisador(idPesquisa, emailPesquisador);
-            retorno =  true;
-        }else {
-            retorno = false;
-        }
-        return retorno;
+
+        return this.controllerPesquisa.desassociaPesquisador(idPesquisa,
+                this.controllerPesquisador.getPesquisador(emailPesquisador));
     }
 
     public boolean associaAtividade(String codigoPesquisa, String codigoAtividade){

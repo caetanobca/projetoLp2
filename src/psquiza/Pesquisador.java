@@ -2,7 +2,6 @@ package psquiza;
 
 import util.Validacao;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -50,11 +49,6 @@ public class Pesquisador {
      */
     private Validacao validador;
 
-    /**
-     * Sao as pesquisas que um pesquisador possui cadastradas junto a ele.
-     */
-    private ArrayList<String> pesquisas;
-
     private boolean especializado;
 
     private Especialidade especialidade;
@@ -85,7 +79,6 @@ public class Pesquisador {
         this.email = email;
         this.fotoURL = fotoURL;
         this.ativo = true;
-        this.pesquisas = new ArrayList<>();
     }
 
     public boolean isEspecializado() {
@@ -182,28 +175,6 @@ public class Pesquisador {
         return ativo;
     }
 
-    /**
-     * Adiciona uma nova pesquisa a lista de pesquisas que o pesquisador possui. Uma excecao sera lancada caso o usuario
-     * tente passar ao sistema um idPesquisa nulo ou vazio.
-     * @param idPesquisa e o identificador unico da pesquisa que sera adicionado
-     */
-   public void adicionaPesquisa(String idPesquisa) {
-        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
-        pesquisas.add(idPesquisa);
-   }
-
-    public void removePesquisa(String idPesquisa) {
-        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
-        pesquisas.remove(idPesquisa);
-    }
-
-    /**
-     * Metodo que retorna ao usuario a lista com as pesquisas do pesquisador.
-     * @return o ArrayList com todas as pesquisas de um pesquisador
-     */
-    public ArrayList<String> getPesquisas() {
-        return pesquisas;
-    }
 
     public String getFuncao() {
         return funcao;

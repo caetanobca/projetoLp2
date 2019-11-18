@@ -2,6 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
+import java.io.IOException;
 import java.util.*;
 
 
@@ -42,7 +43,7 @@ public class ControllerPesquisa {
         this.validador.validaCampoDeInteresse(campoDeInteresse, "Formato do campo de interesse invalido.");
 
         String codigoPesquisa;
-        codigoPesquisa = this.geraCodigoDePesquisa(campoDeInteresse.substring(0, 3).toUpperCase(), 1);
+        codigoPesquisa = this.geraCodigoDePesquisa(campoDeInteresse.substring(0, 3).toUpperCase(), 0);
 
         this.pesquisas.put(codigoPesquisa, new Pesquisa(descricao, campoDeInteresse, codigoPesquisa));
 
@@ -58,11 +59,10 @@ public class ControllerPesquisa {
      * @return - o codigo que a pesquisa tera
      */
     private String geraCodigoDePesquisa(String codigo, int i) {
-        if (this.pesquisas.containsKey(codigo + i)) {
-            i++;
-            this.geraCodigoDePesquisa(codigo, i);
+        if (!this.pesquisas.containsKey(codigo + (i+1))) {
+            return codigo + (i+1);
         }
-        return codigo + i;
+        return this.geraCodigoDePesquisa(codigo, i+1);
     }
 
     /**
@@ -458,6 +458,47 @@ public class ControllerPesquisa {
             return false;
         }
         return this.pesquisas.get(idPesquisa).desassociaAtividadeEmPesquisa(atividade);
+    }
+
+    /**
+     * Metodo responsavel por associar um pesquisador  a determinadapesquisa, para identificacao de qual pesquisa e qual
+     * pesquisador serao relacionados, o idPesquisa e o emailPesquisador sao utilizados. Uma excecao e lancada caso o usuario
+     * queira fornecer algum valor nulo ou vazio para os parametros.
+     * @param idPesquisa e o identificador unico da pesquisa
+     * @param pesquisador e o pesquisador
+     */
+    public boolean associaPesquisador(String idPesquisa, Pesquisador pesquisador) {
+        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
+        return this.pesquisas.get(idPesquisa).associaPesquisador(pesquisador);
+    }
+
+    /**
+     * Metodo responsavel por desassociar uma pesquisa de um determinado pesquisador, para identificacao de qual pesquisa e qual
+     * pesquisador serao desassociados, o idPesquisa e o emailPesquisador sao utilizados. Uma excecao e lancada caso o usuario
+     * queira fornecer algum valor nulo ou vazio para os parametros.
+     * @param idPesquisa e o identificador unico da pesquisa
+     * @param pesquisador e o pesquisador
+     */
+    public boolean desassociaPesquisador(String idPesquisa, Pesquisador pesquisador) {
+        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
+        return this.pesquisas.get(idPesquisa).desassociaPesquisador(pesquisador);
+    }
+
+
+    public void gravaResumo(String codigoPesquisa) throws IOException {
+        this.validador.validaNulleVazio(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+        if (!this.pesquisas.containsKey(codigoPesquisa)){
+            this.validador.lancaExcecao("Pesquisa nao encontrada.");
+        }
+        this.pesquisas.get(codigoPesquisa).gravaResumo();
+    }
+
+    public void gravaResultados(String codigoPesquisa) throws IOException {
+        this.validador.validaNulleVazio(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+        if (!this.pesquisas.containsKey(codigoPesquisa)){
+            this.validador.lancaExcecao("Pesquisa nao encontrada.");
+        }
+        this.pesquisas.get(codigoPesquisa).gravaResultado();
     }
 }
 

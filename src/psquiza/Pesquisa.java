@@ -2,9 +2,10 @@ package psquiza;
 
 import util.Validacao;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Classe que representa uma pesquisa, que tem descricao, campo de interesse, codigo, e uma variavel que indica
@@ -61,6 +62,12 @@ public class Pesquisa implements Comparable<Pesquisa> {
     private Validacao validador;
 
     /**
+     * Mapa que usa como chave a posicao de cadastro do pesquisador e guarda todos os
+     * pesquisadores associados a pesquisa
+     */
+    private List<Pesquisador> pesquisadores;
+
+    /**
      * Construtor da Classe Atividade. O Construtor não aceita parametros vazios, nulos ou não válidos, caso algum
      * valor seja, ele lançara um erro.
      *
@@ -82,6 +89,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
         this.problemaAssociado = null;
         this.objetivos = new ArrayList<>();
         this.atividades = new ArrayList<>();
+        this.pesquisadores = new ArrayList<>();
 
     }
 
@@ -341,5 +349,138 @@ public class Pesquisa implements Comparable<Pesquisa> {
     @Override
     public int compareTo(Pesquisa o) {
         return o.getCodigo().compareTo(codigo);
+    }
+
+
+    public boolean associaPesquisador(Pesquisador pesquisador) {
+        if (this.pesquisadores.contains(pesquisador)){
+            return false;
+        }
+        this.pesquisadores.add(pesquisador);
+
+        return true;
+    }
+
+
+    public boolean desassociaPesquisador(Pesquisador pesquisador) {
+        if (this.pesquisadores.contains(pesquisador)){
+            this.pesquisadores.remove(pesquisador);
+            return true;
+        }
+        return false;
+    }
+
+    public void gravaResumo() throws IOException {
+        File file = new File("_" + this.codigo +  ".txt");
+        String resumo = this.criaResumo();
+        FileWriter fw = null;
+
+        try {
+            fw = new FileWriter(file, false);
+            fw.write(resumo);
+
+        } finally {
+            if (fw != null) {
+                try {
+                    fw.close();
+                } catch (IOException e) {
+                    System.err.println("Nao foi possivel fechar o resumo.");
+                }
+            }
+        }
+    }
+
+    private String criaResumo(){
+        String resumo = '"' + "- Pesquisa: " + this.toString();
+
+        if (this.pesquisadores.size() > 0){
+            resumo += System.lineSeparator() + "    - Pesquisadores:";
+
+
+            for (Pesquisador p : this.pesquisadores){
+                if (p.isEspecializado()){
+                    resumo += System.lineSeparator() + "        - " + p.exibeEspecializado();
+                }else {
+                    resumo += System.lineSeparator() + "        - " + p.toString();
+                }
+            }
+        }
+        if (this.problemaAssociado != null){
+            resumo +=  System.lineSeparator() + "    - Problema:" +  System.lineSeparator() + "        - "
+                + this.problemaAssociado.getId() + " - " +this.problemaAssociado.toString();
+        }
+        if (this.objetivos.size() > 0) {
+            resumo +=  System.lineSeparator() +  "     - Objetivos:";
+            Collections.sort(objetivos);
+
+            for (Objetivo o : objetivos){
+                resumo +=  System.lineSeparator() +  "        - " + o.getId() + " - " + o.toString();
+            }
+
+        }
+
+        if (this.atividades.size() > 0){
+            resumo +=  System.lineSeparator() + "    - Atividades:";
+            Collections.sort(this.atividades);
+
+            for (Atividade a : atividades){
+                String[] atividade = a.toString().replace("|", "_").split("_");
+
+                resumo +=  System.lineSeparator() + "        - " + atividade[0];
+
+                for (int i = 0; i < atividade.length -1; i++){
+                    resumo += System.lineSeparator() + "            - " + a.getItens().get(i).getStatus()
+                            +" - " + "ITEM"+ a.getItens().get(i).getId();
+                }
+            }
+        }
+        return resumo + '"';
+    }
+
+    public void gravaResultado() throws IOException {
+        File file = new File(this.codigo +  "-Resultados.txt");
+        String resultado = this.criaResultado();
+        FileWriter fw = null;
+
+        try {
+            fw = new FileWriter(file, false);
+            fw.write(resultado);
+
+        } finally {
+            if (fw != null) {
+                try {
+                    fw.close();
+                } catch (IOException e) {
+                    System.err.println("Nao foi possivel fechar o resumo.");
+                }
+            }
+        }
+    }
+
+    private String criaResultado(){
+        String resultado = '"' +  "- Pesquisa: " + this.toString();
+        resultado += System.lineSeparator() + "    - Resultados:";
+
+        if (this.atividades.size() > 0){
+            Collections.sort(this.atividades);
+
+
+            for (Atividade a : atividades){
+                resultado +=  System.lineSeparator() + "        - " +
+                        a.getDescricao();
+
+                for (int i = 0; i < a.getItens().size(); i++){
+                    if (a.getItens().get(i).getDuracao() != 0) {
+                        resultado += System.lineSeparator() + "            - ITEM" + a.getItens().get(i).getId() + " - "
+                                + a.getItens().get(i).getDuracao();
+                    }
+                }
+
+                for (int i : a.getResultados().keySet()){
+                    resultado += System.lineSeparator() + "            - " + a.getResultados().get(i).toString();
+                }
+            }
+        }
+        return resultado + '"';
     }
 }
