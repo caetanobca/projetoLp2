@@ -582,4 +582,35 @@ class ControllerPesquisaTest {
                 "BAIXO","Alguma manifestacao homofobica");
         assertFalse(teste.desassociaAtividadeEmPesquisa("COM1",atividade));
     }
+
+    @Test
+    void testaConfiguraEstrategiaComExcecoes() {
+        assertThrows(NullPointerException.class,()-> teste.configuraEstrategia(null));
+        assertThrows(IllegalArgumentException.class,()-> teste.configuraEstrategia(""));
+
+        //Testando valores diferentes de : MAIS_ANTIGA,MENOS_PENDENCIAS,MAIOR_RISCO,MAIOR_DURACAO
+        assertThrows(IllegalArgumentException.class,()->teste.configuraEstrategia("MAIOR_CHATICE"));
+        assertThrows(IllegalArgumentException.class,()->teste.configuraEstrategia("MENOS_TEMPO"));
+    }
+
+    @Test
+    void testaConfiguraEstrategia() {
+        //Testando MAIS_ANTIGA
+        teste.configuraEstrategia("MAIS_ANTIGA");
+        assertEquals(teste.getEstrategia(),"MAIS_ANTIGA");
+
+        //Testando MENOS_PENDENCIAS
+        teste.configuraEstrategia("MENOS_PENDENCIAS");
+        assertEquals(teste.getEstrategia(),"MENOS_PENDENCIAS");
+
+        //Testando MAIOR_RISCO
+        teste.configuraEstrategia("MAIOR_RISCO");
+        assertEquals(teste.getEstrategia(),"MAIOR_RISCO");
+
+        //Testando MAIOR_DURACAO
+        teste.configuraEstrategia("MAIOR_DURACAO");
+        assertEquals(teste.getEstrategia(),"MAIOR_DURACAO");
+    }
+
+
 }

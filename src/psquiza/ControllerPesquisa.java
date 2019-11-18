@@ -537,6 +537,10 @@ public class ControllerPesquisa implements Serializable {
         }
     }
 
+    public String getEstrategia() {
+        return estrategia.toString();
+    }
+
     /**
      * Retorna o codigo da proxima Atividade a ser realizada na Pesquisa com base na estrategia
      * escolhida.
