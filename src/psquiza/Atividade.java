@@ -283,8 +283,8 @@ public class Atividade {
         return this.nivelRisco.getDescricao();
     }
 
-    public Risco getNivelRisco() {
-        return Enum.valueOf(NivelRisco.class,this.nivelRisco.getNivelRisco());
+    public String getNivelRisco() {
+        return nivelRisco.getNivelRisco();
     }
 
 

@@ -62,8 +62,8 @@ public class Risco {
         return this.descricao;
     }
 
-    public NivelRisco getNivelRisco() {
-        return nivelRisco;
+    public String getNivelRisco() {
+        return nivelRisco.toString();
     }
 }
 
