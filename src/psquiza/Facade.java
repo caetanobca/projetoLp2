@@ -213,6 +213,9 @@ public class Facade {
         this.controllerPesquisador = controllerPersistencia.carregaPesquisador();
         this.controllerObjetivo = controllerPersistencia.carregaObjetivo();
         this.controllerProblema = controllerPersistencia.carregaProblema();
+        this.controllerBusca = new ControllerBusca(controllerProblema, controllerObjetivo, controllerPesquisa, controllerAtividade,controllerPesquisador);
+        this.controllerAssociacoes = new ControllerAssociacoes(controllerProblema, controllerObjetivo, controllerPesquisa, controllerAtividade,controllerPesquisador);
+        this.controllerPersistencia = new ControllerPersistencia(controllerProblema, controllerObjetivo, controllerPesquisa, controllerAtividade,controllerPesquisador);
     }
 
     public void gravarResumo(String codigoPesquisa) throws IOException {
@@ -241,5 +244,12 @@ public class Facade {
 
     public String pegaMaiorRiscoAtividades(String idAtividade) {
         return this.controllerAtividade.pegaMaiorRiscoAtividades(idAtividade);
+    }
+    public void configuraEstrategia(String estrategia){
+        this.controllerPesquisa.configuraEstrategia(estrategia);
+    }
+
+    public String proximaAtividade(String codigoPesquisa){
+        return this.controllerPesquisa.proximaAtividade(codigoPesquisa);
     }
 }

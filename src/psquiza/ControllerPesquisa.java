@@ -25,9 +25,15 @@ public class ControllerPesquisa implements Serializable {
      */
     private Validacao validador;
 
+    /**
+     * Enum que define a estrategia de sugestão de próxima Atividade.
+     */
+    private SugestaoProxAtividade estrategia;
+
     public ControllerPesquisa() {
         this.pesquisas = new HashMap<String, Pesquisa>();
         this.validador = new Validacao();
+        this.estrategia = SugestaoProxAtividade.MAIS_ANTIGA;
     }
 
     /**
@@ -501,6 +507,81 @@ public class ControllerPesquisa implements Serializable {
             this.validador.lancaExcecao("Pesquisa nao encontrada.");
         }
         this.pesquisas.get(codigoPesquisa).gravaResultado();
+    }
+
+
+    /**
+     * Define qual sera a estrategia utilizada para sugestao de proxima atividade. Poderao ser
+     * usadas as estrategias MAIS_ANTIGA, MENOS_PENDENCIAS, MAIOR_RISCO e MAIOR_DURACAO.
+     *
+     * @param estrategia o nome da estrategia a ser utilizada
+     */
+    public void configuraEstrategia(String estrategia) {
+        validador.validaNulleVazio(estrategia,"Estrategia nao pode ser nula ou vazia.");
+        switch(estrategia){
+            case("MAIS_ANTIGA"):
+                this.estrategia = SugestaoProxAtividade.MAIS_ANTIGA;
+                break;
+            case("MENOS_PENDENCIAS"):
+                this.estrategia = SugestaoProxAtividade.MENOS_PENDENCIAS;
+                break;
+            case("MAIOR_RISCO"):
+                this.estrategia = SugestaoProxAtividade.MAIOR_RISCO;
+                break;
+            case("MAIOR_DURACAO"):
+                this.estrategia = SugestaoProxAtividade.MAIOR_DURACAO;
+                break;
+            default:
+                validador.lancaExcecao("Valor invalido da estrategia");
+                break;
+        }
+    }
+
+    /**
+     * Retorna o codigo da proxima Atividade a ser realizada na Pesquisa com base na estrategia
+     * escolhida.
+     *
+     * @param codigoPesquisa a Pesquisa que tera sua Atividade sugerida
+     * @return o codigo da proxima Atividade sugerida
+     */
+    public String proximaAtividade(String codigoPesquisa) {
+        validador.validaNulleVazio(codigoPesquisa,"Pesquisa nao pode ser nula ou vazia.");
+        if(!pesquisas.containsKey(codigoPesquisa)){
+            validador.lancaExcecao("Pesquisa nao encontrada.");
+        }
+        if(!pesquisas.get(codigoPesquisa).isAtivada()){
+            validador.lancaExcecao("Pesquisa desativada.");
+        }
+        if(!pesquisas.get(codigoPesquisa).hasPendencias()){
+            validador.lancaExcecao("Pesquisa sem atividades com pendencias.");
+        }
+        if(!pesquisas.get(codigoPesquisa).isAtivada()){
+            validador.lancaExcecao("Pesquisa desativada.");
+        }
+
+        List<Atividade> atividadesComPendencias= new ArrayList<Atividade>();
+        for(Atividade atividade : pesquisas.get(codigoPesquisa).getAtividades()){
+            if(atividade.contaItensPendentes()>0){
+                atividadesComPendencias.add(atividade);
+            }
+        }
+
+        switch(estrategia.toString()){
+            case("MAIS_ANTIGA"):
+                Collections.sort(atividadesComPendencias);
+                break;
+            case("MENOS_PENDENCIAS"):
+                Collections.sort(atividadesComPendencias, new ComparadorAtividadePorPendencias());
+                break;
+            case("MAIOR_RISCO"):
+                Collections.sort(atividadesComPendencias, new ComparadorAtividadePorRisco());
+                break;
+            case("MAIOR_DURACAO"):
+                Collections.sort(atividadesComPendencias, new ComparadorAtividadePorDuracao());
+                break;
+        }
+
+        return atividadesComPendencias.get(0).getCodigoIdentificador();
     }
 }
 
