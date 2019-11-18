@@ -23,17 +23,27 @@ class ControllerAssociacoesTest {
         this.controllerPesquisador = new ControllerPesquisador();
         this.controllerProblema = new ControllerProblema();
         this.controllerAssociacoes = new ControllerAssociacoes(controllerProblema,controllerObjetivo,controllerPesquisa,controllerAtividade,controllerPesquisador );
-        //Criando algumas atividades
 
+        //Criando algumas atividades
         controllerAtividade.cadastraAtividade("Visitar instalacoes de religioes de matrizes africanas","BAIXO"
                 ,"Nenhum risco identificado");
         controllerAtividade.cadastraAtividade("Realizar roda de conversas sobre homofobia","MEDIO",
                 "Algum desentendimento");
 
         //Criando algumas pesquisas
-
         controllerPesquisa.cadastraPesquisa("Pesquisa sobre religioes de matrizes africandas","religiao,africa");
         controllerPesquisa.cadastraPesquisa("Pesquisar sobre homofobia na UFCG","universidade,homofobia");
+        controllerPesquisa.cadastraPesquisa("Salvar as praias nordestinas do oleo misterioso", "meio ambiente," +
+                "racismo,graduacao");
+
+        //Criando alguns pesquisadores
+        controllerPesquisador.cadastraPesquisador("Fernando", "Estudante", "Ex-sofredor de EE, atualmente sofrendo com moderacao em CC", "fernando.costa@ccc.ufcg.edu.br", "https://imgur.com.br");
+        controllerPesquisador.cadastraPesquisador("heisenberg", "professor",
+                "Interresado nos efeitos da metafetamina e no estudo sobre o cancer. Pesquisador principal da " +
+                        "pesquisa de radigrafia a fotons, peca fundamental na pesquisa que ganhou um premio nobel.",
+                "breakingbad@2008", "https://iamthedanger");
+        controllerPesquisador.cadastraPesquisador("Caetano", "Estudante",
+                "Sofrido estudante de cc", "caetano.albuquerque@ccc.ufcg.edu.br", "https://minhafoto");
     }
 
     @Test
@@ -235,13 +245,6 @@ class ControllerAssociacoesTest {
         assertThrows(IllegalArgumentException.class, () -> controllerAssociacoes.desassociaObjetivo("COM1", "O1"));
     }
 
-    @Test
-    void associaPesquisador() {
-    }
-
-    @Test
-    void desassociaPesquisador() {
-    }
 
     @Test
     void associaAtividadeComExcecoesTest() {
@@ -285,4 +288,71 @@ class ControllerAssociacoesTest {
     void desassociaAtividadeNaoAssociadaTest() {
         assertFalse(controllerAssociacoes.desassociaAtividade("REL1","A1"));
     }
+
+
+    @Test
+    void associaPesquisador() {
+        assertTrue(controllerAssociacoes.associaPesquisador("MEI1", "fernando.costa@ccc.ufcg.edu.br"));
+        assertFalse(controllerAssociacoes.associaPesquisador("MEI1","fernando.costa@ccc.ufcg.edu.br"));
+    }
+
+    @Test
+    void associaPesquisadorIdPesquisaVaziaOuNull(){
+        assertThrows(IllegalArgumentException.class, () -> this.controllerAssociacoes.associaPesquisador("", "fernando.costa@ccc.ufcg.edu.br"));
+        assertThrows(NullPointerException.class, () -> this.controllerAssociacoes.associaPesquisador(null, "fernando.costa@ccc.ufcg.edu.br"));
+    }
+
+
+    @Test
+    void associaPesquisadorEmailPesquisadorVazioOuNull(){
+        assertThrows(IllegalArgumentException.class, () -> this.controllerAssociacoes.associaPesquisador("REL1",""));
+        assertThrows(NullPointerException.class, () -> this.controllerAssociacoes.associaPesquisador("REL1", null));
+    }
+
+
+    @Test
+    void associaPesquisadorEmPesquisaInexistente(){
+        assertThrows(IllegalArgumentException.class, () -> this.controllerAssociacoes.associaPesquisador("WTF1","fernando.costa@ccc.ufcg.edu.br"));
+        assertThrows(IllegalArgumentException.class, () -> this.controllerAssociacoes.associaPesquisador("HUE2","fernando.costa@ccc.ufcg.edu.br"));
+    }
+
+    @Test
+    void associaPesquisadorEmPesquisaDesativada(){
+        this.controllerPesquisa.encerraPesquisa("MEI1", "Sem tempo irmao");
+        assertThrows(IllegalArgumentException.class, () -> this.controllerAssociacoes.associaPesquisador("MEI","fernando.costa@ccc.ufcg.edu.br"));
+    }
+
+
+    @Test
+    void desassociaPesquisador(){
+        controllerAssociacoes.associaPesquisador("REL1", "fernando.costa@ccc.ufcg.edu.br");
+        assertTrue(controllerAssociacoes.desassociaPesquisador("REL1","fernando.costa@ccc.ufcg.edu.br"));
+    }
+
+    @Test
+    void desassociaPesquisadorIdPesquisaVaziaOuNull(){
+        controllerAssociacoes.associaPesquisador("REL1", "fernando.costa@ccc.ufcg.edu.br");
+        assertThrows(IllegalArgumentException.class, () -> this.controllerAssociacoes.associaPesquisador("", "fernando.costa@ccc.ufcg.edu.br"));
+        assertThrows(NullPointerException.class, () -> this.controllerAssociacoes.associaPesquisador(null, "fernando.costa@ccc.ufcg.edu.br"));
+    }
+
+    @Test
+    void desassociaPesquisadorEmailPesquisadorVazioOuNull() {
+        controllerAssociacoes.associaPesquisador("REL1", "fernando.costa@ccc.ufcg.edu.br");
+        assertThrows(IllegalArgumentException.class, () -> this.controllerAssociacoes.associaPesquisador("REL1", ""));
+        assertThrows(NullPointerException.class, () -> this.controllerAssociacoes.associaPesquisador("REL1", null));
+    }
+
+    @Test
+    void desassociaPesquisadorEmPesquisaInexistente(){
+        assertThrows(IllegalArgumentException.class, () -> this.controllerAssociacoes.associaPesquisador("NAO1", "breakingbad@2008"));
+        assertThrows(IllegalArgumentException.class, () -> this.controllerAssociacoes.associaPesquisador("MAP2", "fernando.costa@ccc.ufcg.edu.br"));
+    }
+
+    @Test
+    void desassociaPesquisadorEmPesquisaDesativada(){
+        this.controllerPesquisa.encerraPesquisa("REL1","Sem tempo irmao");
+        assertThrows(IllegalArgumentException.class, () -> this.controllerAssociacoes.desassociaPesquisador("REL1", "fernando.costa@ccc.ufcg.edu.br"));
+    }
+
 }
