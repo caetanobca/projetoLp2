@@ -440,7 +440,7 @@ public class ControllerAtividade {
                     compare = atividades.get(idAtividade).getNivelRisco();
                     retorno = idAtividade;
                 }else if(compare.equals("MEDIO")) {
-                    if(atividades.get(idAtividade).getNivelRisco().equals("MEDIO") ||atividades.get(idAtividade).getDescricaoDoRisco().equals("MEDIO")) {
+                    if((atividades.get(idAtividade).getNivelRisco().equals("MEDIO")) || (atividades.get(idAtividade).getNivelRisco().equals("ALTO"))) {
                         compare = atividades.get(idAtividade).getNivelRisco();
                         retorno = idAtividade;
                     }
