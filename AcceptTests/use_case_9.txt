@@ -68,6 +68,7 @@ expectError "EnesimaAtividade nao pode ser negativa ou zero." pegaProximo idAtiv
 
 
 #Pegando a atividade de maior risco
+
 defineProximaAtividade idPrecedente="A10" idSubsquente="A4"
 defineProximaAtividade idPrecedente="A4" idSubsquente="A14"
 expect "A10" pegaMaiorRiscoAtividades idAtividade="A13" 

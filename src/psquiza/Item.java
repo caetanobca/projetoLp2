@@ -121,4 +121,7 @@ public class Item implements Serializable {
         return Objects.hash(nome);
     }
 
+    public int getId() {
+        return id;
+    }
 }

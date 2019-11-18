@@ -201,6 +201,7 @@ public class Facade {
         return this.controllerPesquisador.listaPesquisadores(tipo);
     }
 
+
     public void salvar() throws IOException {
         controllerPersistencia.salva();
     }
@@ -212,4 +213,13 @@ public class Facade {
         this.controllerObjetivo = controllerPersistencia.carregaObjetivo();
         this.controllerProblema = controllerPersistencia.carregaProblema();
     }
+
+    public void gravarResumo(String codigoPesquisa) throws IOException {
+        this.controllerPesquisa.gravaResumo(codigoPesquisa);
+    }
+    public void gravarResultados(String codigoPesquisa) throws IOException {
+        this.controllerPesquisa.gravaResultados(codigoPesquisa);
+    }
+
+
 }

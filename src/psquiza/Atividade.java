@@ -12,7 +12,8 @@ import java.util.Objects;
  * Classe que representa uma Atividade a ser realizada afim de obter resultados. Cada atividade planejada apresenta
  * uma descricao do que deve ser feito, uma duracao planejada, resultados esperados e um risco associado.
  */
-public class Atividade implements Serializable {
+
+public class Atividade implements Comparable<Atividade>, Serializable{
 
     /**
      * Codigo identificador da Atividade, cada atividade eh identificada por uma String com o codigo A + valor
@@ -302,4 +303,23 @@ public class Atividade implements Serializable {
         return Objects.hash(codigoIdentificador);
     }
 
+
+
+    @Override
+    public int compareTo(Atividade o) {
+        if (Integer.parseInt(this.codigoIdentificador.substring(1)) > Integer.parseInt(o.codigoIdentificador.substring(1))){
+            return 1;
+        }else if (Integer.parseInt(this.codigoIdentificador.substring(1)) < Integer.parseInt(o.codigoIdentificador.substring(1))) {
+            return -1;
+        }
+        return 0;
+    }
+
+    public List<Item> getItens() {
+        return itens;
+    }
+
+    public HashMap<Integer, Resultado> getResultados() {
+        return resultados;
+    }
 }
