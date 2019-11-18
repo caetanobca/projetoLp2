@@ -302,7 +302,7 @@ class ControllerPesquisaTest {
         resultado.add("COM1: Homofobia na graduacao de Ciencias da Computacao");
         resultado.add("COM1: computacao,homofobia,graduacao");
 
-        assertEquals(resultado,teste.busca("a"));
+        assertEquals(resultado, teste.busca("a"));
 
         List<String> resultado2 = new ArrayList<>();
 
@@ -311,41 +311,41 @@ class ControllerPesquisaTest {
         resultado2.add("COM1: Homofobia na graduacao de Ciencias da Computacao");
         resultado2.add("COM1: computacao,homofobia,graduacao");
 
-        assertEquals(resultado2,teste.busca("graduacao"));
+        assertEquals(resultado2, teste.busca("graduacao"));
 
         List<String> resultado3 = new ArrayList<>();
 
         resultado3.add("SAU1: Saude Mental dos estudantes da area de exatas");
 
-        assertEquals(resultado3,teste.busca("Mental"));
+        assertEquals(resultado3, teste.busca("Mental"));
 
         List<String> resultado4 = new ArrayList<>();
 
         resultado4.add("COM2: Racismo na graduacao de Ciencias da Computacao");
 
-        assertEquals(resultado4,teste.busca("Racismo"));
+        assertEquals(resultado4, teste.busca("Racismo"));
 
         List<String> resultado5 = new ArrayList<>();
 
         resultado5.add("COM1: Homofobia na graduacao de Ciencias da Computacao");
 
-        assertEquals(resultado5,teste.busca("Homofobia"));
+        assertEquals(resultado5, teste.busca("Homofobia"));
     }
 
     @Test
-    void buscaTestTermoVaziouOuNull(){
-        assertThrows(IllegalArgumentException.class, ()-> teste.busca(""));
-        assertThrows(NullPointerException.class, ()-> teste.busca(null));
+    void buscaTestTermoVaziouOuNull() {
+        assertThrows(IllegalArgumentException.class, () -> teste.busca(""));
+        assertThrows(NullPointerException.class, () -> teste.busca(null));
     }
 
     @Test
-    void associaProblemaEmPesquisa(){
-        teste.cadastraPesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto." , "computacao, poo");
+    void associaProblemaEmPesquisa() {
+        teste.cadastraPesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto.", "computacao, poo");
 //        teste.cadastraPesquisa("Avaliacao de modelos preditivos para a extracao de caracteristicas significativas nas eleicoes brasileiras.", "eleicao");
 //        teste.cadastraPesquisa("Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces.", "fermentacao, cerveja");
 //        teste.cadastraPesquisa("Alienacao Parental e o Sistema de Justica Brasileiro.", "psicologia, sistema juridico, alienacao parental, brasil");
 
-        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
+        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao", 3, "P1");
         Problema problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4, "P2");
 
 
@@ -355,15 +355,15 @@ class ControllerPesquisaTest {
     }
 
     @Test
-    void associaProblemaEmPesquisaNaoCadastrada(){
-        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
+    void associaProblemaEmPesquisaNaoCadastrada() {
+        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao", 3, "P1");
 
         assertThrows(IllegalArgumentException.class, () -> teste.associaProblemaEmPesquisa("UNI1", problema1));
         assertThrows(IllegalArgumentException.class, () -> teste.associaProblemaEmPesquisa("AAA1", problema1));
     }
 
     @Test
-    void associaProblemaEmPesquisaDesativada(){
+    void associaProblemaEmPesquisaDesativada() {
         Problema problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4, "P2");
 
         teste.encerraPesquisa("COM1", "Falta de verba");
@@ -371,8 +371,8 @@ class ControllerPesquisaTest {
     }
 
     @Test
-    void associaProblemaEmPesquisaJaAssociada(){
-        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
+    void associaProblemaEmPesquisaJaAssociada() {
+        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao", 3, "P1");
         Problema problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4, "P2");
 
         teste.associaProblemaEmPesquisa("COM1", problema1);
@@ -380,8 +380,8 @@ class ControllerPesquisaTest {
     }
 
     @Test
-    void desassociaProblemaEmPesquisa(){
-        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
+    void desassociaProblemaEmPesquisa() {
+        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao", 3, "P1");
 
         teste.associaProblemaEmPesquisa("COM1", problema1);
 
@@ -390,13 +390,13 @@ class ControllerPesquisaTest {
     }
 
     @Test
-    void desassociaProblemaEmPesquisaNaoCadastrada(){
+    void desassociaProblemaEmPesquisaNaoCadastrada() {
         assertThrows(IllegalArgumentException.class, () -> teste.desassociaProblemaEmPesquisa("UNI1"));
         assertThrows(IllegalArgumentException.class, () -> teste.desassociaProblemaEmPesquisa("AAA1"));
     }
 
     @Test
-    void desassociaProblemaEmPesquisaDesativada(){
+    void desassociaProblemaEmPesquisaDesativada() {
         Problema problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4, "P2");
 
         teste.associaProblemaEmPesquisa("COM1", problema2);
@@ -405,8 +405,8 @@ class ControllerPesquisaTest {
     }
 
     @Test
-    void associaObjetivoEmPesquisa(){
-        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
+    void associaObjetivoEmPesquisa() {
+        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao", 5, 5, "O1");
         Objetivo objetivo2 = new Objetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5, "O2");
 
         assertTrue(this.teste.associaObjetivoEmPesquisa("COM1", objetivo1));
@@ -419,14 +419,15 @@ class ControllerPesquisaTest {
     }
 
     @Test
-    void associaObjetivoEmPesquisaNaoCadastrada(){
-        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
+    void associaObjetivoEmPesquisaNaoCadastrada() {
+        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao", 5, 5, "O1");
 
         assertThrows(IllegalArgumentException.class, () -> teste.associaObjetivoEmPesquisa("UNI1", objetivo1));
         assertThrows(IllegalArgumentException.class, () -> teste.associaObjetivoEmPesquisa("AAA1", objetivo1));
     }
+
     @Test
-    void associaObjetivoEmPesquisaDesativada(){
+    void associaObjetivoEmPesquisaDesativada() {
         Objetivo objetivo2 = new Objetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5, "O2");
 
         teste.encerraPesquisa("COM1", "Falta de verba");
@@ -434,18 +435,18 @@ class ControllerPesquisaTest {
     }
 
     @Test
-    void associaObjetivoJaAssociado(){
-        teste.cadastraPesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto." , "computacao, poo");
+    void associaObjetivoJaAssociado() {
+        teste.cadastraPesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto.", "computacao, poo");
 
-        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
+        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao", 5, 5, "O1");
 
         teste.associaObjetivoEmPesquisa("COM2", objetivo1);
         assertThrows(IllegalArgumentException.class, () -> teste.associaObjetivoEmPesquisa("COM1", objetivo1));
     }
 
     @Test
-    void desassociaObjetivoEmPesquisa(){
-        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
+    void desassociaObjetivoEmPesquisa() {
+        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao", 5, 5, "O1");
         Objetivo objetivo2 = new Objetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5, "O2");
 
         this.teste.associaObjetivoEmPesquisa("COM1", objetivo1);
@@ -456,14 +457,15 @@ class ControllerPesquisaTest {
     }
 
     @Test
-    void desassociaObjetivoEmPesquisaNaoCadastrada(){
-        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
+    void desassociaObjetivoEmPesquisaNaoCadastrada() {
+        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao", 5, 5, "O1");
 
         assertThrows(IllegalArgumentException.class, () -> teste.desassociaObjetivoEmPesquisa("UNI1", objetivo1));
         assertThrows(IllegalArgumentException.class, () -> teste.desassociaObjetivoEmPesquisa("AAA1", objetivo1));
     }
+
     @Test
-    void desassociaObjetivoEmPesquisaDesativada(){
+    void desassociaObjetivoEmPesquisaDesativada() {
         Objetivo objetivo2 = new Objetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5, "O2");
 
         teste.encerraPesquisa("COM1", "Falta de verba");
@@ -471,22 +473,22 @@ class ControllerPesquisaTest {
     }
 
     @Test
-    void listaPesquisas(){
-        teste.cadastraPesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto." , "computacao, poo");
+    void listaPesquisas() {
+        teste.cadastraPesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto.", "computacao, poo");
         teste.cadastraPesquisa("Avaliacao de modelos preditivos para a extracao de caracteristicas significativas nas eleicoes brasileiras.", "eleicao");
         teste.cadastraPesquisa("Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces.", "fermentacao, cerveja");
         teste.cadastraPesquisa("Alienacao Parental e o Sistema de Justica Brasileiro.", "psicologia, sistema juridico, alienacao parental, brasil");
 
-        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
+        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao", 3, "P1");
         Problema problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4, "P2");
-        Problema problema3 = new Problema("A extrema falta de paciencia durante a criacao de testes da junit nos estudantes da graduacao de computacao da ufcg",3,"P3");
+        Problema problema3 = new Problema("A extrema falta de paciencia durante a criacao de testes da junit nos estudantes da graduacao de computacao da ufcg", 3, "P3");
 
         teste.associaProblemaEmPesquisa("COM1", problema1);
         teste.associaProblemaEmPesquisa("COM2", problema2);
         teste.associaProblemaEmPesquisa("ELE1", problema3);
         teste.associaProblemaEmPesquisa("PSI1", problema2);
 
-        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
+        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao", 5, 5, "O1");
         Objetivo objetivo2 = new Objetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5, "O2");
         Objetivo objetivo3 = new Objetivo("ESPECIFICO", "Gerenciar melhor as notas dos alunos", 3, 4, "O3");
         Objetivo objetivo4 = new Objetivo("GERAL", "gerenceiar melhor a distribuicao dos alunos nas aulas de lp2", 5, 5, "O4");
@@ -504,11 +506,11 @@ class ControllerPesquisaTest {
 
 
         assertEquals("ELE1 - Avaliacao de modelos preditivos para a extracao de caracteristicas significativas nas eleicoes brasileiras. - eleicao " +
-                "| COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo " +
-                "| PSI1 - Alienacao Parental e o Sistema de Justica Brasileiro. - psicologia, sistema juridico, alienacao parental, brasil " +
-                "| COM1 - Homofobia na graduacao de Ciencias da Computacao - computacao,homofobia,graduacao " +
-                "| FER1 - Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces. - fermentacao, cerveja"
-                ,teste.listaPesquisas("PROBLEMA"));
+                        "| COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo " +
+                        "| PSI1 - Alienacao Parental e o Sistema de Justica Brasileiro. - psicologia, sistema juridico, alienacao parental, brasil " +
+                        "| COM1 - Homofobia na graduacao de Ciencias da Computacao - computacao,homofobia,graduacao " +
+                        "| FER1 - Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces. - fermentacao, cerveja"
+                , teste.listaPesquisas("PROBLEMA"));
 
         assertEquals("COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo " +
                         "| PSI1 - Alienacao Parental e o Sistema de Justica Brasileiro. - psicologia, sistema juridico, alienacao parental, brasil " +
@@ -517,10 +519,10 @@ class ControllerPesquisaTest {
                         "| FER1 - Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces. - fermentacao, cerveja"
                 , teste.listaPesquisas("OBJETIVOS"));
         assertEquals("PSI1 - Alienacao Parental e o Sistema de Justica Brasileiro. - psicologia, sistema juridico, alienacao parental, brasil " +
-                "| FER1 - Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces. - fermentacao, cerveja " +
-                "| ELE1 - Avaliacao de modelos preditivos para a extracao de caracteristicas significativas nas eleicoes brasileiras. - eleicao " +
-                "| COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo " +
-                "| COM1 - Homofobia na graduacao de Ciencias da Computacao - computacao,homofobia,graduacao"
+                        "| FER1 - Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces. - fermentacao, cerveja " +
+                        "| ELE1 - Avaliacao de modelos preditivos para a extracao de caracteristicas significativas nas eleicoes brasileiras. - eleicao " +
+                        "| COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo " +
+                        "| COM1 - Homofobia na graduacao de Ciencias da Computacao - computacao,homofobia,graduacao"
                 , teste.listaPesquisas("PESQUISA"));
 
     }
@@ -531,86 +533,101 @@ class ControllerPesquisaTest {
         assertThrows(NullPointerException.class, () -> teste.listaPesquisas(null));
     }
 
-    @Test  
+    @Test
     void associaAtividadeEmPesquisaComExcecoesTest() {
-        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
-                "BAIXO","Alguma manifestacao homofobica");
-        assertThrows(NullPointerException.class,()->  teste.associaAtividadeEmPesquisa(null,atividade));
-        assertThrows(IllegalArgumentException.class,()-> teste.associaAtividadeEmPesquisa("",atividade));
-        assertThrows(IllegalArgumentException.class,()-> teste.associaAtividadeEmPesquisa("LEI1",atividade));
-        teste.encerraPesquisa("COM1","Corte de verbas");
-        assertThrows(IllegalArgumentException.class,()-> teste.associaAtividadeEmPesquisa("COM1",atividade));
+        Atividade atividade = new Atividade("A1", "rodas de conversa sobre homofobia",
+                "BAIXO", "Alguma manifestacao homofobica");
+        assertThrows(NullPointerException.class, () -> teste.associaAtividadeEmPesquisa(null, atividade));
+        assertThrows(IllegalArgumentException.class, () -> teste.associaAtividadeEmPesquisa("", atividade));
+        assertThrows(IllegalArgumentException.class, () -> teste.associaAtividadeEmPesquisa("LEI1", atividade));
+        teste.encerraPesquisa("COM1", "Corte de verbas");
+        assertThrows(IllegalArgumentException.class, () -> teste.associaAtividadeEmPesquisa("COM1", atividade));
     }
 
     @Test
     void associaAtividadeTest() {
-        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
-                "BAIXO","Alguma manifestacao homofobica");
-        assertTrue(teste.associaAtividadeEmPesquisa("COM1",atividade));
+        Atividade atividade = new Atividade("A1", "rodas de conversa sobre homofobia",
+                "BAIXO", "Alguma manifestacao homofobica");
+        assertTrue(teste.associaAtividadeEmPesquisa("COM1", atividade));
     }
 
     @Test
     void associaAtividadeJaAssociadaTest() {
-        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
-                "BAIXO","Alguma manifestacao homofobica");
-        teste.associaAtividadeEmPesquisa("COM1",atividade);
-        assertFalse(teste.associaAtividadeEmPesquisa("COM1",atividade));
+        Atividade atividade = new Atividade("A1", "rodas de conversa sobre homofobia",
+                "BAIXO", "Alguma manifestacao homofobica");
+        teste.associaAtividadeEmPesquisa("COM1", atividade);
+        assertFalse(teste.associaAtividadeEmPesquisa("COM1", atividade));
     }
 
     @Test
     void desassociaAtividadeEmPesquisaComExcecoesTest() {
-        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
-                "BAIXO","Alguma manifestacao homofobica");
-        assertThrows(NullPointerException.class,()->  teste.desassociaAtividadeEmPesquisa(null,atividade));
-        assertThrows(IllegalArgumentException.class,()-> teste.desassociaAtividadeEmPesquisa("",atividade));
-        assertThrows(IllegalArgumentException.class,()-> teste.desassociaAtividadeEmPesquisa("LEI1",atividade));
-        teste.encerraPesquisa("COM1","Corte de verbas");
-        assertThrows(IllegalArgumentException.class,()-> teste.desassociaAtividadeEmPesquisa("COM1",atividade));
+        Atividade atividade = new Atividade("A1", "rodas de conversa sobre homofobia",
+                "BAIXO", "Alguma manifestacao homofobica");
+        assertThrows(NullPointerException.class, () -> teste.desassociaAtividadeEmPesquisa(null, atividade));
+        assertThrows(IllegalArgumentException.class, () -> teste.desassociaAtividadeEmPesquisa("", atividade));
+        assertThrows(IllegalArgumentException.class, () -> teste.desassociaAtividadeEmPesquisa("LEI1", atividade));
+        teste.encerraPesquisa("COM1", "Corte de verbas");
+        assertThrows(IllegalArgumentException.class, () -> teste.desassociaAtividadeEmPesquisa("COM1", atividade));
     }
 
     @Test
     void desassociaAtividadeTest() {
-        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
-                "BAIXO","Alguma manifestacao homofobica");
-        teste.associaAtividadeEmPesquisa("COM1",atividade);
-        assertTrue(teste.desassociaAtividadeEmPesquisa("COM1",atividade));
+        Atividade atividade = new Atividade("A1", "rodas de conversa sobre homofobia",
+                "BAIXO", "Alguma manifestacao homofobica");
+        teste.associaAtividadeEmPesquisa("COM1", atividade);
+        assertTrue(teste.desassociaAtividadeEmPesquisa("COM1", atividade));
     }
 
     @Test
     void desassociaAtividadeNaoAssociadaTest() {
-        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
-                "BAIXO","Alguma manifestacao homofobica");
-        assertFalse(teste.desassociaAtividadeEmPesquisa("COM1",atividade));
+        Atividade atividade = new Atividade("A1", "rodas de conversa sobre homofobia",
+                "BAIXO", "Alguma manifestacao homofobica");
+        assertFalse(teste.desassociaAtividadeEmPesquisa("COM1", atividade));
     }
 
     @Test
     void testaConfiguraEstrategiaComExcecoes() {
-        assertThrows(NullPointerException.class,()-> teste.configuraEstrategia(null));
-        assertThrows(IllegalArgumentException.class,()-> teste.configuraEstrategia(""));
+        //Testando valor nulo e vazio para estrategia
+        assertThrows(NullPointerException.class, () -> teste.configuraEstrategia(null));
+        assertThrows(IllegalArgumentException.class, () -> teste.configuraEstrategia(""));
 
         //Testando valores diferentes de : MAIS_ANTIGA,MENOS_PENDENCIAS,MAIOR_RISCO,MAIOR_DURACAO
-        assertThrows(IllegalArgumentException.class,()->teste.configuraEstrategia("MAIOR_CHATICE"));
-        assertThrows(IllegalArgumentException.class,()->teste.configuraEstrategia("MENOS_TEMPO"));
+        assertThrows(IllegalArgumentException.class, () -> teste.configuraEstrategia("MAIOR_CHATICE"));
+        assertThrows(IllegalArgumentException.class, () -> teste.configuraEstrategia("MENOS_TEMPO"));
     }
 
     @Test
     void testaConfiguraEstrategia() {
         //Testando MAIS_ANTIGA
         teste.configuraEstrategia("MAIS_ANTIGA");
-        assertEquals(teste.getEstrategia(),"MAIS_ANTIGA");
+        assertEquals(teste.getEstrategia(), "MAIS_ANTIGA");
 
         //Testando MENOS_PENDENCIAS
         teste.configuraEstrategia("MENOS_PENDENCIAS");
-        assertEquals(teste.getEstrategia(),"MENOS_PENDENCIAS");
+        assertEquals(teste.getEstrategia(), "MENOS_PENDENCIAS");
 
         //Testando MAIOR_RISCO
         teste.configuraEstrategia("MAIOR_RISCO");
-        assertEquals(teste.getEstrategia(),"MAIOR_RISCO");
+        assertEquals(teste.getEstrategia(), "MAIOR_RISCO");
 
         //Testando MAIOR_DURACAO
         teste.configuraEstrategia("MAIOR_DURACAO");
-        assertEquals(teste.getEstrategia(),"MAIOR_DURACAO");
+        assertEquals(teste.getEstrategia(), "MAIOR_DURACAO");
     }
 
+    @Test
+    void testaProximaAtividadeComExcecoes() {
+        //Testando valor nulo e vazio para codigo da Pesquisa
+        assertThrows(NullPointerException.class, () -> teste.proximaAtividade(null));
+        assertThrows(IllegalArgumentException.class, () -> teste.proximaAtividade(""));
+
+        //Testando pesquisa inexistente no sistema
+        assertThrows(IllegalArgumentException.class, () -> teste.proximaAtividade("COM1"));
+
+        //Testando pesquisa desativada
+        teste.cadastraPesquisa("Desenvolvimento de estudos a partir de interacoes com pacientes do SAE", "psicologia,saude sexual,soropositivos");
+        teste.encerraPesquisa("PSI1", "Falta de alunos para dar continuidade a pesquisa");
+        assertThrows(IllegalArgumentException.class, () -> teste.proximaAtividade("PSI1"));
+    }
 
 }

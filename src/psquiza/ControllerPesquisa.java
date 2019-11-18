@@ -559,9 +559,6 @@ public class ControllerPesquisa implements Serializable {
         if(!pesquisas.get(codigoPesquisa).hasPendencias()){
             validador.lancaExcecao("Pesquisa sem atividades com pendencias.");
         }
-        if(!pesquisas.get(codigoPesquisa).isAtivada()){
-            validador.lancaExcecao("Pesquisa desativada.");
-        }
 
         List<Atividade> atividadesComPendencias= new ArrayList<Atividade>();
         for(Atividade atividade : pesquisas.get(codigoPesquisa).getAtividades()){
