@@ -2,10 +2,13 @@ package psquiza;
 
 import util.Validacao;
 
+import java.io.Serializable;
+
 /**
  * Classe que representa o Risco associado a uma Atividade. O Risco tem seu nível e sua descrição.
  */
-public class Risco {
+public class Risco implements Serializable {
+
 
     /**
      * Descricao do Risco

@@ -2,13 +2,15 @@ package psquiza;
 
 import util.Validacao;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Classe de controle das acoes de(os) pesquisador(es), responsavel por construir, alterar, verificar e
  * remover objetos do tipo Pesquisador e suas herdeiras.
  */
-public class ControllerPesquisador {
+public class ControllerPesquisador implements Serializable {
+
 
     /**
      * Mapa que relaciona o email dos pesquisadores com objetos Pesquisador. Cada pesquisador eh identificado

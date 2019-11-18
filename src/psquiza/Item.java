@@ -2,12 +2,14 @@ package psquiza;
 
 import util.Validacao;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Classe que representa um Item de uma Atividade, tal Item tem um status: "REALIZADO" ou "PENDENTE" e um nome.
  */
-public class Item {
+public class Item implements Serializable {
+
 
     /**
      * Identificador unico do item, numero resultante da ordem de cadastro.

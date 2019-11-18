@@ -1,10 +1,13 @@
 package psquiza;
 
+import java.io.Serializable;
+
 /**
  * Representacao de um resultado obtido por uma pesquisa, que e diretamente associado
  * a atividade.
  */
-public class Resultado {
+public class Resultado implements Serializable {
+
 
     /**
      * Descreve o resultado da atividade.

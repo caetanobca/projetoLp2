@@ -2,7 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
-public class ControllerAssociacoes {
+public class ControllerAssociacoes{
 
     private ControllerPesquisa controllerPesquisa;
     private ControllerObjetivo controllerObjetivo;

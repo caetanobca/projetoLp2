@@ -2,6 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -14,7 +15,8 @@ import java.util.Objects;
  * todos os objetivos devem ser claros,diretos e viaveis e sao caracterizados pelo seu tipo, descricao
  * aderencia e viabilidade.
  */
-public class Objetivo {
+public class Objetivo implements Serializable {
+
 
     /**
      * E o tipo do objetivo que varia entre Geral ou Especifico.

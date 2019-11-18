@@ -2,13 +2,14 @@ package psquiza;
 
 import util.Validacao;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Classe responssavel por gerenciar as Atividades cadastradas no sistema. As Atividades sao armazenadas em um mapa
  * usando como chave um codigo gerado pela concatanecao de A + um inteiro dado pela ordem do cadastro.
  */
-public class ControllerAtividade {
+public class ControllerAtividade implements Serializable {
 
     /**
      * Map que armazena Atividades. Tem como chaves uma String que e o codigo de cada Atividade, gerado pela
@@ -293,5 +294,6 @@ public class ControllerAtividade {
 
         return results;
     }
+
 }
 

@@ -2,13 +2,18 @@ package psquiza;
 
 import util.Validacao;
 
-import java.util.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Entidade utilizada no sistema para ser a dona das informacoes sobre os problemas, ou seja nesta classe, serao
  * feitos os cadastros, exibicoes e remocoes de problemas do sistema.
  */
-public class ControllerProblema {
+public class ControllerProblema implements Serializable {
+
     /**
      * Sao os problemas cadastrados no sistema.
      */

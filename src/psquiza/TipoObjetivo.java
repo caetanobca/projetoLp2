@@ -1,5 +1,7 @@
 package psquiza;
 
-public enum TipoObjetivo {
+import java.io.Serializable;
+
+public enum TipoObjetivo implements Serializable {
     GERAL,ESPECIFICO;
 }

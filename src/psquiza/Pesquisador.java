@@ -2,6 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -12,7 +13,8 @@ import java.util.Objects;
  *
  * @author fernandolc
  */
-public class Pesquisador {
+public class Pesquisador implements Serializable {
+
 
     /**
      *  O nome do pesquisador.

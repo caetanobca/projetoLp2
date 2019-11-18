@@ -1,9 +1,12 @@
 package psquiza;
 
+import java.io.Serializable;
+
 /**
  * Classe Enum que representa o status da Classe Item
  */
-public enum StatusItem {
+public enum StatusItem implements Serializable {
+
     REALIZADO,PENDENTE;
 
 

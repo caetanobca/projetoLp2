@@ -2,11 +2,13 @@ package psquiza;
 
 import util.Validacao;
 
+import java.io.Serializable;
+
 /**
  * Representacao de um pesquisador que e professor da UFCG, o professor implementa especialidade, possuindo
  * metodos da interface.
  */
-public class Professor implements Especialidade {
+public class Professor implements Especialidade, Serializable {
 
     /**
      * E a formacao do professor.

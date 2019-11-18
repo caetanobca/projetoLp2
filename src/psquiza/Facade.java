@@ -1,5 +1,7 @@
 package psquiza;
 
+import java.io.IOException;
+
 public class Facade {
     private ControllerPesquisa controllerPesquisa;
     private ControllerProblema controllerProblema;
@@ -8,6 +10,7 @@ public class Facade {
     private ControllerPesquisador controllerPesquisador;
     private ControllerAssociacoes controllerAssociacoes;
     private ControllerBusca controllerBusca;
+    private ControllerPersistencia controllerPersistencia;
 
 
     public Facade() {
@@ -18,6 +21,7 @@ public class Facade {
         this.controllerPesquisador = new ControllerPesquisador();
         this.controllerAssociacoes = new ControllerAssociacoes(controllerProblema, controllerObjetivo, controllerPesquisa, controllerAtividade,controllerPesquisador);
         this.controllerBusca = new ControllerBusca(controllerProblema, controllerObjetivo, controllerPesquisa, controllerAtividade,controllerPesquisador);
+        this.controllerPersistencia = new ControllerPersistencia(controllerProblema, controllerObjetivo, controllerPesquisa, controllerAtividade,controllerPesquisador);
     }
 
     public String cadastraPesquisa(String descricao, String campoDeInteresse) {
@@ -195,5 +199,17 @@ public class Facade {
 
     public String listaPesquisadores(String tipo) {
         return this.controllerPesquisador.listaPesquisadores(tipo);
+    }
+
+    public void salvar() throws IOException {
+        controllerPersistencia.salva();
+    }
+
+    public void carregar() throws IOException, ClassNotFoundException {
+        this.controllerAtividade = controllerPersistencia.carregaAtividade();
+        this.controllerPesquisa = controllerPersistencia.carregaPesquisa();
+        this.controllerPesquisador = controllerPersistencia.carregaPesquisador();
+        this.controllerObjetivo = controllerPersistencia.carregaObjetivo();
+        this.controllerProblema = controllerPersistencia.carregaProblema();
     }
 }

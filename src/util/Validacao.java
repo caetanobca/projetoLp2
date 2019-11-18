@@ -1,6 +1,8 @@
 package util;
 
-public class Validacao {
+import java.io.Serializable;
+
+public class Validacao implements Serializable {
 
     public Validacao() {
 
