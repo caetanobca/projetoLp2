@@ -2,6 +2,11 @@ package psquiza;
 
 import util.Validacao;
 
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,7 +16,7 @@ import java.util.*;
  * Classe que representa uma pesquisa, que tem descricao, campo de interesse, codigo, e uma variavel que indica
  * se esta ativa ou encerrada
  */
-public class Pesquisa implements Comparable<Pesquisa> {
+public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
     /**
      * Problema associado a essa pesquisa.

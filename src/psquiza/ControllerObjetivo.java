@@ -2,14 +2,18 @@ package psquiza;
 
 import util.Validacao;
 
-import java.util.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Entidade responsavel por armazenar e controlar os objetivos cadastrados no sistema. Essa entidade vai possuir um
  * mapa com todos os problemas armazenados, um objeto da classe validacao, necessario no tratamento das excecoes e
  * e um contador que sera necessario para gerar o id do Objetivo.
  */
-public class ControllerObjetivo {
+public class ControllerObjetivo implements Serializable {
     /**
      * E o mapa que armazena os objetivos no sistema.
      */

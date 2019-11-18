@@ -2,11 +2,13 @@ package psquiza;
 
 import util.Validacao;
 
+import java.io.Serializable;
+
 /**
  * Representacao de um pesquisador que e um estudante da UFCG, o estudante implementa especialidade , portanto
  * possui seus  metodos.
  */
-public class Estudante implements Especialidade {
+public class Estudante implements Especialidade, Serializable {
 
     /**
      * E o semestre em que o aluno esta cursando.

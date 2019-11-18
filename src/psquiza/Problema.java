@@ -2,6 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -11,7 +12,8 @@ import java.util.Objects;
  * area maior,ser passivel de tratamento experimental, despertar curiosidade do pesquisador, e ser relevante
  * para a comunidade.
  */
-public class Problema {
+public class Problema implements Serializable {
+
     /**
      * E a descricao do problema, que busca descrever o tema que um problema sera abordado.
      */

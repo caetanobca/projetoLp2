@@ -2,7 +2,8 @@ package psquiza;
 
 import util.Validacao;
 
-import java.io.IOException;
+import java.io.Serializable;
+import java.io.IOException
 import java.util.*;
 
 
@@ -10,7 +11,8 @@ import java.util.*;
  * Classe responssavel por gerenciar as pesquisas cadastradas no sistema, as pesquisas sao armazenadas em um mapa
  * usando como chave um codigo gerado pelos 3 caractres do campo de interesse de cada pesquisa, seguido de um inteiro
  */
-public class ControllerPesquisa {
+public class ControllerPesquisa implements Serializable {
+
 
     /**
      * Mapa responsavel por guardar as pesquisas cadastradas no sistema, usando como chave um codigo formado pelos 3

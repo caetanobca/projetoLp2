@@ -2,6 +2,7 @@ package psquiza;
 
 import util.Validacao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.Objects;
  * Classe que representa uma Atividade a ser realizada afim de obter resultados. Cada atividade planejada apresenta
  * uma descricao do que deve ser feito, uma duracao planejada, resultados esperados e um risco associado.
  */
-public class Atividade implements Comparable<Atividade> {
+
+public class Atividade implements Comparable<Atividade>, Serializable{
 
     /**
      * Codigo identificador da Atividade, cada atividade eh identificada por uma String com o codigo A + valor

@@ -4,7 +4,8 @@ package psquiza;
  * Interface necessaria no sistema para utilizarmos uma composicao quando
  * for necessario a criacao de um estudante ou professor.
  */
-public interface Especialidade {
+public interface Especialidade{
+
     /**
      * Assinatura do metodo de edicao, que e utilizado para editar os valores
      * das classes que implementarem a interface.
