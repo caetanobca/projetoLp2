@@ -429,13 +429,13 @@ public class ControllerAtividade {
         if(atividades.get(idAtividade).getSubsequente().equals("")) {
             validador.lancaExcecao("Nao existe proxima atividade.");
         }
+        idAtividade = atividades.get(idAtividade).getSubsequente();
         String compare = atividades.get(idAtividade).getNivelRisco();
         String retorno = idAtividade;
         while(true) {
             if(atividades.get(idAtividade).getSubsequente().equals("")) {
                 break;
             }else {
-                idAtividade = atividades.get(idAtividade).getSubsequente();
                 if(compare.equals("BAIXO")) {
                     compare = atividades.get(idAtividade).getNivelRisco();
                     retorno = idAtividade;
@@ -450,6 +450,7 @@ public class ControllerAtividade {
                         retorno = idAtividade;
                     }
                 }
+                idAtividade = atividades.get(idAtividade).getSubsequente();
             }
         }
         return retorno;
