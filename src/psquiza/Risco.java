@@ -64,4 +64,9 @@ public class Risco implements Serializable {
     public String getDescricao() {
         return this.descricao;
     }
+
+    public String getNivelRisco() {
+        return nivelRisco.toString();
+    }
 }
+
