@@ -664,8 +664,8 @@ class ControllerAtividadeTest {
         controladorDeAtividade.defineProximaAtividade("A2", "A3");
         controladorDeAtividade.defineProximaAtividade("A3", "A4");
 
-        //assertEquals("A4", controladorDeAtividade.pegaMaiorRiscoAtividades("A1"));
-        //assertEquals("A4", controladorDeAtividade.pegaMaiorRiscoAtividades("A2"));
+        assertEquals("A3", controladorDeAtividade.pegaMaiorRiscoAtividades("A1"));
+        assertEquals("A3", controladorDeAtividade.pegaMaiorRiscoAtividades("A2"));
         assertEquals("A4", controladorDeAtividade.pegaMaiorRiscoAtividades("A3"));
 
     }
