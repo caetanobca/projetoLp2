@@ -13,7 +13,7 @@ public class Main {
                 "AcceptTests/use_case_3.txt", "AcceptTests/use_case_4.txt", "AcceptTests/use_case_5.txt",
                 "AcceptTests/use_case_6.txt", "AcceptTests/use_case_7.txt", "AcceptTests/use_case_8.txt",
                 "AcceptTests/use_case_9.txt", "AcceptTests/use_case_10.txt", "AcceptTests/use_case_11.txt",
-                //"AcceptTests/use_case_12SALVAR.txt", "AcceptTests/use_case_12CARREGAR.txt"
+                //"AcceptTests/use_case_12SALVAR.txt"// "AcceptTests/use_case_12CARREGAR.txt"
         };
         EasyAccept.main(args);
     }
