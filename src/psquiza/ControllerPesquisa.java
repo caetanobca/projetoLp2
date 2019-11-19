@@ -537,6 +537,10 @@ public class ControllerPesquisa implements Serializable {
         }
     }
 
+    public String getEstrategia() {
+        return estrategia.toString();
+    }
+
     /**
      * Retorna o codigo da proxima Atividade a ser realizada na Pesquisa com base na estrategia
      * escolhida.
@@ -554,9 +558,6 @@ public class ControllerPesquisa implements Serializable {
         }
         if(!pesquisas.get(codigoPesquisa).hasPendencias()){
             validador.lancaExcecao("Pesquisa sem atividades com pendencias.");
-        }
-        if(!pesquisas.get(codigoPesquisa).isAtivada()){
-            validador.lancaExcecao("Pesquisa desativada.");
         }
 
         List<Atividade> atividadesComPendencias= new ArrayList<Atividade>();
