@@ -399,6 +399,9 @@ public class ControllerAtividade implements Serializable {
         }
         String retorno = "";
         int contador = 0;
+        if(!atividades.containsKey(idAtividade)){
+            validador.lancaExcecao("Atividade inexistente.");
+        }
         String compare = atividades.get(idAtividade).getSubsequente();
         while(true) {
             if(contador==enesimaAtividade) {
