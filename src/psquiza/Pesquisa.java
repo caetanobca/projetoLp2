@@ -2,11 +2,8 @@ package psquiza;
 
 import util.Validacao;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,6 +52,11 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
      */
     private AssociacaoEmPesquisa associacao;
 
+    /**
+     * Objeto que tem funcoes que permite gerar um relatorio da pesquisa e dos resultados da pesquisa
+     */
+    private ResumoPesquisa resumoPesquisa;
+
 
     /**
      * Construtor da Classe Atividade. O Construtor não aceita parametros vazios, nulos ou não válidos, caso algum
@@ -75,7 +77,8 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
         this.campoDeInteresse = campoDeInteresse;
         this.codigo = codigo;
         this.ativada = true;
-        associacao = new AssociacaoEmPesquisa();
+        this.associacao = new AssociacaoEmPesquisa();
+        this.resumoPesquisa = new ResumoPesquisa();
 
 
     }
@@ -215,117 +218,46 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
 
     public void gravaResumo() throws IOException {
-        File file = new File("_" + this.codigo + ".txt");
-        String resumo = this.criaResumo();
-        FileWriter fw = null;
-
-        try {
-            fw = new FileWriter(file, false);
-            fw.write(resumo);
-
-        } finally {
-            if (fw != null) {
-                try {
-                    fw.close();
-                } catch (IOException e) {
-                    System.err.println("Nao foi possivel fechar o resumo.");
-                }
-            }
-        }
+        this.resumoPesquisa.gravaResumo(this.toString(), this.codigo, this.associacao);
+//        File file = new File("_" + this.codigo + ".txt");
+//        String resumo = this.criaResumo();
+//        FileWriter fw = null;
+//
+//        try {
+//            fw = new FileWriter(file, false);
+//            fw.write(resumo);
+//
+//        } finally {
+//            if (fw != null) {
+//                try {
+//                    fw.close();
+//                } catch (IOException e) {
+//                    System.err.println("Nao foi possivel fechar o resumo.");
+//                }
+//            }
+//        }
     }
 
-    private String criaResumo() {
-        String resumo = '"' + "- Pesquisa: " + this.toString();
-
-        if (this.associacao.getPesquisadores().size() > 0) {
-            resumo += System.lineSeparator() + "    - Pesquisadores:";
-
-
-            for (Pesquisador p : this.associacao.getPesquisadores()) {
-                if (p.isEspecializado()) {
-                    resumo += System.lineSeparator() + "        - " + p.exibeEspecializado();
-                } else {
-                    resumo += System.lineSeparator() + "        - " + p.toString();
-                }
-            }
-        }
-        if (this.associacao.getProblemaAssociado() != null) {
-            resumo += System.lineSeparator() + "    - Problema:" + System.lineSeparator() + "        - "
-                    + this.associacao.getProblemaAssociado().getId() + " - " + this.associacao.getProblemaAssociado().toString();
-        }
-        if (this.associacao.getObjetivosAssociados().size() > 0) {
-            resumo += System.lineSeparator() + "     - Objetivos:";
-            Collections.sort(associacao.getObjetivosAssociados());
-
-            for (Objetivo o : associacao.getObjetivosAssociados()) {
-                resumo += System.lineSeparator() + "        - " + o.getId() + " - " + o.toString();
-            }
-
-        }
-
-        if (this.associacao.getAtividades().size() > 0) {
-            resumo += System.lineSeparator() + "    - Atividades:";
-            Collections.sort(this.associacao.getAtividades());
-
-            for (Atividade a : associacao.getAtividades()) {
-                String[] atividade = a.toString().replace("|", "_").split("_");
-
-                resumo += System.lineSeparator() + "        - " + atividade[0];
-
-                for (int i = 0; i < atividade.length - 1; i++) {
-                    resumo += System.lineSeparator() + "            - " + a.getItens().get(i).getStatus()
-                            + " - " + "ITEM" + a.getItens().get(i).getId();
-                }
-            }
-        }
-        return resumo + '"';
-    }
 
     public void gravaResultado() throws IOException {
-        File file = new File(this.codigo + "-Resultados.txt");
-        String resultado = this.criaResultado();
-        FileWriter fw = null;
-
-        try {
-            fw = new FileWriter(file, false);
-            fw.write(resultado);
-
-        } finally {
-            if (fw != null) {
-                try {
-                    fw.close();
-                } catch (IOException e) {
-                    System.err.println("Nao foi possivel fechar o resumo.");
-                }
-            }
-        }
-    }
-
-    private String criaResultado() {
-        String resultado = '"' + "- Pesquisa: " + this.toString();
-        resultado += System.lineSeparator() + "    - Resultados:";
-
-        if (this.associacao.getAtividades().size() > 0) {
-            Collections.sort(this.associacao.getAtividades());
-
-
-            for (Atividade a : associacao.getAtividades()) {
-                resultado += System.lineSeparator() + "        - " +
-                        a.getDescricao();
-
-                for (int i = 0; i < a.getItens().size(); i++) {
-                    if (a.getItens().get(i).getDuracao() != 0) {
-                        resultado += System.lineSeparator() + "            - ITEM" + a.getItens().get(i).getId() + " - "
-                                + a.getItens().get(i).getDuracao();
-                    }
-                }
-
-                for (int i : a.getResultados().keySet()) {
-                    resultado += System.lineSeparator() + "            - " + a.getResultados().get(i).toString();
-                }
-            }
-        }
-        return resultado + '"';
+        this.resumoPesquisa.gravaResultado(this.toString(), this.codigo, this.associacao);
+//        File file = new File(this.codigo + "-Resultados.txt");
+//        String resultado = this.criaResultado();
+//        FileWriter fw = null;
+//
+//        try {
+//            fw = new FileWriter(file, false);
+//            fw.write(resultado);
+//
+//        } finally {
+//            if (fw != null) {
+//                try {
+//                    fw.close();
+//                } catch (IOException e) {
+//                    System.err.println("Nao foi possivel fechar o resumo.");
+//                }
+//            }
+//        }
     }
 
     /**
