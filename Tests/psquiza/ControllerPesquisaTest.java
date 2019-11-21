@@ -2,7 +2,14 @@ package psquiza;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import psquiza.atividade.ControllerAtividade;
+import psquiza.objetivo.ControllerObjetivo;
+import psquiza.pesquisa.ControllerPesquisa;
+import psquiza.pesquisador.ControllerPesquisador;
+import psquiza.problema.ControllerProblema;
+import util.JavaFileUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,82 +17,90 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerPesquisaTest {
 
-    ControllerPesquisa teste;
-    ControllerAtividade atividade;
+    private ControllerPesquisa controllerPesquisa;
+    private ControllerObjetivo controllerObjetivo;
+    private ControllerProblema controllerProblema;
+    private ControllerAtividade controllerAtividade;
+    private ControllerPesquisador controllerPesquisador;
 
     @BeforeEach
     void constroiControllerPesquisaTest() {
-        teste = new ControllerPesquisa();
-        teste.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
+        controllerAtividade = new ControllerAtividade();
+        controllerObjetivo = new ControllerObjetivo();
+        controllerPesquisador = new ControllerPesquisador();
+        controllerProblema = new ControllerProblema();
+        controllerPesquisa = new ControllerPesquisa(this.controllerObjetivo.getObjetivos(), this.controllerProblema.getProblemas(),
+                this.controllerAtividade.getAtividades(), this.controllerPesquisador.getPesquisadores());
+        controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
                 "homofobia,graduacao");
     }
 
     @Test
     void cadastraPesquisaTest() {
 
-        assertEquals("COM2", teste.cadastraPesquisa("Racismo na graduacao de Ciencias da Computacao", "computacao," +
+        assertEquals("COM2", controllerPesquisa.cadastraPesquisa("Racismo na graduacao de Ciencias da Computacao", "computacao," +
                 "racismo,graduacao"));
-        assertEquals("SAU1", teste.cadastraPesquisa("Saude Mental dos estudantes da area de exatas", "saude mental, " +
+        assertEquals("SAU1", controllerPesquisa.cadastraPesquisa("Saude Mental dos estudantes da area de exatas", "saude mental, " +
                 "estudantes,exatas"));
 
     }
 
     @Test
     void cadastraPesquisaDescricaoVaziaOuNullTest() {
-        assertThrows(IllegalArgumentException.class, () -> teste.cadastraPesquisa("", "computacao," +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.cadastraPesquisa("", "computacao," +
                 "homofobia,graduacao"));
 
-        assertThrows(NullPointerException.class, () -> teste.cadastraPesquisa(null, "computacao," +
+        assertThrows(NullPointerException.class, () -> controllerPesquisa.cadastraPesquisa(null, "computacao," +
                 "homofobia,graduacao"));
     }
 
     @Test
     void cadastraPesquisaCampoDeInteresseVaziaOuNullTest() {
-        assertThrows(IllegalArgumentException.class, () -> teste.cadastraPesquisa("Homofobia na graduacao de Ciencias" +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias" +
                 " da Computacao", ""));
 
 
-        assertThrows(NullPointerException.class, () -> teste.cadastraPesquisa("Homofobia na graduacao de Ciencias da " +
+        assertThrows(NullPointerException.class, () -> controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da " +
                 "Computacao", null));
     }
 
     @Test
     void cadastraPesquisaTamanhoCampoInvalidoTest() {
-        assertThrows(IllegalArgumentException.class, () -> teste.cadastraPesquisa("Homofobia na graduacao de " +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de " +
                 "Ciencias" + " da Computacao", "computacao, " +
                 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
 
-        assertThrows(IllegalArgumentException.class, () -> teste.cadastraPesquisa("Homofobia na graduacao de Ciencias" +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias" +
                 " da " +
                 "Computacao", "aa"));
     }
 
     @Test
     void cadastraPesquisaMaisCamposTest() {
-        assertThrows(IllegalArgumentException.class, () -> teste.cadastraPesquisa("Homofobia na graduacao de Ciencias" +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias" +
                 " da Computacao", "computacao,homofobia,graduacao,universidade,internet"));
     }
 
     @Test
     void cadastraPesquisaTamanhoUmCampoInvalidoTest() {
-        assertThrows(IllegalArgumentException.class, () -> teste.cadastraPesquisa("Homofobia na graduacao de " +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de " +
                 "Ciencias" + " da Computacao", "computacao, " +
                 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
 
-        assertThrows(IllegalArgumentException.class, () -> teste.cadastraPesquisa("Homofobia na graduacao de Ciencias" +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias" +
                 " da " +
                 "Computacao", "computacao,aa,homofobia"));
     }
 
     @Test
     void cadastraPesquisaUmCampoVazioTest() {
-        assertThrows(IllegalArgumentException.class, () -> teste.cadastraPesquisa("Homofobia na graduacao de Ciencias" +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias" +
                 " da " + "Computacao", "computacao,,homofobia,graduacao"));
 
-        assertThrows(IllegalArgumentException.class, () -> teste.cadastraPesquisa("Homofobia na graduacao de Ciencias" +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias" +
                 " da " + "Computacao", ",,computacao,homofobia,graduacao"));
 
-        assertThrows(IllegalArgumentException.class, () -> teste.cadastraPesquisa("Homofobia na graduacao de " +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de " +
                 "Ciencias" + " da" + " Computacao", " computacao, graduacao, , homofobia"));
 
 
@@ -93,204 +108,204 @@ class ControllerPesquisaTest {
 
     @Test
     void alteraPesquisaDescricaoTest() {
-        teste.alteraPesquisa("COM1", "DESCRICAO", "Homofobia na graduacao e na pos de Ciencias da Computacao");
+        controllerPesquisa.alteraPesquisa("COM1", "DESCRICAO", "Homofobia na graduacao e na pos de Ciencias da Computacao");
         String msg = "COM1 - Homofobia na graduacao e na pos de Ciencias da Computacao - computacao,homofobia," +
                 "graduacao";
-        assertEquals(msg, teste.exibePesquisa("COM1"));
+        assertEquals(msg, controllerPesquisa.exibePesquisa("COM1"));
 
     }
 
     @Test
     void alteraPesquisaCampoTest() {
-        teste.alteraPesquisa("COM1", "CAMPO", "computacao,homofobia,graduacao,exatas");
+        controllerPesquisa.alteraPesquisa("COM1", "CAMPO", "computacao,homofobia,graduacao,exatas");
         String msg = "COM1 - Homofobia na graduacao de Ciencias da Computacao - computacao,homofobia,graduacao,exatas";
-        assertEquals(msg, teste.exibePesquisa("COM1"));
+        assertEquals(msg, controllerPesquisa.exibePesquisa("COM1"));
 
     }
 
     @Test
     void alteraPesquisaCodigoVazioOuNullTest() {
-        assertThrows(IllegalArgumentException.class, () -> teste.alteraPesquisa("", "CAMPO", "computacao,homofobia," +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.alteraPesquisa("", "CAMPO", "computacao,homofobia," +
                 "graduacao,exatas"));
-        assertThrows(NullPointerException.class, () -> teste.alteraPesquisa(null, "CAMPO", "computacao,homofobia"));
+        assertThrows(NullPointerException.class, () -> controllerPesquisa.alteraPesquisa(null, "CAMPO", "computacao,homofobia"));
     }
 
     @Test
     void alteraPesquisaCodigoInexistenteTest() {
-        assertThrows(IllegalArgumentException.class, () -> teste.alteraPesquisa("GRA1", "CAMPO", "computacao," +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.alteraPesquisa("GRA1", "CAMPO", "computacao," +
                 "homofobia," +
                 "graduacao,exatas"));
 
-        assertThrows(IllegalArgumentException.class, () -> teste.alteraPesquisa("COM2", "CAMPO", "computacao," +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.alteraPesquisa("COM2", "CAMPO", "computacao," +
                 "homofobia," +
                 "graduacao,exatas"));
     }
 
     @Test
     void alteraPesquisaConteudoVazioOuNullTest() {
-        assertThrows(IllegalArgumentException.class, () -> teste.alteraPesquisa("COM1", "", "computacao,homofobia," +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.alteraPesquisa("COM1", "", "computacao,homofobia," +
                 "graduacao,exatas"));
-        assertThrows(NullPointerException.class, () -> teste.alteraPesquisa("COM1", null, "computacao,homofobia"));
+        assertThrows(NullPointerException.class, () -> controllerPesquisa.alteraPesquisa("COM1", null, "computacao,homofobia"));
 
     }
 
     @Test
     void alteraPesquisaConteudoNovoVazioOuNullTest() {
-        assertThrows(IllegalArgumentException.class, () -> teste.alteraPesquisa("COM1", "CAMPO", ""));
-        assertThrows(NullPointerException.class, () -> teste.alteraPesquisa("COM1", "CAMPO", null));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.alteraPesquisa("COM1", "CAMPO", ""));
+        assertThrows(NullPointerException.class, () -> controllerPesquisa.alteraPesquisa("COM1", "CAMPO", null));
 
     }
 
     @Test
     void alteraPesquisaDesativada() {
-        teste.encerraPesquisa("COM1", "Falta de Verba");
-        assertThrows(IllegalArgumentException.class, () -> teste.alteraPesquisa("COM1", "CAMPO", "computacao," +
+        controllerPesquisa.encerraPesquisa("COM1", "Falta de Verba");
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.alteraPesquisa("COM1", "CAMPO", "computacao," +
                 "homofobia," +
                 "graduacao,exatas"));
     }
 
     @Test
     void alteraPesquisaConteudoNaoPodeAlterarTest() {
-        assertThrows(IllegalArgumentException.class, () -> teste.alteraPesquisa("COM1", "CODIGO", "HOM1"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.alteraPesquisa("COM1", "CODIGO", "HOM1"));
     }
 
     @Test
     void alteraPesquisaDescricaoNovaVaziaOuNullTest() {
-        assertThrows(IllegalArgumentException.class, () -> teste.alteraPesquisa("COM1", "DESCRICAO", ""));
-        assertThrows(NullPointerException.class, () -> teste.alteraPesquisa("COM1", "DESCRICAO", null));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.alteraPesquisa("COM1", "DESCRICAO", ""));
+        assertThrows(NullPointerException.class, () -> controllerPesquisa.alteraPesquisa("COM1", "DESCRICAO", null));
 
     }
 
     @Test
     void alteraPesquisaCampoNovoVazioOuNullTest() {
-        assertThrows(IllegalArgumentException.class, () -> teste.alteraPesquisa("COM1", "CAMPO", ""));
-        assertThrows(NullPointerException.class, () -> teste.alteraPesquisa("COM1", "CAMPO", null));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.alteraPesquisa("COM1", "CAMPO", ""));
+        assertThrows(NullPointerException.class, () -> controllerPesquisa.alteraPesquisa("COM1", "CAMPO", null));
 
     }
 
     @Test
     void alteraPesquisaCampoNovoInvalido() {
-        assertThrows(IllegalArgumentException.class, () -> teste.alteraPesquisa("COM1", "CAMPO", "co"));
-        assertThrows(IllegalArgumentException.class, () -> teste.alteraPesquisa("COM1", "CAMPO", "computacao," +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.alteraPesquisa("COM1", "CAMPO", "co"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.alteraPesquisa("COM1", "CAMPO", "computacao," +
                 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
-        assertThrows(IllegalArgumentException.class, () -> teste.alteraPesquisa("COM1", "CAMPO", "computacao,," +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.alteraPesquisa("COM1", "CAMPO", "computacao,," +
                 "homofobia"));
-        assertThrows(IllegalArgumentException.class, () -> teste.alteraPesquisa("COM1", "CAMPO", "computacao," +
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.alteraPesquisa("COM1", "CAMPO", "computacao," +
                 "homofobia,universidade,graduacao,internet"));
     }
 
     @Test
     void encerraPesquisa() {
-        teste.encerraPesquisa("COM1", "Falta de verba");
-        assertFalse(teste.pesquisaEhAtiva("COM1"));
+        controllerPesquisa.encerraPesquisa("COM1", "Falta de verba");
+        assertFalse(controllerPesquisa.pesquisaEhAtiva("COM1"));
     }
 
     @Test
     void encerraPesquisaCodigoVazioOuNulo() {
-        assertThrows(IllegalArgumentException.class, () -> teste.encerraPesquisa("", "Falta de verba"));
-        assertThrows(NullPointerException.class, () -> teste.encerraPesquisa(null, "Falta de verba"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.encerraPesquisa("", "Falta de verba"));
+        assertThrows(NullPointerException.class, () -> controllerPesquisa.encerraPesquisa(null, "Falta de verba"));
 
     }
 
     @Test
     void encerraPesquisaNaoEnncontrada() {
-        assertThrows(IllegalArgumentException.class, () -> teste.encerraPesquisa("UNI1", "Falta de verba"));
-        assertThrows(IllegalArgumentException.class, () -> teste.encerraPesquisa("AAA1", "Falta de verba"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.encerraPesquisa("UNI1", "Falta de verba"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.encerraPesquisa("AAA1", "Falta de verba"));
 
     }
 
     @Test
     void encerraPesquisaMotivoVazioOuNulo() {
-        assertThrows(IllegalArgumentException.class, () -> teste.encerraPesquisa("COM1", ""));
-        assertThrows(NullPointerException.class, () -> teste.encerraPesquisa("COM1", null));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.encerraPesquisa("COM1", ""));
+        assertThrows(NullPointerException.class, () -> controllerPesquisa.encerraPesquisa("COM1", null));
 
     }
 
     @Test
     void encerraPesquisaDesativada() {
-        teste.encerraPesquisa("COM1", "Falta de verba");
-        assertThrows(IllegalArgumentException.class, () -> teste.encerraPesquisa("COM1", "Falta de verba"));
+        controllerPesquisa.encerraPesquisa("COM1", "Falta de verba");
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.encerraPesquisa("COM1", "Falta de verba"));
     }
 
     @Test
     void ativaPesquisa() {
-        teste.encerraPesquisa("COM1", "Falta de verba");
-        assertFalse(teste.pesquisaEhAtiva("COM1"));
-        teste.ativaPesquisa("COM1");
-        assertTrue(teste.pesquisaEhAtiva("COM1"));
+        controllerPesquisa.encerraPesquisa("COM1", "Falta de verba");
+        assertFalse(controllerPesquisa.pesquisaEhAtiva("COM1"));
+        controllerPesquisa.ativaPesquisa("COM1");
+        assertTrue(controllerPesquisa.pesquisaEhAtiva("COM1"));
     }
 
     @Test
     void ativaPesquisaCodigoVazioOuNull() {
 
-        assertThrows(NullPointerException.class, () -> teste.ativaPesquisa(null));
-        assertThrows(IllegalArgumentException.class, () -> teste.ativaPesquisa(""));
+        assertThrows(NullPointerException.class, () -> controllerPesquisa.ativaPesquisa(null));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.ativaPesquisa(""));
 
     }
 
     @Test
     void ativaPesquisaNaoEncontrada() {
 
-        assertThrows(IllegalArgumentException.class, () -> teste.ativaPesquisa("UNI1"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.ativaPesquisa("UNI1"));
 
     }
 
     @Test
     void ativaPesquisaJaAtiva() {
-        assertThrows(IllegalArgumentException.class, () -> teste.ativaPesquisa("COM1"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.ativaPesquisa("COM1"));
     }
 
 
     @Test
     void exibePesquisa() {
-        teste.cadastraPesquisa("Racismo na graduacao de Ciencias da Computacao", "computacao," +
+        controllerPesquisa.cadastraPesquisa("Racismo na graduacao de Ciencias da Computacao", "computacao," +
                 "racismo,graduacao");
-        teste.cadastraPesquisa("Saude Mental dos estudantes da area de exatas", "saude mental, " +
+        controllerPesquisa.cadastraPesquisa("Saude Mental dos estudantes da area de exatas", "saude mental, " +
                 "estudantes,exatas");
 
         String msg1 = "COM1 - Homofobia na graduacao de Ciencias da Computacao - computacao,homofobia,graduacao";
         String msg2 = "COM2 - Racismo na graduacao de Ciencias da Computacao - computacao,racismo,graduacao";
         String msg3 = "SAU1 - Saude Mental dos estudantes da area de exatas - saude mental, estudantes,exatas";
 
-        assertEquals(msg1, teste.exibePesquisa("COM1"));
-        assertEquals(msg2, teste.exibePesquisa("COM2"));
-        assertEquals(msg3, teste.exibePesquisa("SAU1"));
+        assertEquals(msg1, controllerPesquisa.exibePesquisa("COM1"));
+        assertEquals(msg2, controllerPesquisa.exibePesquisa("COM2"));
+        assertEquals(msg3, controllerPesquisa.exibePesquisa("SAU1"));
     }
 
     @Test
     void exibePesquisaNaoCadastrada() {
-        assertThrows(IllegalArgumentException.class, () -> teste.exibePesquisa("UNI1"));
-        assertThrows(IllegalArgumentException.class, () -> teste.exibePesquisa("COM2"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.exibePesquisa("UNI1"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.exibePesquisa("COM2"));
     }
 
     @Test
     void pesquisaEhAtiva() {
-        assertTrue(teste.pesquisaEhAtiva("COM1"));
-        teste.encerraPesquisa("COM1", "Falta de Verba");
-        assertFalse(teste.pesquisaEhAtiva("COM1"));
+        assertTrue(controllerPesquisa.pesquisaEhAtiva("COM1"));
+        controllerPesquisa.encerraPesquisa("COM1", "Falta de Verba");
+        assertFalse(controllerPesquisa.pesquisaEhAtiva("COM1"));
 
     }
 
     @Test
     void pesquisaEhAtivaCodigoVazioOuNull() {
-        assertThrows(IllegalArgumentException.class, () -> teste.pesquisaEhAtiva(""));
-        assertThrows(NullPointerException.class, () -> teste.pesquisaEhAtiva(null));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.pesquisaEhAtiva(""));
+        assertThrows(NullPointerException.class, () -> controllerPesquisa.pesquisaEhAtiva(null));
 
     }
 
     @Test
     void pesquisaEhAtivaPesquisaNaoEncontrada() {
-        assertThrows(IllegalArgumentException.class, () -> teste.pesquisaEhAtiva("COM2"));
-        assertThrows(IllegalArgumentException.class, () -> teste.pesquisaEhAtiva("UNI2"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.pesquisaEhAtiva("COM2"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.pesquisaEhAtiva("UNI2"));
 
     }
 
     @Test
     void buscaTest() {
 
-        teste.cadastraPesquisa("Racismo na graduacao de Ciencias da Computacao", "computacao," +
+        controllerPesquisa.cadastraPesquisa("Racismo na graduacao de Ciencias da Computacao", "computacao," +
                 "racismo,graduacao");
-        teste.cadastraPesquisa("Saude Mental dos estudantes da area de exatas", "saude mental, " +
+        controllerPesquisa.cadastraPesquisa("Saude Mental dos estudantes da area de exatas", "saude mental, " +
                 "estudantes,exatas");
 
         List<String> resultado = new ArrayList<>();
@@ -302,7 +317,9 @@ class ControllerPesquisaTest {
         resultado.add("COM1: Homofobia na graduacao de Ciencias da Computacao");
         resultado.add("COM1: computacao,homofobia,graduacao");
 
-        assertEquals(resultado,teste.busca("a"));
+
+        assertEquals(resultado, controllerPesquisa.busca("a"));
+
 
         List<String> resultado2 = new ArrayList<>();
 
@@ -311,196 +328,203 @@ class ControllerPesquisaTest {
         resultado2.add("COM1: Homofobia na graduacao de Ciencias da Computacao");
         resultado2.add("COM1: computacao,homofobia,graduacao");
 
-        assertEquals(resultado2,teste.busca("graduacao"));
+
+        assertEquals(resultado2, controllerPesquisa.busca("graduacao"));
+
 
         List<String> resultado3 = new ArrayList<>();
 
         resultado3.add("SAU1: Saude Mental dos estudantes da area de exatas");
 
-        assertEquals(resultado3,teste.busca("Mental"));
+
+        assertEquals(resultado3, controllerPesquisa.busca("Mental"));
+
 
         List<String> resultado4 = new ArrayList<>();
 
         resultado4.add("COM2: Racismo na graduacao de Ciencias da Computacao");
 
-        assertEquals(resultado4,teste.busca("Racismo"));
+
+        assertEquals(resultado4, controllerPesquisa.busca("Racismo"));
 
         List<String> resultado5 = new ArrayList<>();
 
         resultado5.add("COM1: Homofobia na graduacao de Ciencias da Computacao");
 
-        assertEquals(resultado5,teste.busca("Homofobia"));
+
+        assertEquals(resultado5, controllerPesquisa.busca("Homofobia"));
     }
 
     @Test
     void buscaTestTermoVaziouOuNull(){
-        assertThrows(IllegalArgumentException.class, ()-> teste.busca(""));
-        assertThrows(NullPointerException.class, ()-> teste.busca(null));
+        assertThrows(IllegalArgumentException.class, ()-> controllerPesquisa.busca(""));
+        assertThrows(NullPointerException.class, ()-> controllerPesquisa.busca(null));
     }
 
     @Test
     void associaProblemaEmPesquisa(){
-        teste.cadastraPesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto." , "computacao, poo");
-//        teste.cadastraPesquisa("Avaliacao de modelos preditivos para a extracao de caracteristicas significativas nas eleicoes brasileiras.", "eleicao");
-//        teste.cadastraPesquisa("Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces.", "fermentacao, cerveja");
-//        teste.cadastraPesquisa("Alienacao Parental e o Sistema de Justica Brasileiro.", "psicologia, sistema juridico, alienacao parental, brasil");
+        controllerPesquisa.cadastraPesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto." , "computacao, poo");
 
-        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
-        Problema problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4, "P2");
+        controllerProblema.cadastraProblema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao", 3);
+        controllerProblema.cadastraProblema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4);
 
 
-        assertTrue(teste.associaProblemaEmPesquisa("COM2", problema1));
-        assertTrue(teste.associaProblemaEmPesquisa("COM1", problema1));
-        assertFalse(teste.associaProblemaEmPesquisa("COM2", problema1));
+        assertTrue(controllerPesquisa.associaProblema("COM2", "P1"));
+        assertTrue(controllerPesquisa.associaProblema("COM1", "P1"));
+        assertFalse(controllerPesquisa.associaProblema("COM2", "P1"));
     }
 
     @Test
-    void associaProblemaEmPesquisaNaoCadastrada(){
-        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
+    void associaProblemaEmPesquisaNaoCadastrada() {
+        controllerProblema.cadastraProblema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao", 3);
 
-        assertThrows(IllegalArgumentException.class, () -> teste.associaProblemaEmPesquisa("UNI1", problema1));
-        assertThrows(IllegalArgumentException.class, () -> teste.associaProblemaEmPesquisa("AAA1", problema1));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.associaProblema("UNI1", "P1"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.associaProblema("AAA1", "P1"));
     }
 
     @Test
-    void associaProblemaEmPesquisaDesativada(){
-        Problema problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4, "P2");
+    void associaProblemaEmPesquisaDesativada() {
+        controllerProblema.cadastraProblema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4);
 
-        teste.encerraPesquisa("COM1", "Falta de verba");
-        assertThrows(IllegalArgumentException.class, () -> teste.associaProblemaEmPesquisa("COM1", problema2));
+        controllerPesquisa.encerraPesquisa("COM1", "Falta de verba");
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.associaProblema("COM1", "P1"));
     }
 
     @Test
-    void associaProblemaEmPesquisaJaAssociada(){
-        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
-        Problema problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4, "P2");
+    void associaProblemaEmPesquisaJaAssociada() {
+        controllerProblema.cadastraProblema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao", 3);
+        controllerProblema.cadastraProblema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4);
 
-        teste.associaProblemaEmPesquisa("COM1", problema1);
-        assertThrows(IllegalArgumentException.class, () -> teste.associaProblemaEmPesquisa("COM1", problema2));
+        controllerPesquisa.associaProblema("COM1", "P1");
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.associaProblema("COM1", "P2"));
     }
 
     @Test
-    void desassociaProblemaEmPesquisa(){
-        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
+    void desassociaProblemaEmPesquisa() {
+        controllerProblema.cadastraProblema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao", 3);
 
-        teste.associaProblemaEmPesquisa("COM1", problema1);
+        controllerPesquisa.associaProblema("COM1", "P1");
 
-        assertTrue(teste.desassociaProblemaEmPesquisa("COM1"));
-        assertFalse(teste.desassociaProblemaEmPesquisa("COM1"));
+        assertTrue(controllerPesquisa.desassociaProblema("COM1"));
+        assertFalse(controllerPesquisa.desassociaProblema("COM1"));
     }
 
-    @Test
     void desassociaProblemaEmPesquisaNaoCadastrada(){
-        assertThrows(IllegalArgumentException.class, () -> teste.desassociaProblemaEmPesquisa("UNI1"));
-        assertThrows(IllegalArgumentException.class, () -> teste.desassociaProblemaEmPesquisa("AAA1"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.desassociaProblema("UNI1"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.desassociaProblema("AAA1"));
+
     }
 
     @Test
-    void desassociaProblemaEmPesquisaDesativada(){
-        Problema problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4, "P2");
+    void desassociaProblemaEmPesquisaDesativada() {
+        controllerProblema.cadastraProblema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4);
 
-        teste.associaProblemaEmPesquisa("COM1", problema2);
-        teste.encerraPesquisa("COM1", "Falta de verba");
-        assertThrows(IllegalArgumentException.class, () -> teste.desassociaProblemaEmPesquisa("COM1"));
+        controllerPesquisa.associaProblema("COM1", "P2");
+        controllerPesquisa.encerraPesquisa("COM1", "Falta de verba");
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.desassociaProblema("COM1"));
     }
 
     @Test
-    void associaObjetivoEmPesquisa(){
-        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
-        Objetivo objetivo2 = new Objetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5, "O2");
+    void associaObjetivoEmPesquisa() {
+        this.controllerObjetivo.cadastraObjetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao", 5, 5);
+        this.controllerObjetivo.cadastraObjetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5);
 
-        assertTrue(this.teste.associaObjetivoEmPesquisa("COM1", objetivo1));
 
-        assertFalse(objetivo2.getAssociado());
-        assertTrue(this.teste.associaObjetivoEmPesquisa("COM1", objetivo2));
-        assertTrue(objetivo2.getAssociado());
+        assertTrue(this.controllerPesquisa.associaObjetivo("COM1", "O1"));
 
-        assertFalse(this.teste.associaObjetivoEmPesquisa("COM1", objetivo1));
+        assertFalse(this.controllerObjetivo.getObjetivo("O2").getAssociado());
+        assertTrue(this.controllerPesquisa.associaObjetivo("COM1", "O2"));
+        assertTrue(this.controllerObjetivo.getObjetivo("O2").getAssociado());
+
+        assertFalse(this.controllerPesquisa.associaObjetivo("COM1", "O1"));
     }
 
     @Test
-    void associaObjetivoEmPesquisaNaoCadastrada(){
-        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
+    void associaObjetivoEmPesquisaNaoCadastrada() {
+        this.controllerObjetivo.cadastraObjetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao", 5, 5);
 
-        assertThrows(IllegalArgumentException.class, () -> teste.associaObjetivoEmPesquisa("UNI1", objetivo1));
-        assertThrows(IllegalArgumentException.class, () -> teste.associaObjetivoEmPesquisa("AAA1", objetivo1));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.associaObjetivo("UNI1", "O1"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.associaObjetivo("AAA1", "O1"));
     }
-    @Test
-    void associaObjetivoEmPesquisaDesativada(){
-        Objetivo objetivo2 = new Objetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5, "O2");
 
-        teste.encerraPesquisa("COM1", "Falta de verba");
-        assertThrows(IllegalArgumentException.class, () -> teste.associaObjetivoEmPesquisa("COM1", objetivo2));
+    @Test
+    void associaObjetivoEmPesquisaDesativada() {
+        this.controllerObjetivo.cadastraObjetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5);
+
+        controllerPesquisa.encerraPesquisa("COM1", "Falta de verba");
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.associaObjetivo("COM1", "O1"));
     }
 
     @Test
     void associaObjetivoJaAssociado(){
-        teste.cadastraPesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto." , "computacao, poo");
+        controllerPesquisa.cadastraPesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto." , "computacao, poo");
 
-        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
 
-        teste.associaObjetivoEmPesquisa("COM2", objetivo1);
-        assertThrows(IllegalArgumentException.class, () -> teste.associaObjetivoEmPesquisa("COM1", objetivo1));
+        this.controllerObjetivo.cadastraObjetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao", 5, 5);
+
+        controllerPesquisa.associaObjetivo("COM2", "O1");
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.associaObjetivo("COM1", "O1"));
     }
 
     @Test
-    void desassociaObjetivoEmPesquisa(){
-        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
-        Objetivo objetivo2 = new Objetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5, "O2");
+    void desassociaObjetivoEmPesquisa() {
+        this.controllerObjetivo.cadastraObjetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao", 5, 5);
+        this.controllerObjetivo.cadastraObjetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5);
 
-        this.teste.associaObjetivoEmPesquisa("COM1", objetivo1);
-        assertTrue(objetivo1.getAssociado());
-        assertTrue(this.teste.desassociaObjetivoEmPesquisa("COM1", objetivo1));
-        assertFalse(objetivo1.getAssociado());
-        assertFalse(this.teste.desassociaObjetivoEmPesquisa("COM1", objetivo2));
+        this.controllerPesquisa.associaObjetivo("COM1", "O1");
+        assertTrue(this.controllerObjetivo.getObjetivo("O1").getAssociado());
+        assertTrue(this.controllerPesquisa.desassociaObjetivo("COM1", "O1"));
+        assertFalse(this.controllerObjetivo.getObjetivo("O1").getAssociado());
+        assertFalse(this.controllerPesquisa.desassociaObjetivo("COM1", "O2"));
     }
 
     @Test
-    void desassociaObjetivoEmPesquisaNaoCadastrada(){
-        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
+    void desassociaObjetivoEmPesquisaNaoCadastrada() {
+        this.controllerObjetivo.cadastraObjetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao", 5, 5);
 
-        assertThrows(IllegalArgumentException.class, () -> teste.desassociaObjetivoEmPesquisa("UNI1", objetivo1));
-        assertThrows(IllegalArgumentException.class, () -> teste.desassociaObjetivoEmPesquisa("AAA1", objetivo1));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.desassociaObjetivo("UNI1", "O1"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.desassociaObjetivo("AAA1", "O1"));
     }
-    @Test
-    void desassociaObjetivoEmPesquisaDesativada(){
-        Objetivo objetivo2 = new Objetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5, "O2");
 
-        teste.encerraPesquisa("COM1", "Falta de verba");
-        assertThrows(IllegalArgumentException.class, () -> teste.desassociaObjetivoEmPesquisa("COM1", objetivo2));
+    @Test
+    void desassociaObjetivoEmPesquisaDesativada() {
+        this.controllerObjetivo.cadastraObjetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5);
+
+        controllerPesquisa.encerraPesquisa("COM1", "Falta de verba");
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.desassociaObjetivo("COM1", "O1"));
     }
 
     @Test
     void listaPesquisas(){
-        teste.cadastraPesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto." , "computacao, poo");
-        teste.cadastraPesquisa("Avaliacao de modelos preditivos para a extracao de caracteristicas significativas nas eleicoes brasileiras.", "eleicao");
-        teste.cadastraPesquisa("Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces.", "fermentacao, cerveja");
-        teste.cadastraPesquisa("Alienacao Parental e o Sistema de Justica Brasileiro.", "psicologia, sistema juridico, alienacao parental, brasil");
+        controllerPesquisa.cadastraPesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto." , "computacao, poo");
+        controllerPesquisa.cadastraPesquisa("Avaliacao de modelos preditivos para a extracao de caracteristicas significativas nas eleicoes brasileiras.", "eleicao");
+        controllerPesquisa.cadastraPesquisa("Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces.", "fermentacao, cerveja");
+        controllerPesquisa.cadastraPesquisa("Alienacao Parental e o Sistema de Justica Brasileiro.", "psicologia, sistema juridico, alienacao parental, brasil");
 
-        Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
-        Problema problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4, "P2");
-        Problema problema3 = new Problema("A extrema falta de paciencia durante a criacao de testes da junit nos estudantes da graduacao de computacao da ufcg",3,"P3");
+        controllerProblema.cadastraProblema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao", 3);
+        controllerProblema.cadastraProblema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4);
+        controllerProblema.cadastraProblema("A extrema falta de paciencia durante a criacao de testes da junit nos estudantes da graduacao de computacao da ufcg", 3);
 
-        teste.associaProblemaEmPesquisa("COM1", problema1);
-        teste.associaProblemaEmPesquisa("COM2", problema2);
-        teste.associaProblemaEmPesquisa("ELE1", problema3);
-        teste.associaProblemaEmPesquisa("PSI1", problema2);
+        controllerPesquisa.associaProblema("COM1", "P1");
+        controllerPesquisa.associaProblema("COM2", "P2");
+        controllerPesquisa.associaProblema("ELE1", "P3");
+        controllerPesquisa.associaProblema("PSI1", "P2");
 
-        Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
-        Objetivo objetivo2 = new Objetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5, "O2");
-        Objetivo objetivo3 = new Objetivo("ESPECIFICO", "Gerenciar melhor as notas dos alunos", 3, 4, "O3");
-        Objetivo objetivo4 = new Objetivo("GERAL", "gerenceiar melhor a distribuicao dos alunos nas aulas de lp2", 5, 5, "O4");
-        Objetivo objetivo5 = new Objetivo("ESPECIFICO", "Encontarar o melhor resultado possivel com as leveduras nao-Saccharomyces.", 4, 3, "O5");
-        Objetivo objetivo6 = new Objetivo("GERAL", "Melhorar a extracao de caracteristicas significativas nas eleicoes brasileiras.", 3, 4, "O6");
-        Objetivo objetivo7 = new Objetivo("GERAL", "Acabou minha criatividade", 5, 5, "O7");
+        controllerObjetivo.cadastraObjetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao", 5, 5);
+        controllerObjetivo.cadastraObjetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5);
+        controllerObjetivo.cadastraObjetivo("ESPECIFICO", "Gerenciar melhor as notas dos alunos", 3, 4);
+        controllerObjetivo.cadastraObjetivo("GERAL", "gerenceiar melhor a distribuicao dos alunos nas aulas de lp2", 5, 5);
+        controllerObjetivo.cadastraObjetivo("ESPECIFICO", "Encontarar o melhor resultado possivel com as leveduras nao-Saccharomyces.", 4, 3);
+        controllerObjetivo.cadastraObjetivo("GERAL", "Melhorar a extracao de caracteristicas significativas nas eleicoes brasileiras.", 3, 4);
+        controllerObjetivo.cadastraObjetivo("GERAL", "Acabou minha criatividade", 5, 5);
 
-        teste.associaObjetivoEmPesquisa("COM1", objetivo1);
-        teste.associaObjetivoEmPesquisa("ELE1", objetivo2);
-        teste.associaObjetivoEmPesquisa("PSI1", objetivo3);
-        teste.associaObjetivoEmPesquisa("COM2", objetivo4);
-        teste.associaObjetivoEmPesquisa("COM2", objetivo5);
-        teste.associaObjetivoEmPesquisa("PSI1", objetivo6);
-        teste.associaObjetivoEmPesquisa("COM2", objetivo7);
+        controllerPesquisa.associaObjetivo("COM1", "O1");
+        controllerPesquisa.associaObjetivo("ELE1", "O2");
+        controllerPesquisa.associaObjetivo("PSI1", "O3");
+        controllerPesquisa.associaObjetivo("COM2", "O4");
+        controllerPesquisa.associaObjetivo("COM2", "O5");
+        controllerPesquisa.associaObjetivo("PSI1", "O6");
+        controllerPesquisa.associaObjetivo("COM2", "O7");
 
 
         assertEquals("ELE1 - Avaliacao de modelos preditivos para a extracao de caracteristicas significativas nas eleicoes brasileiras. - eleicao " +
@@ -508,78 +532,182 @@ class ControllerPesquisaTest {
                 "| PSI1 - Alienacao Parental e o Sistema de Justica Brasileiro. - psicologia, sistema juridico, alienacao parental, brasil " +
                 "| COM1 - Homofobia na graduacao de Ciencias da Computacao - computacao,homofobia,graduacao " +
                 "| FER1 - Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces. - fermentacao, cerveja"
-                ,teste.listaPesquisas("PROBLEMA"));
+                , controllerPesquisa.listaPesquisas("PROBLEMA"));
+
 
         assertEquals("COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo " +
                         "| PSI1 - Alienacao Parental e o Sistema de Justica Brasileiro. - psicologia, sistema juridico, alienacao parental, brasil " +
                         "| COM1 - Homofobia na graduacao de Ciencias da Computacao - computacao,homofobia,graduacao " +
                         "| ELE1 - Avaliacao de modelos preditivos para a extracao de caracteristicas significativas nas eleicoes brasileiras. - eleicao " +
                         "| FER1 - Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces. - fermentacao, cerveja"
-                , teste.listaPesquisas("OBJETIVOS"));
+                , controllerPesquisa.listaPesquisas("OBJETIVOS"));
         assertEquals("PSI1 - Alienacao Parental e o Sistema de Justica Brasileiro. - psicologia, sistema juridico, alienacao parental, brasil " +
                 "| FER1 - Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces. - fermentacao, cerveja " +
                 "| ELE1 - Avaliacao de modelos preditivos para a extracao de caracteristicas significativas nas eleicoes brasileiras. - eleicao " +
                 "| COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo " +
                 "| COM1 - Homofobia na graduacao de Ciencias da Computacao - computacao,homofobia,graduacao"
-                , teste.listaPesquisas("PESQUISA"));
-
+                , controllerPesquisa.listaPesquisas("PESQUISA"));
     }
 
     @Test
     void listaPesquisasOrdemVaziaOuNull() {
-        assertThrows(IllegalArgumentException.class, () -> teste.listaPesquisas(""));
-        assertThrows(NullPointerException.class, () -> teste.listaPesquisas(null));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.listaPesquisas(""));
+        assertThrows(NullPointerException.class, () -> controllerPesquisa.listaPesquisas(null));
     }
 
-    @Test  
+    @Test
     void associaAtividadeEmPesquisaComExcecoesTest() {
-        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
+        controllerAtividade.cadastraAtividade("rodas de conversa sobre homofobia",
                 "BAIXO","Alguma manifestacao homofobica");
-        assertThrows(NullPointerException.class,()->  teste.associaAtividadeEmPesquisa(null,atividade));
-        assertThrows(IllegalArgumentException.class,()-> teste.associaAtividadeEmPesquisa("",atividade));
-        assertThrows(IllegalArgumentException.class,()-> teste.associaAtividadeEmPesquisa("LEI1",atividade));
-        teste.encerraPesquisa("COM1","Corte de verbas");
-        assertThrows(IllegalArgumentException.class,()-> teste.associaAtividadeEmPesquisa("COM1",atividade));
+        assertThrows(NullPointerException.class,()->  controllerPesquisa.associaAtividade(null,"A1"));
+        assertThrows(IllegalArgumentException.class,()-> controllerPesquisa.associaAtividade("","A1"));
+        assertThrows(IllegalArgumentException.class,()-> controllerPesquisa.associaAtividade("LEI1","A1"));
+        controllerPesquisa.encerraPesquisa("COM1","Corte de verbas");
+        assertThrows(IllegalArgumentException.class,()-> controllerPesquisa.associaAtividade("COM1","A1"));
+
     }
 
     @Test
     void associaAtividadeTest() {
-        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
+        controllerAtividade.cadastraAtividade("rodas de conversa sobre homofobia",
                 "BAIXO","Alguma manifestacao homofobica");
-        assertTrue(teste.associaAtividadeEmPesquisa("COM1",atividade));
+        assertTrue(controllerPesquisa.associaAtividade("COM1","A1"));
     }
 
     @Test
     void associaAtividadeJaAssociadaTest() {
-        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
+        controllerAtividade.cadastraAtividade("rodas de conversa sobre homofobia",
                 "BAIXO","Alguma manifestacao homofobica");
-        teste.associaAtividadeEmPesquisa("COM1",atividade);
-        assertFalse(teste.associaAtividadeEmPesquisa("COM1",atividade));
+        controllerPesquisa.associaAtividade("COM1","A1");
+        assertFalse(controllerPesquisa.associaAtividade("COM1","A1" ));
     }
 
     @Test
     void desassociaAtividadeEmPesquisaComExcecoesTest() {
-        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
+        controllerAtividade.cadastraAtividade("rodas de conversa sobre homofobia",
                 "BAIXO","Alguma manifestacao homofobica");
-        assertThrows(NullPointerException.class,()->  teste.desassociaAtividadeEmPesquisa(null,atividade));
-        assertThrows(IllegalArgumentException.class,()-> teste.desassociaAtividadeEmPesquisa("",atividade));
-        assertThrows(IllegalArgumentException.class,()-> teste.desassociaAtividadeEmPesquisa("LEI1",atividade));
-        teste.encerraPesquisa("COM1","Corte de verbas");
-        assertThrows(IllegalArgumentException.class,()-> teste.desassociaAtividadeEmPesquisa("COM1",atividade));
+        assertThrows(NullPointerException.class,()->  controllerPesquisa.desassociaAtividade(null,"A1"));
+        assertThrows(IllegalArgumentException.class,()-> controllerPesquisa.desassociaAtividade("","A1"));
+        assertThrows(IllegalArgumentException.class,()-> controllerPesquisa.desassociaAtividade("LEI1","A1"));
+        controllerPesquisa.encerraPesquisa("COM1","Corte de verbas");
+        assertThrows(IllegalArgumentException.class,()-> controllerPesquisa.desassociaAtividade("COM1","A1"));
     }
 
     @Test
     void desassociaAtividadeTest() {
-        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
+        controllerAtividade.cadastraAtividade("rodas de conversa sobre homofobia",
                 "BAIXO","Alguma manifestacao homofobica");
-        teste.associaAtividadeEmPesquisa("COM1",atividade);
-        assertTrue(teste.desassociaAtividadeEmPesquisa("COM1",atividade));
+        controllerPesquisa.associaAtividade("COM1","A1");
+        assertTrue(controllerPesquisa.desassociaAtividade("COM1","A1"));
+
     }
 
     @Test
     void desassociaAtividadeNaoAssociadaTest() {
-        Atividade atividade = new Atividade("A1","rodas de conversa sobre homofobia",
+        controllerAtividade.cadastraAtividade("rodas de conversa sobre homofobia",
                 "BAIXO","Alguma manifestacao homofobica");
-        assertFalse(teste.desassociaAtividadeEmPesquisa("COM1",atividade));
+        assertFalse(controllerPesquisa.desassociaAtividade("COM1","A1"));
     }
+
+    @Test
+    void gravaResumoTest() throws IOException {
+        controllerPesquisa.cadastraPesquisa("Pesquisa teste para checar se o gravaResumo esta em dia", "Resumos");
+        controllerAtividade.cadastraAtividade("Atividade teste para checar se o gravaResumo esta em dia","BAIXO","Nao tem muito erro ta ligado");
+        controllerObjetivo.cadastraObjetivo("ESPECIFICO", "Fazer o gravaResumoTest() ficar 100%.",2,5);
+
+        controllerPesquisa.associaObjetivo("RES1", "O1");
+        controllerPesquisa.associaAtividade("RES1", "A1");
+
+        controllerPesquisa.gravaResumo("RES1");
+        assertEquals("- Pesquisa: RES1 - Pesquisa teste para checar se o gravaResumo esta em dia - Resumos\n" +
+                "     - Objetivos:\n        - O1 - ESPECIFICO - Fazer o gravaResumoTest() ficar 100%. - 7\n" +
+                "    - Atividades:\n        - Atividade teste para checar se o gravaResumo esta em dia (BAIXO - Nao tem muito erro ta ligado)\n",
+                JavaFileUtil.getFileContent("./_RES1.txt"));
+    }
+
+    @Test
+    void gravaResumoPesquisaVaziaOuNula(){
+        assertThrows(IllegalArgumentException.class,()-> controllerPesquisa.gravaResumo(""));
+        assertThrows(NullPointerException.class,()-> controllerPesquisa.gravaResumo(null));
+    }
+
+    @Test
+    void gravaResumoPesquisaNaoEncontrada(){
+        assertThrows(IllegalArgumentException.class,()-> controllerPesquisa.gravaResumo("WTF1"));
+    }
+
+    @Test
+    void gravaResultadoTest() throws IOException {
+        controllerPesquisa.cadastraPesquisa("Pesquisa teste para checar se o gravaResultado esta em dia", "Teste de Resultados");
+        controllerAtividade.cadastraAtividade("Atividade teste para checar se o gravaResultado esta em dia","BAIXO","Erro baixo envolvido");
+        controllerPesquisa.associaAtividade("TES1", "A1");
+        controllerObjetivo.cadastraObjetivo("ESPECIFICO", "Fazer o gravaResultadoTest() ficar 100%.",2,5);
+        controllerPesquisa.associaObjetivo("TES1", "O1");
+        controllerPesquisador.cadastraPesquisador("Fernando", "estudante", "Codador paciente na aula de lp2", "fernando@ccc.ufcg.com","https://facebook.com/photos");
+        controllerPesquisa.associaPesquisador("TES1", "fernando@ccc.ufcg.com");
+        controllerPesquisa.gravaResultados("TES1");
+
+        assertEquals("- Pesquisa: TES1 - Pesquisa teste para checar se o gravaResultado esta em dia - Teste de Resultados\n" +
+                "    - Resultados:\n" + "        - Atividade teste para checar se o gravaResultado esta em dia\n",
+                JavaFileUtil.getFileContent("./TES1-Resultados.txt"));
+
+    }
+
+    @Test
+    void gravaResultadoPesquisaVaziaOuNula(){
+        assertThrows(IllegalArgumentException.class,()-> controllerPesquisa.gravaResultados(""));
+        assertThrows(NullPointerException.class,()-> controllerPesquisa.gravaResultados(null));
+    }
+
+    @Test
+    void gravaResultadosPesquisaNaoEncontrada() {
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.gravaResultados("KKK2"));
+    }
+
+    @Test
+    void testaConfiguraEstrategiaComExcecoes() {
+        //Testando valor nulo e vazio para estrategia
+        assertThrows(NullPointerException.class, () -> controllerPesquisa.configuraEstrategia(null));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.configuraEstrategia(""));
+
+        //Testando valores diferentes de : MAIS_ANTIGA,MENOS_PENDENCIAS,MAIOR_RISCO,MAIOR_DURACAO
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.configuraEstrategia("MAIOR_CHATICE"));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.configuraEstrategia("MENOS_TEMPO"));
+
+    }
+
+    @Test
+    void testaConfiguraEstrategia() {
+        //Testando MAIS_ANTIGA
+        controllerPesquisa.configuraEstrategia("MAIS_ANTIGA");
+        assertEquals(controllerPesquisa.getEstrategia(), "MAIS_ANTIGA");
+
+        //Testando MENOS_PENDENCIAS
+        controllerPesquisa.configuraEstrategia("MENOS_PENDENCIAS");
+        assertEquals(controllerPesquisa.getEstrategia(), "MENOS_PENDENCIAS");
+
+        //Testando MAIOR_RISCO
+        controllerPesquisa.configuraEstrategia("MAIOR_RISCO");
+        assertEquals(controllerPesquisa.getEstrategia(), "MAIOR_RISCO");
+
+        //Testando MAIOR_DURACAO
+        controllerPesquisa.configuraEstrategia("MAIOR_DURACAO");
+        assertEquals(controllerPesquisa.getEstrategia(), "MAIOR_DURACAO");
+    }
+
+    @Test
+    void testaProximaAtividadeComExcecoes() {
+        //Testando valor nulo e vazio para codigo da Pesquisa
+        assertThrows(NullPointerException.class, () -> controllerPesquisa.proximaAtividade(null));
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.proximaAtividade(""));
+
+        //Testando pesquisa inexistente no sistema
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.proximaAtividade("COM1"));
+
+        //Testando pesquisa desativada
+        controllerPesquisa.cadastraPesquisa("Desenvolvimento de estudos a partir de interacoes com pacientes do SAE", "psicologia,saude sexual,soropositivos");
+        controllerPesquisa.encerraPesquisa("PSI1", "Falta de alunos para dar continuidade a pesquisa");
+        assertThrows(IllegalArgumentException.class, () -> controllerPesquisa.proximaAtividade("PSI1"));
+    }
+
 }

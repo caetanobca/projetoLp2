@@ -1,23 +1,35 @@
 package psquiza;
 
+import psquiza.atividade.ControllerAtividade;
+import psquiza.objetivo.ControllerObjetivo;
+import psquiza.pesquisa.ControllerPesquisa;
+import psquiza.pesquisador.ControllerPesquisador;
+import psquiza.problema.ControllerProblema;
+
+import java.io.IOException;
+
 public class Facade {
     private ControllerPesquisa controllerPesquisa;
     private ControllerProblema controllerProblema;
     private ControllerObjetivo controllerObjetivo;
     private ControllerAtividade controllerAtividade;
     private ControllerPesquisador controllerPesquisador;
-    private ControllerAssociacoes controllerAssociacoes;
     private ControllerBusca controllerBusca;
+    private ControllerPersistencia controllerPersistencia;
 
 
     public Facade() {
-        this.controllerPesquisa = new ControllerPesquisa();
         this.controllerProblema = new ControllerProblema();
         this.controllerObjetivo = new ControllerObjetivo();
         this.controllerAtividade = new ControllerAtividade();
         this.controllerPesquisador = new ControllerPesquisador();
-        this.controllerAssociacoes = new ControllerAssociacoes(controllerProblema, controllerObjetivo, controllerPesquisa, controllerAtividade,controllerPesquisador);
-        this.controllerBusca = new ControllerBusca(controllerProblema, controllerObjetivo, controllerPesquisa, controllerAtividade,controllerPesquisador);
+        this.controllerPesquisa = new ControllerPesquisa(this.controllerObjetivo.getObjetivos(),
+                this.controllerProblema.getProblemas(),
+                this.controllerAtividade.getAtividades(), this.controllerPesquisador.getPesquisadores());
+        this.controllerBusca = new ControllerBusca(controllerProblema, controllerObjetivo, controllerPesquisa,
+                controllerAtividade, controllerPesquisador);
+        this.controllerPersistencia = new ControllerPersistencia(controllerProblema, controllerObjetivo,
+                controllerPesquisa, controllerAtividade, controllerPesquisador);
     }
 
     public String cadastraPesquisa(String descricao, String campoDeInteresse) {
@@ -117,27 +129,43 @@ public class Facade {
     }
 
     public boolean associaProblema(String idPesquisa, String idProblema) {
-        return this.controllerAssociacoes.associaProblema(idPesquisa, idProblema);
+        return this.controllerPesquisa.associaProblema(idPesquisa, idProblema);
     }
 
     public boolean desassociaProblema(String idPesquisa) {
-        return this.controllerAssociacoes.desassociaProblema(idPesquisa);
+        return this.controllerPesquisa.desassociaProblema(idPesquisa);
     }
 
     public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
-        return this.controllerAssociacoes.associaObjetivo(idPesquisa, idObjetivo);
+        return this.controllerPesquisa.associaObjetivo(idPesquisa, idObjetivo);
     }
 
     public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
-        return this.controllerAssociacoes.desassociaObjetivo(idPesquisa, idObjetivo);
+        return this.controllerPesquisa.desassociaObjetivo(idPesquisa, idObjetivo);
 
     }
 
-    public String busca(String termo){
+    public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
+        return this.controllerPesquisa.associaPesquisador(idPesquisa, emailPesquisador);
+    }
+
+    public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
+        return this.controllerPesquisa.desassociaPesquisador(idPesquisa, emailPesquisador);
+    }
+
+    public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
+        return this.controllerPesquisa.associaAtividade(codigoPesquisa, codigoAtividade);
+    }
+
+    public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
+        return this.controllerPesquisa.desassociaAtividade(codigoPesquisa, codigoAtividade);
+    }
+
+    public String busca(String termo) {
         return this.controllerBusca.busca(termo);
     }
 
-    public String busca(String termo, int numeroDoResultado){
+    public String busca(String termo, int numeroDoResultado) {
         return this.controllerBusca.busca(termo, numeroDoResultado);
     }
 
@@ -145,55 +173,96 @@ public class Facade {
         return this.controllerBusca.contaResultadosBusca(termo);
     }
 
-    public String listaPesquisas(String ordem){
+    public String listaPesquisas(String ordem) {
         return this.controllerPesquisa.listaPesquisas(ordem);
     }
-    
-    public boolean associaPesquisador(String idPesquisa,String emailPesquisador) {
-        return this.controllerAssociacoes.associaPesquisador(idPesquisa,emailPesquisador);
+
+    public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
+        this.controllerPesquisador.cadastraEspecialidadeProfessor(email, formacao, unidade, data);
     }
 
-    public boolean desassociaPesquisador(String idPesquisa,String emailPesquisador) {
-        return this.controllerAssociacoes.desassociaPesquisador(idPesquisa,emailPesquisador);
-    }
-
-    public void cadastraEspecialidadeProfessor(String email,String formacao,String unidade,String data) {
-        this.controllerPesquisador.cadastraEspecialidadeProfessor(email,formacao,unidade,data);
-    }
-
-    public void cadastraEspecialidadeAluno(String email,int semestre,double IEA) {
-        this.controllerPesquisador.cadastraEspecialidadeAluno(email,semestre,IEA);
-    }
-
-    public boolean associaAtividade(String codigoPesquisa, String codigoAtividade){
-        return this.controllerAssociacoes.associaAtividade(codigoPesquisa,codigoAtividade);
-    }
-
-    public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
-        return this.controllerAssociacoes.desassociaAtividade(codigoPesquisa,codigoAtividade);
+    public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
+        this.controllerPesquisador.cadastraEspecialidadeAluno(email, semestre, IEA);
     }
 
     public void executaAtividade(String codigoAtividade, int item, int duracao) {
-        this.controllerAtividade.executaAtividade(codigoAtividade,item,duracao);
+        this.controllerAtividade.executaAtividade(codigoAtividade, item, duracao);
     }
 
-    public int cadastraResultado(String codigoAtividade, String resultado){
-        return this.controllerAtividade.cadastraResultado(codigoAtividade,resultado);
+    public int cadastraResultado(String codigoAtividade, String resultado) {
+        return this.controllerAtividade.cadastraResultado(codigoAtividade, resultado);
     }
 
-    public boolean removeResultado(String codigoAtividade, int numeroResultado){
-        return this.controllerAtividade.removeResultado(codigoAtividade,numeroResultado);
+    public boolean removeResultado(String codigoAtividade, int numeroResultado) {
+        return this.controllerAtividade.removeResultado(codigoAtividade, numeroResultado);
     }
 
-    public String listaResultados(String codigoAtividade){
+    public String listaResultados(String codigoAtividade) {
         return this.controllerAtividade.listaResultados(codigoAtividade);
     }
 
-    public int getDuracao(String codigoAtividade){
+    public int getDuracao(String codigoAtividade) {
         return this.controllerAtividade.getDuracao(codigoAtividade);
     }
 
     public String listaPesquisadores(String tipo) {
         return this.controllerPesquisador.listaPesquisadores(tipo);
+    }
+
+
+    public void salvar() throws IOException {
+        controllerPersistencia.salva();
+    }
+
+    public void carregar() throws IOException, ClassNotFoundException {
+        this.controllerPesquisa = controllerPersistencia.carregaPesquisa();
+        this.controllerPesquisador = controllerPersistencia.carregaPesquisador();
+        this.controllerObjetivo = controllerPersistencia.carregaObjetivo();
+        this.controllerProblema = controllerPersistencia.carregaProblema();
+        this.controllerAtividade = controllerPersistencia.carregaAtividade();
+        this.controllerBusca = new ControllerBusca(controllerProblema, controllerObjetivo, controllerPesquisa,
+                controllerAtividade, controllerPesquisador);
+        this.controllerPersistencia = new ControllerPersistencia(controllerProblema, controllerObjetivo,
+                controllerPesquisa, controllerAtividade, controllerPesquisador);
+
+        this.controllerPesquisa.carregaMapas(controllerObjetivo.getObjetivos(), controllerProblema.getProblemas(),
+                controllerAtividade.getAtividades(), controllerPesquisador.getPesquisadores());
+
+    }
+
+    public void gravarResumo(String codigoPesquisa) throws IOException {
+        this.controllerPesquisa.gravaResumo(codigoPesquisa);
+    }
+
+    public void gravarResultados(String codigoPesquisa) throws IOException {
+        this.controllerPesquisa.gravaResultados(codigoPesquisa);
+    }
+
+    public void defineProximaAtividade(String idPrecedente, String idSubsquente) {
+        this.controllerAtividade.defineProximaAtividade(idPrecedente, idSubsquente);
+    }
+
+    public int contaProximos(String idPrecedente) {
+        return this.controllerAtividade.contaProximos(idPrecedente);
+    }
+
+    public void tiraProximaAtividade(String idPrecedente) {
+        this.controllerAtividade.tiraProximaAtividade(idPrecedente);
+    }
+
+    public String pegaProximo(String idAtividade, int enesimaAtividade) {
+        return this.controllerAtividade.pegaProximo(idAtividade, enesimaAtividade);
+    }
+
+    public String pegaMaiorRiscoAtividades(String idAtividade) {
+        return this.controllerAtividade.pegaMaiorRiscoAtividades(idAtividade);
+    }
+
+    public void configuraEstrategia(String estrategia) {
+        this.controllerPesquisa.configuraEstrategia(estrategia);
+    }
+
+    public String proximaAtividade(String codigoPesquisa) {
+        return this.controllerPesquisa.proximaAtividade(codigoPesquisa);
     }
 }

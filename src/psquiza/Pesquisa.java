@@ -1,8 +1,15 @@
 package psquiza;
 
+import psquiza.atividade.Atividade;
+import psquiza.objetivo.Objetivo;
+import psquiza.pesquisa.AssociacaoEmPesquisa;
+import psquiza.pesquisa.RelatorioPesquisa;
+import psquiza.pesquisador.Pesquisador;
+import psquiza.problema.Problema;
 import util.Validacao;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,12 +17,8 @@ import java.util.Objects;
  * Classe que representa uma pesquisa, que tem descricao, campo de interesse, codigo, e uma variavel que indica
  * se esta ativa ou encerrada
  */
-public class Pesquisa implements Comparable<Pesquisa> {
+public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
-    /**
-     * Problema associado a essa pesquisa.
-     */
-    private Problema problemaAssociado;
 
     /**
      * Um texto livre com um resumo da pesquisa a ser realizada.
@@ -44,21 +47,22 @@ public class Pesquisa implements Comparable<Pesquisa> {
      */
     private String motivoDesativacao;
 
-    /**
-     * ArrayList com todos os objetivos da pesquisa.
-     */
-    private List<Objetivo> objetivos;
-
-    /**
-     * ArrayList com todas as atividades da Pesquisa.
-     */
-    private List<Atividade> atividades;
-
 
     /**
      * Objeto que tem funcoes que auxiliam na validacao de entradas.
      */
     private Validacao validador;
+
+    /**
+     * Composição com uma classe que executa e armazena todas as Associações de Pesquisa com outras entidades.
+     */
+    private AssociacaoEmPesquisa associacao;
+
+    /**
+     * Objeto que tem funcoes que permite gerar um relatorio da pesquisa e dos resultados da pesquisa
+     */
+    private RelatorioPesquisa relatorioPesquisa;
+
 
     /**
      * Construtor da Classe Atividade. O Construtor não aceita parametros vazios, nulos ou não válidos, caso algum
@@ -79,9 +83,9 @@ public class Pesquisa implements Comparable<Pesquisa> {
         this.campoDeInteresse = campoDeInteresse;
         this.codigo = codigo;
         this.ativada = true;
-        this.problemaAssociado = null;
-        this.objetivos = new ArrayList<>();
-        this.atividades = new ArrayList<>();
+        this.associacao = new AssociacaoEmPesquisa();
+        this.relatorioPesquisa = new RelatorioPesquisa();
+
 
     }
 
@@ -142,156 +146,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
     }
 
     /**
-     * Metodo de acesso ao Problema associado a Pesquisa.
-     *
-     * @return Um Objeto do tipo Problema
-     */
-    public Problema getProblemaAssociado() {
-        return problemaAssociado;
-    }
-
-    /**
-     * Metodo de acesso ao ArrayList de Objetivos associados a Pesquisa.
-     *
-     * @return ArrayList de Objetivo.
-     */
-    public List<Objetivo> getObjetivosAssociados() {
-        return objetivos;
-    }
-
-    /**
-     * Metodo de acesso ao Codigo de identificao da Pesquisa
-     * @return Uma String com o Codigo de identificacao da Pesquisa.
-     */
-    public String getCodigo() {
-        return codigo;
-    }
-
-    /**
-     * Metodo responsvel por receber um Problema como parametro, verificar se a Pesquisa ja tem associacao com algum
-     * problema, e caso nao tenha,  associa-lo a Pesquisa.
-     *
-     * @param problema Objeto Problema que sera associado a Pesquisa.
-     * @return  variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
-     */
-    public boolean associaProblemaEmPesquisa(Problema problema) {
-        boolean associou;
-
-
-        if (this.problemaAssociado != null && !"".equals(this.problemaAssociado)) {
-
-            if (this.problemaAssociado.equals(problema)) {
-                associou = false;
-            } else {
-                validador.lancaExcecao("Pesquisa ja associada a um problema.");
-                associou = false;
-            }
-
-        } else {
-            this.problemaAssociado = problema;
-            associou = true;
-
-        }
-        return associou;
-    }
-
-    /**
-     * Metodo responsavel por desassociar um Problema da Pesquisa em que ele estava associado, verificando se o Problema
-     * passado por parametro e o mesmo que ja esta associado, caso seja, a desassociacao será realizada.
-     * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
-     */
-    public boolean desassociaProblemaEmPesquisa() {
-        boolean desassociou;
-        if (this.problemaAssociado == null || "".equals(this.problemaAssociado)){
-
-            desassociou = false;
-        } else {
-            this.problemaAssociado = null;
-            desassociou = true;
-        }
-
-        return desassociou;
-    }
-
-    /**
-     * Metodo responsvel por receber um Objetivo como parametro, verificar se o Objetivo ja tem associacao com alguma
-     * Pesquisa, e caso nao tenha,  associa-lo a Pesquisa.
-     *
-     * @param objetivo Objeto Objetivo que sera associado a Pesquisa.
-     * @return  variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
-     */
-    public boolean associaObjetivoEmPesquisa(Objetivo objetivo) {
-        boolean associou = false;
-
-        if (!objetivos.contains(objetivo)) {
-            if (objetivo.getAssociado() == false) {
-                objetivos.add(objetivo);
-                objetivo.setAssociado(true);
-                associou = true;
-            } else {
-                validador.lancaExcecao("Objetivo ja associado a uma pesquisa.");
-            }
-        }
-
-        return associou;
-    }
-
-    /**
-     * Metodo responsavel por desassociar um Objetivo da Pesquisa em que ele estava associado, verificando se o Problema
-     * passado por parametro esta no ArrayList de Objetivos associados, caso esteja, a desassociacao sera realizada.
-     * @param objetivo Objeto Problema que sera desassociado a Pesquisa.
-     * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
-     */
-    public boolean desassociaObjetivoEmPesquisa(Objetivo objetivo) {
-        boolean desassociou = false;
-
-        if (objetivos.contains(objetivo)) {
-            objetivos.remove(objetivo);
-            objetivo.setAssociado(false);
-            desassociou = true;
-        }
-
-        return desassociou;
-    }
-
-    /**
-     * Associa uma Atividade da Pesquisa. Uma Atividade nao pode ser associada se
-     *      * nao estiver associada em Pesquisa.
-     *
-     * @param atividade a Atividade a ser associada
-     * @return valor booleano que representa o sucesso ou nao da associacao
-     */
-    public boolean associaAtividadeEmPesquisa(Atividade atividade) {
-        if(atividades.contains(atividade)) {
-            return false;
-        } else{
-            atividades.add(atividade);
-            atividade.associa();
-            return true;
-        }
-    }
-
-    /**
-     * Desassocia uma Atividade da Pesquisa. Uma Atividade nao pode ser desassociada se
-     * nao estiver associada em Pesquisa.
-     *
-     * @param atividade a Atividade a ser dessasociada
-     * @return valor booleano que representa o sucesso ou nao da operacao
-     */
-    public boolean desassociaAtividadeEmPesquisa(Atividade atividade){
-        if (!atividades.contains(atividade)){
-            return false;
-        } else {
-            atividades.remove(atividade);
-            atividade.desassocia();
-            return true;
-        }
-
-
-    }
-
-
-    /**
      * Metodo que cria uma representacao textual da pesquisa.
      *
      * @return uma representacao da pesquisa.
@@ -315,6 +169,23 @@ public class Pesquisa implements Comparable<Pesquisa> {
         return codigo.equals(pesquisa.codigo);
     }
 
+    /**
+     * Retorna a informacao se a Atividada ha ou nao Itens
+     * pendentes.
+     *
+     * @return valor booleano informando se ha itens pendentes ou nao
+     */
+    public boolean hasPendencias() {
+
+        for (Atividade atividade : associacao.getAtividades()) {
+            if (atividade != null) {
+                if (atividade.contaItensPendentes() > 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     @Override
     public int hashCode() {
@@ -324,6 +195,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 
     /**
      * Metodo responsavel por pegar a descricao da Pesquisa.
+     *
      * @return descricao da Pesquisa.
      */
     public String getDescricao() {
@@ -332,14 +204,147 @@ public class Pesquisa implements Comparable<Pesquisa> {
 
     /**
      * Metodo responsavel por pegar os campos de interesse da Pesquisa.
+     *
      * @return campos de interesse da Pesquisa.
      */
     public String getCampoDeInteresse() {
         return campoDeInteresse;
     }
 
+    /**
+     * Metodo de acesso ao Codigo de identificao da Pesquisa
+     *
+     * @return Uma String com o Codigo de identificacao da Pesquisa.
+     */
+    public String getCodigo() {
+        return codigo;
+    }
+
     @Override
     public int compareTo(Pesquisa o) {
         return o.getCodigo().compareTo(codigo);
+    }
+
+
+    public void gravaResumo() throws IOException {
+        this.relatorioPesquisa.gravaResumo(this.toString(), this.codigo, this.associacao);
+    }
+
+
+    public void gravaResultado() throws IOException {
+        this.relatorioPesquisa.gravaResultado(this.toString(), this.codigo, this.associacao);
+    }
+
+    /**
+     * Metodo de acesso ao Problema associado a Pesquisa.
+     *
+     * @return Um Objeto do tipo Problema
+     */
+    public Problema getProblemaAssociado() {
+        return associacao.getProblemaAssociado();
+    }
+
+    /**
+     * Metodo de acesso ao ArrayList de Objetivos associados a Pesquisa.
+     *
+     * @return ArrayList de Objetivo.
+     */
+    public List<Objetivo> getObjetivosAssociados() {
+        return associacao.getObjetivosAssociados();
+    }
+
+
+    /**
+     * Associa uma Atividade da Pesquisa. Uma Atividade nao pode ser associada se
+     * * nao estiver associada em Pesquisa.
+     *
+     * @param atividade a Atividade a ser associada
+     * @return valor booleano que representa o sucesso ou nao da associacao
+     */
+    public boolean associaAtividade(Atividade atividade) {
+        return associacao.associaAtividade(atividade);
+    }
+
+    /**
+     * Desassocia uma Atividade da Pesquisa. Uma Atividade nao pode ser desassociada se
+     * nao estiver associada em Pesquisa.
+     *
+     * @param atividade a Atividade a ser dessasociada
+     * @return valor booleano que representa o sucesso ou nao da operacao
+     */
+    public boolean desassociaAtividade(Atividade atividade) {
+        return associacao.desassociaAtividade(atividade);
+    }
+
+    /**
+     * Associa um Pesquisador a uma Pesquisa.
+     *
+     * @param pesquisador Pesquisador a ser associado
+     * @return valor booleano que representa o sucesso ou nao da operacao
+     */
+    public boolean associaPesquisador(Pesquisador pesquisador) {
+        return associacao.associaPesquisador(pesquisador);
+    }
+
+    /**
+     * Desassocia um Pesquisador de uma Pesquisa.
+     *
+     * @param pesquisador Pesquisador a ser desassociado
+     * @return valor booleano que representa o sucesso ou nao da operacao
+     */
+    public boolean desassociaPesquisador(Pesquisador pesquisador) {
+        return associacao.desassociaPesquisador(pesquisador);
+    }
+
+    /**
+     * Metodo responsvel por receber um Problema como parametro, verificar se a Pesquisa ja tem associacao com algum
+     * problema, e caso nao tenha,  associa-lo a Pesquisa.
+     *
+     * @param problema Objeto Problema que sera associado a Pesquisa.
+     * @return variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
+     */
+    public boolean associaProblema(Problema problema) {
+        return associacao.associaProblema(problema);
+    }
+
+    /**
+     * Metodo responsavel por desassociar um Problema da Pesquisa em que ele estava associado, verificando se o Problema
+     * passado por parametro e o mesmo que ja esta associado, caso seja, a desassociacao será realizada.
+     *
+     * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
+     */
+    public boolean desassociaProblema() {
+        return associacao.desassociaProblema();
+    }
+
+    /**
+     * Metodo responsvel por receber um Objetivo como parametro, verificar se o Objetivo ja tem associacao com alguma
+     * Pesquisa, e caso nao tenha,  associa-lo a Pesquisa.
+     *
+     * @param objetivo Objeto Objetivo que sera associado a Pesquisa.
+     * @return variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
+     */
+    public boolean associaObjetivo(Objetivo objetivo) {
+        return associacao.associaObjetivo(objetivo);
+    }
+
+    /**
+     * Metodo responsavel por desassociar um Objetivo da Pesquisa em que ele estava associado, verificando se o Problema
+     * passado por parametro esta no ArrayList de Objetivos associados, caso esteja, a desassociacao sera realizada.
+     *
+     * @param objetivo Objeto Problema que sera desassociado a Pesquisa.
+     * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
+     */
+    public boolean desassociaObjetivo(Objetivo objetivo) {
+        return associacao.desassociaObjetivo(objetivo);
+    }
+
+    /**
+     * Retorna as Atividades associadas a essa pesquisa.
+     *
+     * @return as Atividades associadas a essa pesquisa
+     */
+    public List<Atividade> getAtividades() {
+        return associacao.getAtividades();
     }
 }
