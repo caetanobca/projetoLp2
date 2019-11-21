@@ -65,6 +65,11 @@ public class Risco implements Serializable {
         return this.descricao;
     }
 
+    /**
+     * Metodo responsavel por pegar o nivel do risco .
+     *
+     * @return o valor do tostring do nivel risco.
+     */
     public String getNivelRisco() {
         return nivelRisco.toString();
     }

@@ -349,6 +349,11 @@ public class ControllerPesquisador implements Serializable {
         return retorno;
     }
 
+    /**
+     * metodo responsavel por pegar um pesquisador
+     * @param emailPesquisador - email do pesquisador
+     * @return um pesquisador especifico
+     */
     public Pesquisador getPesquisador(String emailPesquisador) {
         if (this.pesquisadores.containsKey(emailPesquisador)){
             return this.pesquisadores.get(emailPesquisador);

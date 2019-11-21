@@ -155,6 +155,11 @@ public class Objetivo implements Comparable<Objetivo>, Serializable {
         return descricao;
     }
 
+    /**
+     * Comparador de Objetivo a partir da ordem de cadastro
+     * @param o Objetivo que sera comparada
+     * @return o Objetivo mais antigo
+     */
     @Override
     public int compareTo(Objetivo o) {
         if (Integer.parseInt(this.id.substring(1)) > Integer.parseInt(o.getId().substring(1))){

@@ -10,6 +10,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Entidade responsavel por toda a logica de associacao entre entidades do sistema com
+ * pesquisa
+ */
 public class AssociacaoEmPesquisa implements Serializable {
 
     /**

@@ -180,6 +180,11 @@ public class Pesquisador implements Serializable {
     }
 
 
+    /**
+     * Metodo que pega a funcao do pesquisador
+     *
+     * @return a funcao do pesquisador (professor, estudante ou externo)
+     */
     public String getFuncao() {
         return funcao;
     }
@@ -228,28 +233,57 @@ public class Pesquisador implements Serializable {
         return this.biografia;
     }
 
-    
-
+    /**
+     * Metodo responsavel por especializar um professor
+     * @param formacao - uma string que representa a formacao do professor
+     * @param unidade - unidade academica do professor
+     * @param data - data em que o professor se formou
+     */
     public void especializaProfessor(String formacao, String unidade, String data) {
         this.especialidade = new Professor(formacao, unidade, data);
     }
 
+    /**
+     * Constroi um estudante a partir do semestre em que ele esta em curso
+     * e o indice de evasao do aluno(IEA).
+     * @param  semestre e o semestre que o aluno esta cursando
+     * @param IEA e o indice de evasao do aluno
+     */
     public void especializaEstudante(int semestre, double IEA) {
         this.especialidade = new Estudante(semestre, IEA);
     }
 
+    /**
+     * metodo responsavel por alterar o valores de inteiro nas especialidades
+     * @param atributo - qual atirbuto sera alterado
+     * @param valorUsarSemestre - novo valor a ser atribuido
+     */
     public void alteraEspecialidade(String atributo, int valorUsarSemestre) {
         this.especialidade.edita(atributo, valorUsarSemestre + "");
     }
 
+    /**
+     * Metodo responsavel por editar valores doubles nas especialidade
+     * @param atributo atributo que sera alterado
+     * @param valorUsarIEA - novo valor a ser atribuido
+     */
     public void alteraEspecialidade(String atributo,double valorUsarIEA) {
         this.especialidade.edita(atributo, valorUsarIEA + "");
     }
 
+    /**
+     * Metodo responsavel por editar valores do tipo String nas especialidades
+     * @param atributo - atributo a ser alterado
+     * @param novoValor - novo valor a ser atribuido
+     */
     public void alteraEspecialidade(String atributo, String novoValor) {
         this.especialidade.edita(atributo, novoValor);
     }
 
+    /**
+     * Metodo que edita o tostring para retornar uma representacao com a especialida
+     * @return uma representacao do pesquisador com as especialidade
+     */
     public String exibeEspecializado() {
         return this.toString() + this.especialidade.toString();
     }

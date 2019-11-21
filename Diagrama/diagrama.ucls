@@ -294,7 +294,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="32" language="java" name="psquiza.pesquisa.ResumoPesquisa" project="projetoLp2-MapasCPesquisa" 
+  <class id="32" language="java" name="psquiza.pesquisa.RelatorioPesquisa" project="projetoLp2-MapasCPesquisa"
     file="/projetoLp2-MapasCPesquisa/src/psquiza/pesquisa/ResumoPesquisa.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="176" width="441" x="2702" y="2720"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

@@ -3,7 +3,7 @@ package psquiza;
 import psquiza.atividade.Atividade;
 import psquiza.objetivo.Objetivo;
 import psquiza.pesquisa.AssociacaoEmPesquisa;
-import psquiza.pesquisa.ResumoPesquisa;
+import psquiza.pesquisa.RelatorioPesquisa;
 import psquiza.pesquisador.Pesquisador;
 import psquiza.problema.Problema;
 import util.Validacao;
@@ -61,7 +61,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
     /**
      * Objeto que tem funcoes que permite gerar um relatorio da pesquisa e dos resultados da pesquisa
      */
-    private ResumoPesquisa resumoPesquisa;
+    private RelatorioPesquisa relatorioPesquisa;
 
 
     /**
@@ -84,7 +84,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
         this.codigo = codigo;
         this.ativada = true;
         this.associacao = new AssociacaoEmPesquisa();
-        this.resumoPesquisa = new ResumoPesquisa();
+        this.relatorioPesquisa = new RelatorioPesquisa();
 
 
     }
@@ -227,12 +227,12 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
 
     public void gravaResumo() throws IOException {
-        this.resumoPesquisa.gravaResumo(this.toString(), this.codigo, this.associacao);
+        this.relatorioPesquisa.gravaResumo(this.toString(), this.codigo, this.associacao);
     }
 
 
     public void gravaResultado() throws IOException {
-        this.resumoPesquisa.gravaResultado(this.toString(), this.codigo, this.associacao);
+        this.relatorioPesquisa.gravaResultado(this.toString(), this.codigo, this.associacao);
     }
 
     /**

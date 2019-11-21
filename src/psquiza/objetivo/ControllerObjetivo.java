@@ -108,6 +108,11 @@ public class ControllerObjetivo implements Serializable {
         return this.objetivos.get(codigo);
     }
 
+    /**
+     * Metodo responsavel por dizer se um objetivo já esta associado
+     * @param codigo indentificador unico do objtivo
+     * @return true caso o objetivo estiver associado, false caso n.
+     */
     public boolean getObjetivoAssociado(String codigo){
         if(!this.objetivos.containsKey(codigo)) {
             validacao.lancaExcecao("Objetivo nao encontrado.");
@@ -137,6 +142,10 @@ public class ControllerObjetivo implements Serializable {
         return results;
     }
 
+    /**
+     * Metodo responsavel por pegar todos os objetivos do sistema
+     * @return - um map com os objetivos do sistema
+     */
     public HashMap<String, Objetivo> getObjetivos() {
         return objetivos;
     }

@@ -125,6 +125,10 @@ public class ControllerProblema implements Serializable {
         return results;
     }
 
+    /**
+     * Metodo responsavel por pegar todos os problemas do sistema
+     * @return um mapa com todos os problemas do sistema
+     */
     public HashMap<String, Problema> getProblemas() {
         return problemas;
     }

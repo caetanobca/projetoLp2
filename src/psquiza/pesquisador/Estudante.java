@@ -25,6 +25,7 @@ public class Estudante implements Especialidade, Serializable {
      * valor de excecao e passado no sistema.
      */
     private Validacao validacao;
+
     /**
      * Constroi um estudante a partir do semestre em que ele esta em curso
      * e o indice de evasao do aluno(IEA).

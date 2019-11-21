@@ -10,9 +10,20 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collections;
 
-public class ResumoPesquisa implements Serializable {
+/**
+ * Entidade responsavel pela logica de criar e salvar os resumos e os resultados das pesquisas
+ */
+public class RelatorioPesquisa implements Serializable {
 
 
+
+    /**
+     * Metodo responsavel por gravar um resumo da pesquisa em um arquivo txt
+     * @param descricaoPesquisa - descricao da pesquisa, que sera gravado o resumo
+     * @param codigo - codigo da pesquisa
+     * @param associacao - objeto que contem todas as entidades associadas em uma pesquisa
+     * @throws IOException
+     */
     public void gravaResumo(String descricaoPesquisa, String codigo, AssociacaoEmPesquisa associacao) throws IOException {
         File file = new File("_" + codigo + ".txt");
         String resumo = this.criaResumo(descricaoPesquisa, associacao);
@@ -33,6 +44,13 @@ public class ResumoPesquisa implements Serializable {
         }
     }
 
+
+    /**
+     * MEtodo responsavel por criar um resumo da pesquisa
+     * @param descricaoPesquisa - descricao da pesquisa, que sera gravado o resumo
+     * @param associacao - objeto que contem todas as entidades associadas em uma pesquisa
+     * @return uma string com o resumo da pesquisa
+     */
     private String criaResumo(String descricaoPesquisa, AssociacaoEmPesquisa associacao) {
         String resumo = "- Pesquisa: " + descricaoPesquisa;
 
@@ -80,6 +98,13 @@ public class ResumoPesquisa implements Serializable {
         return resumo;
     }
 
+    /**
+     * Metodo responsavel por gravar os resutados da pesquisa em um arquivo txt
+     * @param descricaoPesquisa - descricao da pesquisa, que sera gravado o resultado
+     * @param codigo - codigo da pesquisa
+     * @param associacao - objeto que contem todas as entidades associadas em uma pesquisa
+     * @throws IOException
+     */
     public void gravaResultado(String descricaoPesquisa, String codigo, AssociacaoEmPesquisa associacao) throws IOException {
         File file = new File(codigo + "-Resultados.txt");
         String resultado = this.criaResultado(descricaoPesquisa, associacao);
@@ -100,6 +125,12 @@ public class ResumoPesquisa implements Serializable {
         }
     }
 
+    /**
+     * Metodo responsavel por criar uma representacao textual dos resultados da pesquisa
+     * @param descricaoPesquisa - descricao da pesquisa, que sera gravado o resumo
+     * @param associacao - objeto que contem todas as entidades associadas em uma pesquisa
+     * @return uma string com os resultados da pesquisa
+     */
     private String criaResultado(String descricaoPesquisa, AssociacaoEmPesquisa associacao) {
         String resultado = "- Pesquisa: " + descricaoPesquisa;
         resultado += System.lineSeparator() + "    - Resultados:";

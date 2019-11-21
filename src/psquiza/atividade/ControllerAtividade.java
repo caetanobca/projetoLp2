@@ -390,6 +390,10 @@ public class ControllerAtividade implements Serializable {
         return this.ordemAtividade.pegaMaiorRiscoAtividades(idAtividade);
     }
 
+    /**
+     * metodo que retorna todas as atividades do sistema
+     * @return um mapa com todas as atividades do sistema
+     */
     public HashMap<String, Atividade> getAtividades() {
         return atividades;
     }

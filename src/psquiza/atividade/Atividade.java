@@ -369,6 +369,11 @@ public class Atividade implements Comparable<Atividade>, Serializable{
         }
     }
 
+    /**
+     * Cria uma representacao textual da atividade, que contem a sua descricao, o toStringo do seu nivel de risco
+     * e os itens.
+     * @return - uma representacao textual da atividade
+     */
     @Override
     public String toString() {
         return descricao + " (" + nivelRisco.toString() + ")" + exibeItens();
@@ -400,6 +405,11 @@ public class Atividade implements Comparable<Atividade>, Serializable{
     }
 
 
+    /**
+     * Comparador de atividade a partir da ordem de cadastro
+     * @param o Atividade que sera comparada
+     * @return a atividade mais antiga
+     */
     @Override
     public int compareTo(Atividade o) {
         if (Integer.parseInt(this.codigoIdentificador.substring(1)) > Integer.parseInt(o.codigoIdentificador.substring(1))){
@@ -410,10 +420,18 @@ public class Atividade implements Comparable<Atividade>, Serializable{
         return 0;
     }
 
+    /**
+     * metodo que retorna todos os itens da atividade
+     * @return uma lista com todos os itens
+     */
     public List<Item> getItens() {
         return itens;
     }
 
+    /**
+     * metodo que retorna todos os resultados da atividade
+     * @return um mapa com todos os resultados
+     */
     public HashMap<Integer, Resultado> getResultados() {
         return resultados;
     }

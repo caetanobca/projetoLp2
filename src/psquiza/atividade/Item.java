@@ -121,6 +121,10 @@ public class Item implements Serializable {
         return Objects.hash(nome);
     }
 
+    /**
+     * Metodo que retorna o indentificador unico do item
+     * @return id do item
+     */
     public int getId() {
         return id;
     }

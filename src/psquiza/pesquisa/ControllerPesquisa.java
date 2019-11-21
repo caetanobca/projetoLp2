@@ -1,6 +1,7 @@
 package psquiza.pesquisa;
 
-import psquiza.*;
+import psquiza.ComparadorBusca;
+import psquiza.Pesquisa;
 import psquiza.atividade.*;
 import psquiza.objetivo.Objetivo;
 import psquiza.pesquisador.Pesquisador;
@@ -400,6 +401,13 @@ public class ControllerPesquisa implements Serializable {
         return this.pesquisas.get(idPesquisa).desassociaPesquisador(this.pesquisadores.get(pesquisador));
     }
 
+    /**
+     * Metodo responsavel por atualizar os mapas desse objeto
+     * @param objetivoMap - mapa de objetivo
+     * @param problemaMap - mapa de problemas
+     * @param atividadeMap - mapa de atividade
+     * @param pesquisadorMap - mapa de pesquisador
+     */
     public void carregaMapas(Map<String, Objetivo> objetivoMap, Map<String, Problema> problemaMap, Map<String, Atividade> atividadeMap, Map<String, Pesquisador> pesquisadorMap){
         this.objetivos = objetivoMap;
         this.problemas = problemaMap;
@@ -552,6 +560,11 @@ public class ControllerPesquisa implements Serializable {
     }
 
 
+    /**
+     * Metodo responsavel por gravar um resumo da pesquisa em um arquivo txt
+     * @param codigoPesquisa - codigo da pesquisa cuja se deseja criar um resumo
+     * @throws IOException
+     */
     public void gravaResumo(String codigoPesquisa) throws IOException {
         this.validador.validaNulleVazio(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
         if (!this.pesquisas.containsKey(codigoPesquisa)){
@@ -560,6 +573,11 @@ public class ControllerPesquisa implements Serializable {
         this.pesquisas.get(codigoPesquisa).gravaResumo();
     }
 
+    /**
+     * Metodo responsavel por gravar os resutados da pesquisa em um arquivo txt
+     * @param codigoPesquisa - codigo da pesquisa cuja se deseja gravar os resultados
+     * @throws IOException
+     */
     public void gravaResultados(String codigoPesquisa) throws IOException {
         this.validador.validaNulleVazio(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
         if (!this.pesquisas.containsKey(codigoPesquisa)){
@@ -596,6 +614,10 @@ public class ControllerPesquisa implements Serializable {
         }
     }
 
+    /**
+     * metodo responsavell por pegar a estrategia
+     * @return o toString da estrategia
+     */
     public String getEstrategia() {
         return estrategia.toString();
     }

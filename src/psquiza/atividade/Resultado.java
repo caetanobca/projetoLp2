@@ -13,6 +13,10 @@ public class Resultado implements Serializable {
      * Descreve o resultado da atividade.
      */
     private String descricaoResultado;
+
+    /**
+     * Indetificador unico do resultado
+     */
     private int id;
 
     /**
