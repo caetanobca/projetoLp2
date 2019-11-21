@@ -2,6 +2,7 @@ package psquiza;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import psquiza.pesquisador.Pesquisador;
 
 import static org.junit.jupiter.api.Assertions.*;
 

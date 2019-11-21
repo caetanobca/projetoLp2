@@ -2,6 +2,11 @@ package psquiza;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import psquiza.atividade.ControllerAtividade;
+import psquiza.objetivo.ControllerObjetivo;
+import psquiza.pesquisa.ControllerPesquisa;
+import psquiza.pesquisador.ControllerPesquisador;
+import psquiza.problema.ControllerProblema;
 import util.JavaFileUtil;
 
 import java.io.IOException;
@@ -614,11 +619,10 @@ class ControllerPesquisaTest {
         controllerPesquisa.associaAtividade("RES1", "A1");
 
         controllerPesquisa.gravaResumo("RES1");
-        assertEquals("\"- Pesquisa: RES1 - Pesquisa teste para checar se o gravaResumo esta em dia - Resumos\n" +
-                "     - Objetivos:\n" +
-                "        - O1 - ESPECIFICO - Fazer o gravaResumoTest() ficar 100%. - 7\n" +
-                "    - Atividades:\n" +
-                "        - Atividade teste para checar se o gravaResumo esta em dia (BAIXO - Nao tem muito erro ta ligado)\"\n",JavaFileUtil.getFileContent("./_RES1.txt"));
+        assertEquals("- Pesquisa: RES1 - Pesquisa teste para checar se o gravaResumo esta em dia - Resumos\n" +
+                "     - Objetivos:\n        - O1 - ESPECIFICO - Fazer o gravaResumoTest() ficar 100%. - 7\n" +
+                "    - Atividades:\n        - Atividade teste para checar se o gravaResumo esta em dia (BAIXO - Nao tem muito erro ta ligado)\n",
+                JavaFileUtil.getFileContent("./_RES1.txt"));
     }
 
     @Test
@@ -643,7 +647,9 @@ class ControllerPesquisaTest {
         controllerPesquisa.associaPesquisador("TES1", "fernando@ccc.ufcg.com");
         controllerPesquisa.gravaResultados("TES1");
 
-        assertEquals("",JavaFileUtil.getFileContent("./TES1-Resultados.txt"));
+        assertEquals("- Pesquisa: TES1 - Pesquisa teste para checar se o gravaResultado esta em dia - Teste de Resultados\n" +
+                "    - Resultados:\n" + "        - Atividade teste para checar se o gravaResultado esta em dia\n",
+                JavaFileUtil.getFileContent("./TES1-Resultados.txt"));
 
     }
 
@@ -670,24 +676,24 @@ class ControllerPesquisaTest {
 
     }
 
-//    @Test
-//    void testaConfiguraEstrategia() {
-//        //Testando MAIS_ANTIGA
-//        teste.configuraEstrategia("MAIS_ANTIGA");
-//        assertEquals(controllerPesquisa.getEstrategia(), "MAIS_ANTIGA");
-//
-//        //Testando MENOS_PENDENCIAS
-//        teste.configuraEstrategia("MENOS_PENDENCIAS");
-//        assertEquals(controllerPesquisa.getEstrategia(), "MENOS_PENDENCIAS");
-//
-//        //Testando MAIOR_RISCO
-//        teste.configuraEstrategia("MAIOR_RISCO");
-//        assertEquals(controllerPesquisa.getEstrategia(), "MAIOR_RISCO");
-//
-//        //Testando MAIOR_DURACAO
-//        teste.configuraEstrategia("MAIOR_DURACAO");
-//        assertEquals(controllerPesquisa.getEstrategia(), "MAIOR_DURACAO");
-//    }
+    @Test
+    void testaConfiguraEstrategia() {
+        //Testando MAIS_ANTIGA
+        controllerPesquisa.configuraEstrategia("MAIS_ANTIGA");
+        assertEquals(controllerPesquisa.getEstrategia(), "MAIS_ANTIGA");
+
+        //Testando MENOS_PENDENCIAS
+        controllerPesquisa.configuraEstrategia("MENOS_PENDENCIAS");
+        assertEquals(controllerPesquisa.getEstrategia(), "MENOS_PENDENCIAS");
+
+        //Testando MAIOR_RISCO
+        controllerPesquisa.configuraEstrategia("MAIOR_RISCO");
+        assertEquals(controllerPesquisa.getEstrategia(), "MAIOR_RISCO");
+
+        //Testando MAIOR_DURACAO
+        controllerPesquisa.configuraEstrategia("MAIOR_DURACAO");
+        assertEquals(controllerPesquisa.getEstrategia(), "MAIOR_DURACAO");
+    }
 
     @Test
     void testaProximaAtividadeComExcecoes() {

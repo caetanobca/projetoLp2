@@ -1,5 +1,11 @@
 package psquiza;
 
+import psquiza.atividade.Atividade;
+import psquiza.objetivo.Objetivo;
+import psquiza.pesquisa.AssociacaoEmPesquisa;
+import psquiza.pesquisa.ResumoPesquisa;
+import psquiza.pesquisador.Pesquisador;
+import psquiza.problema.Problema;
 import util.Validacao;
 
 import java.io.IOException;

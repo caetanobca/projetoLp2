@@ -2,6 +2,11 @@ package psquiza;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import psquiza.atividade.ControllerAtividade;
+import psquiza.objetivo.ControllerObjetivo;
+import psquiza.pesquisa.ControllerPesquisa;
+import psquiza.pesquisador.ControllerPesquisador;
+import psquiza.problema.ControllerProblema;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -2,6 +2,7 @@ package psquiza;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import psquiza.atividade.Atividade;
 
 import java.util.ArrayList;
 import java.util.List;
