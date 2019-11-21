@@ -41,8 +41,8 @@ public class ControllerPesquisa implements Serializable {
         this.estrategia = SugestaoProxAtividade.MAIS_ANTIGA;
         this.objetivos = objetivoMap;
         this.problemas = problemaMap;
-        this.objetivos = objetivoMap;
         this.pesquisadores = pesquisadorMap;
+        this.atividades = atividadeMap;
     }
 
     /**
@@ -204,6 +204,9 @@ public class ControllerPesquisa implements Serializable {
      * @return true caso a associacao tenha dado certo, false caso contrario.
      */
     public boolean associaProblema(String idPesquisa, String problema) {
+        validador.validaNulleVazio(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(problema, "Campo idProblema nao pode ser nulo ou vazio.");
+
         boolean associou = false;
         if (!this.pesquisas.containsKey(idPesquisa)) {
             this.validador.lancaExcecao("Pesquisa nao encontrada.");
@@ -228,6 +231,7 @@ public class ControllerPesquisa implements Serializable {
      * @return true caso a desassociacao tenha dado certo, false caso contrario.
      */
     public boolean desassociaProblema(String idPesquisa){
+        validador.validaNulleVazio(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
         boolean desassociou = false;
         if (!this.pesquisas.containsKey(idPesquisa)) {
             this.validador.lancaExcecao("Pesquisa nao encontrada.");
@@ -252,6 +256,9 @@ public class ControllerPesquisa implements Serializable {
      * @return true caso a associacao tenha dado certo, false caso contrario.
      */
     public boolean associaObjetivo(String idPesquisa, String objetivo) {
+        validador.validaNulleVazio(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(objetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
+
         boolean associou = false;
         if (!this.pesquisas.containsKey(idPesquisa)) {
             this.validador.lancaExcecao("Pesquisa nao encontrada.");
@@ -276,6 +283,8 @@ public class ControllerPesquisa implements Serializable {
      * @return true caso a desassociacao tenha dado certo, false caso contrario.
      */
     public boolean desassociaObjetivo(String idPesquisa, String objetivo) {
+        validador.validaNulleVazio(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(objetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
         boolean desassociou = false;
         if (!this.pesquisas.containsKey(idPesquisa)) {
 
@@ -302,11 +311,15 @@ public class ControllerPesquisa implements Serializable {
      */
     public boolean associaAtividade(String idPesquisa, String atividade) {
         validador.validaNulleVazio(idPesquisa,"Campo codigoPesquisa nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(atividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
         if (!this.pesquisas.containsKey(idPesquisa)) {
             this.validador.lancaExcecao("Pesquisa nao encontrada.");
         }
         if (!pesquisaEhAtiva(idPesquisa)) {
             this.validador.lancaExcecao("Pesquisa desativada.");
+        }
+        if(!this.atividades.containsKey(atividade)){
+            this.validador.lancaExcecao("Atividade nao encontrada");
         }
 
         return this.pesquisas.get(idPesquisa).associaAtividade(this.atividades.get(atividade));
@@ -322,11 +335,15 @@ public class ControllerPesquisa implements Serializable {
      */
     public boolean desassociaAtividade(String idPesquisa, String atividade) {
         validador.validaNulleVazio(idPesquisa,"Campo codigoPesquisa nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(atividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
         if (!this.pesquisas.containsKey(idPesquisa)) {
             this.validador.lancaExcecao("Pesquisa nao encontrada.");
         }
         if (!pesquisaEhAtiva(idPesquisa)) {
             this.validador.lancaExcecao("Pesquisa desativada.");
+        }
+        if(!this.atividades.containsKey(atividade)){
+            this.validador.lancaExcecao("Atividade nao encontrada");
         }
         if(!this.atividades.get(atividade).isAssociada()){
             return false;
@@ -343,6 +360,16 @@ public class ControllerPesquisa implements Serializable {
      */
     public boolean associaPesquisador(String idPesquisa, String pesquisador) {
         validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(pesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
+        if (!this.pesquisas.containsKey(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa nao encontrada.");
+        }
+        if (!pesquisaEhAtiva(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa desativada.");
+        }
+        if(!this.pesquisadores.containsKey(pesquisador)){
+            this.validador.lancaExcecao("Pesquisadora nao encontrada.");
+        }
         return this.pesquisas.get(idPesquisa).associaPesquisador(this.pesquisadores.get(pesquisador));
     }
 
@@ -355,7 +382,24 @@ public class ControllerPesquisa implements Serializable {
      */
     public boolean desassociaPesquisador(String idPesquisa, String pesquisador) {
         validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
+        validador.validaNulleVazio(pesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
+        if (!this.pesquisas.containsKey(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa nao encontrada.");
+        }
+        if (!pesquisaEhAtiva(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa desativada.");
+        }
+        if(!this.pesquisadores.containsKey(pesquisador)){
+            this.validador.lancaExcecao("Pesquisadora nao encontrada.");
+        }
         return this.pesquisas.get(idPesquisa).desassociaPesquisador(this.pesquisadores.get(pesquisador));
+    }
+
+    public void carregaMapas(Map<String, Objetivo> objetivoMap, Map<String, Problema> problemaMap, Map<String, Atividade> atividadeMap, Map<String, Pesquisador> pesquisadorMap){
+        this.objetivos = objetivoMap;
+        this.problemas = problemaMap;
+        this.atividades = atividadeMap;
+        this.pesquisadores = pesquisadorMap;
     }
 
     /**

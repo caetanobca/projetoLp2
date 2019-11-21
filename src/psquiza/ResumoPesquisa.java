@@ -30,7 +30,7 @@ public class ResumoPesquisa implements Serializable {
     }
 
     private String criaResumo(String descricaoPesquisa, AssociacaoEmPesquisa associacao) {
-        String resumo = '"' + "- Pesquisa: " + descricaoPesquisa;
+        String resumo = "- Pesquisa: " + descricaoPesquisa;
 
         if (associacao.getPesquisadores().size() > 0) {
             resumo += System.lineSeparator() + "    - Pesquisadores:";
@@ -73,7 +73,7 @@ public class ResumoPesquisa implements Serializable {
                 }
             }
         }
-        return resumo + '"';
+        return resumo;
     }
 
     public void gravaResultado(String descricaoPesquisa, String codigo, AssociacaoEmPesquisa associacao) throws IOException {
@@ -97,7 +97,7 @@ public class ResumoPesquisa implements Serializable {
     }
 
     private String criaResultado(String descricaoPesquisa, AssociacaoEmPesquisa associacao) {
-        String resultado = '"' + "- Pesquisa: " + descricaoPesquisa;
+        String resultado = "- Pesquisa: " + descricaoPesquisa;
         resultado += System.lineSeparator() + "    - Resultados:";
 
         if (associacao.getAtividades().size() > 0) {
@@ -120,7 +120,7 @@ public class ResumoPesquisa implements Serializable {
                 }
             }
         }
-        return resultado + '"';
+        return resultado;
     }
 
 }

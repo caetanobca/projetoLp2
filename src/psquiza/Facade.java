@@ -17,10 +17,13 @@ public class Facade {
         this.controllerObjetivo = new ControllerObjetivo();
         this.controllerAtividade = new ControllerAtividade();
         this.controllerPesquisador = new ControllerPesquisador();
-        this.controllerPesquisa = new ControllerPesquisa(this.controllerObjetivo.getObjetivos(), this.controllerProblema.getProblemas(),
+        this.controllerPesquisa = new ControllerPesquisa(this.controllerObjetivo.getObjetivos(),
+                this.controllerProblema.getProblemas(),
                 this.controllerAtividade.getAtividades(), this.controllerPesquisador.getPesquisadores());
-        this.controllerBusca = new ControllerBusca(controllerProblema, controllerObjetivo, controllerPesquisa, controllerAtividade,controllerPesquisador);
-        this.controllerPersistencia = new ControllerPersistencia(controllerProblema, controllerObjetivo, controllerPesquisa, controllerAtividade,controllerPesquisador);
+        this.controllerBusca = new ControllerBusca(controllerProblema, controllerObjetivo, controllerPesquisa,
+                controllerAtividade, controllerPesquisador);
+        this.controllerPersistencia = new ControllerPersistencia(controllerProblema, controllerObjetivo,
+                controllerPesquisa, controllerAtividade, controllerPesquisador);
     }
 
     public String cadastraPesquisa(String descricao, String campoDeInteresse) {
@@ -201,7 +204,6 @@ public class Facade {
     }
 
 
-
     public void salvar() throws IOException {
         controllerPersistencia.salva();
     }
@@ -212,13 +214,17 @@ public class Facade {
         this.controllerObjetivo = controllerPersistencia.carregaObjetivo();
         this.controllerProblema = controllerPersistencia.carregaProblema();
         this.controllerAtividade = controllerPersistencia.carregaAtividade();
-        this.controllerBusca = new ControllerBusca(controllerProblema, controllerObjetivo, controllerPesquisa, controllerAtividade,controllerPesquisador);
-        this.controllerPersistencia = new ControllerPersistencia(controllerProblema, controllerObjetivo, controllerPesquisa, controllerAtividade,controllerPesquisador);
+        this.controllerBusca = new ControllerBusca(controllerProblema, controllerObjetivo, controllerPesquisa,
+                controllerAtividade, controllerPesquisador);
+        this.controllerPersistencia = new ControllerPersistencia(controllerProblema, controllerObjetivo,
+                controllerPesquisa, controllerAtividade, controllerPesquisador);
+
     }
 
     public void gravarResumo(String codigoPesquisa) throws IOException {
         this.controllerPesquisa.gravaResumo(codigoPesquisa);
     }
+
     public void gravarResultados(String codigoPesquisa) throws IOException {
         this.controllerPesquisa.gravaResultados(codigoPesquisa);
     }
@@ -235,18 +241,19 @@ public class Facade {
         this.controllerAtividade.tiraProximaAtividade(idPrecedente);
     }
 
-    public String pegaProximo(String idAtividade,int enesimaAtividade) {
-        return this.controllerAtividade.pegaProximo(idAtividade,enesimaAtividade);
+    public String pegaProximo(String idAtividade, int enesimaAtividade) {
+        return this.controllerAtividade.pegaProximo(idAtividade, enesimaAtividade);
     }
 
     public String pegaMaiorRiscoAtividades(String idAtividade) {
         return this.controllerAtividade.pegaMaiorRiscoAtividades(idAtividade);
     }
-    public void configuraEstrategia(String estrategia){
+
+    public void configuraEstrategia(String estrategia) {
         this.controllerPesquisa.configuraEstrategia(estrategia);
     }
 
-    public String proximaAtividade(String codigoPesquisa){
+    public String proximaAtividade(String codigoPesquisa) {
         return this.controllerPesquisa.proximaAtividade(codigoPesquisa);
     }
 }

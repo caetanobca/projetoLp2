@@ -170,9 +170,12 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
      * @return valor booleano informando se ha itens pendentes ou nao
      */
     public boolean hasPendencias() {
+
         for (Atividade atividade : associacao.getAtividades()) {
-            if (atividade.contaItensPendentes() > 0) {
-                return true;
+            if (atividade != null) {
+                if (atividade.contaItensPendentes() > 0) {
+                    return true;
+                }
             }
         }
         return false;
@@ -247,7 +250,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
     /**
      * Associa uma Atividade da Pesquisa. Uma Atividade nao pode ser associada se
-     *      * nao estiver associada em Pesquisa.
+     * * nao estiver associada em Pesquisa.
      *
      * @param atividade a Atividade a ser associada
      * @return valor booleano que representa o sucesso ou nao da associacao
@@ -269,6 +272,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
     /**
      * Associa um Pesquisador a uma Pesquisa.
+     *
      * @param pesquisador Pesquisador a ser associado
      * @return valor booleano que representa o sucesso ou nao da operacao
      */
@@ -278,6 +282,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
     /**
      * Desassocia um Pesquisador de uma Pesquisa.
+     *
      * @param pesquisador Pesquisador a ser desassociado
      * @return valor booleano que representa o sucesso ou nao da operacao
      */
@@ -311,7 +316,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
      * Pesquisa, e caso nao tenha,  associa-lo a Pesquisa.
      *
      * @param objetivo Objeto Objetivo que sera associado a Pesquisa.
-     * @return  variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
+     * @return variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
      */
     public boolean associaObjetivo(Objetivo objetivo) {
         return associacao.associaObjetivo(objetivo);
@@ -320,6 +325,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
     /**
      * Metodo responsavel por desassociar um Objetivo da Pesquisa em que ele estava associado, verificando se o Problema
      * passado por parametro esta no ArrayList de Objetivos associados, caso esteja, a desassociacao sera realizada.
+     *
      * @param objetivo Objeto Problema que sera desassociado a Pesquisa.
      * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
      */
