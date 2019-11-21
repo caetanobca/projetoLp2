@@ -15,7 +15,7 @@ public class ControllerAtividade implements Serializable {
      * Map que armazena Atividades. Tem como chaves uma String que e o codigo de cada Atividade, gerado pela
      * concatanecao de A + um inteiro dado pela ordem do cadastro.
      */
-    private Map<String, Atividade> atividades;
+    private HashMap<String, Atividade> atividades;
 
     /**
      * Objeto que tem funcoes que auxiliam na validacao de entradas.
@@ -27,14 +27,16 @@ public class ControllerAtividade implements Serializable {
      */
     private int qtdCadastrados;
 
+    private OrdemAtividade ordemAtividade;
+
     /**
      * Construtor do ControllerAtividade.
      */
     public ControllerAtividade() {
-        this.atividades = new HashMap<>();
+        this.atividades = new HashMap<String, Atividade>();
         this.validador = new Validacao();
         this.qtdCadastrados = 0;
-
+        this.ordemAtividade = new OrdemAtividade(this.atividades);
     }
 
     /**
@@ -315,25 +317,7 @@ public class ControllerAtividade implements Serializable {
         if(!atividades.get(idPrecedente).getSubsequente().equals("")) {
             validador.lancaExcecao("Atividade ja possui uma subsequente.");
         }
-        for(String chave : atividades.keySet()) {
-            if(atividades.get(chave).getPrecedentes().contains(idSubsquente)) {
-                contem = true;
-            }
-        }
-        if(contem==true) {
-            validador.lancaExcecao("Criacao de loops negada.");
-        }
-        atividades.get(idPrecedente).setSubsequente(idSubsquente);
-        boolean verifica = false;
-        for(String chave : atividades.keySet()) {
-            if(atividades.get(chave).getSubsequente().equals(idSubsquente)) {
-                verifica = true;
-            }
-        }
-        for(int i=0;i<atividades.get(idPrecedente).getPrecedentes().size();i++){
-            atividades.get(idSubsquente).adicionaPrecedente(atividades.get(idPrecedente).getPrecedentes().get(i));
-        }
-        atividades.get(idSubsquente).adicionaPrecedente(idPrecedente);
+        this.ordemAtividade.defineProximaAtividade(idPrecedente, idSubsquente);
     }
 
     /**
@@ -348,19 +332,7 @@ public class ControllerAtividade implements Serializable {
         if(!atividades.containsKey(idPrecedente)) {
             validador.lancaExcecao("Atividade nao encontrada.");
         }
-        int contador = 0;
-        String compare = atividades.get(idPrecedente).getSubsequente();
-        while(true) {
-            if(compare.equals("")) {
-                break;
-            }else {
-                contador++;
-                idPrecedente = compare;
-                compare = atividades.get(compare).getSubsequente();
-            }
-        }
-
-        return contador;
+        return this.ordemAtividade.contaProximos(idPrecedente);
 
     }
 
@@ -376,13 +348,7 @@ public class ControllerAtividade implements Serializable {
         if(!atividades.containsKey(idPrecedente)) {
             validador.lancaExcecao("Atividade nao encontrada.");
         }
-        String retirar = atividades.get(idPrecedente).getSubsequente();
-        for(String chave : atividades.keySet()) {
-            Atividade atividade = atividades.get(chave);
-            atividade.removePrecedente(retirar);
-        }
-        Atividade atividade = atividades.get(idPrecedente);
-        atividade.setSubsequente("");
+        this.ordemAtividade.tiraProximaAtividade(idPrecedente);
     }
 
     /**
@@ -402,21 +368,7 @@ public class ControllerAtividade implements Serializable {
         if(!atividades.containsKey(idAtividade)){
             validador.lancaExcecao("Atividade inexistente.");
         }
-        String compare = atividades.get(idAtividade).getSubsequente();
-        while(true) {
-            if(contador==enesimaAtividade) {
-                retorno = idAtividade;
-                break;
-            }else if(compare.equals("")) {
-                validador.lancaExcecao("Atividade inexistente.");
-            }else {
-                contador++;
-                idAtividade = compare;
-                compare = atividades.get(idAtividade).getSubsequente();
-            }
-
-        }
-        return retorno;
+        return this.ordemAtividade.pegaProximo(idAtividade, enesimaAtividade);
     }
 
     /**
@@ -433,31 +385,8 @@ public class ControllerAtividade implements Serializable {
         if(atividades.get(idAtividade).getSubsequente().equals("")) {
             validador.lancaExcecao("Nao existe proxima atividade.");
         }
-        idAtividade = atividades.get(idAtividade).getSubsequente();
-        String compare = atividades.get(idAtividade).getNivelRisco();
-        String retorno = idAtividade;
-        while(true) {
-            if(atividades.get(idAtividade).getSubsequente().equals("")) {
-                break;
-            }else {
-                if(compare.equals("BAIXO")) {
-                    compare = atividades.get(idAtividade).getNivelRisco();
-                    retorno = idAtividade;
-                }else if(compare.equals("MEDIO")) {
-                    if((atividades.get(idAtividade).getNivelRisco().equals("MEDIO")) || (atividades.get(idAtividade).getNivelRisco().equals("ALTO"))) {
-                        compare = atividades.get(idAtividade).getNivelRisco();
-                        retorno = idAtividade;
-                    }
-                }else if(compare.equals("ALTO")) {
-                    if(atividades.get(idAtividade).getNivelRisco().equals("ALTO")) {
-                        compare = atividades.get(idAtividade).getNivelRisco();
-                        retorno = idAtividade;
-                    }
-                }
-                idAtividade = atividades.get(idAtividade).getSubsequente();
-            }
-        }
-        return retorno;
+
+        return this.ordemAtividade.pegaMaiorRiscoAtividades(idAtividade);
     }
 
 }
