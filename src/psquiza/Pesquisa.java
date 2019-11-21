@@ -219,45 +219,11 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
     public void gravaResumo() throws IOException {
         this.resumoPesquisa.gravaResumo(this.toString(), this.codigo, this.associacao);
-//        File file = new File("_" + this.codigo + ".txt");
-//        String resumo = this.criaResumo();
-//        FileWriter fw = null;
-//
-//        try {
-//            fw = new FileWriter(file, false);
-//            fw.write(resumo);
-//
-//        } finally {
-//            if (fw != null) {
-//                try {
-//                    fw.close();
-//                } catch (IOException e) {
-//                    System.err.println("Nao foi possivel fechar o resumo.");
-//                }
-//            }
-//        }
     }
 
 
     public void gravaResultado() throws IOException {
         this.resumoPesquisa.gravaResultado(this.toString(), this.codigo, this.associacao);
-//        File file = new File(this.codigo + "-Resultados.txt");
-//        String resultado = this.criaResultado();
-//        FileWriter fw = null;
-//
-//        try {
-//            fw = new FileWriter(file, false);
-//            fw.write(resultado);
-//
-//        } finally {
-//            if (fw != null) {
-//                try {
-//                    fw.close();
-//                } catch (IOException e) {
-//                    System.err.println("Nao foi possivel fechar o resumo.");
-//                }
-//            }
-//        }
     }
 
     /**
@@ -286,8 +252,8 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
      * @param atividade a Atividade a ser associada
      * @return valor booleano que representa o sucesso ou nao da associacao
      */
-    public boolean associaAtividadeEmPesquisa(Atividade atividade) {
-        return associacao.associaAtividadeEmPesquisa(atividade);
+    public boolean associaAtividade(Atividade atividade) {
+        return associacao.associaAtividade(atividade);
     }
 
     /**
@@ -297,8 +263,8 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
      * @param atividade a Atividade a ser dessasociada
      * @return valor booleano que representa o sucesso ou nao da operacao
      */
-    public boolean desassociaAtividadeEmPesquisa(Atividade atividade) {
-        return associacao.desassociaAtividadeEmPesquisa(atividade);
+    public boolean desassociaAtividade(Atividade atividade) {
+        return associacao.desassociaAtividade(atividade);
     }
 
     /**
@@ -326,8 +292,8 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
      * @param problema Objeto Problema que sera associado a Pesquisa.
      * @return variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
      */
-    public boolean associaProblemaEmPesquisa(Problema problema) {
-        return associacao.associaProblemaEmPesquisa(problema);
+    public boolean associaProblema(Problema problema) {
+        return associacao.associaProblema(problema);
     }
 
     /**
@@ -336,8 +302,8 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
      *
      * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
      */
-    public boolean desassociaProblemaEmPesquisa() {
-        return associacao.desassociaProblemaEmPesquisa();
+    public boolean desassociaProblema() {
+        return associacao.desassociaProblema();
     }
 
     /**
@@ -347,8 +313,8 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
      * @param objetivo Objeto Objetivo que sera associado a Pesquisa.
      * @return  variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
      */
-    public boolean associaObjetivoEmPesquisa(Objetivo objetivo) {
-        return associacao.associaObjetivoEmPesquisa(objetivo);
+    public boolean associaObjetivo(Objetivo objetivo) {
+        return associacao.associaObjetivo(objetivo);
     }
 
     /**
@@ -357,8 +323,8 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
      * @param objetivo Objeto Problema que sera desassociado a Pesquisa.
      * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
      */
-    public boolean desassociaObjetivoEmPesquisa(Objetivo objetivo) {
-        return associacao.desassociaObjetivoEmPesquisa(objetivo);
+    public boolean desassociaObjetivo(Objetivo objetivo) {
+        return associacao.desassociaObjetivo(objetivo);
     }
 
     /**

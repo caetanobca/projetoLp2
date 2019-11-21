@@ -134,10 +134,10 @@ class AtividadeTest {
 
     @Test
     public void testaExecutaAtividadeComExcecoes() {
-        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
-        controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
-                "homofobia,graduacao");
-        controllerPesquisa.associaAtividadeEmPesquisa("COM1", atividade1);
+        Pesquisa pesquisa = new Pesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
+                "homofobia,graduacao", "COM1");
+
+        pesquisa.associaAtividade(atividade1);
         atividade1.cadastraItem("Mapa da empresa");
 
         //Testanto valor de item nulo ou negativo
@@ -167,10 +167,10 @@ class AtividadeTest {
 
     @Test
     public void testaExecutaAtividade() {
-        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
-        controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
-                "homofobia,graduacao");
-        controllerPesquisa.associaAtividadeEmPesquisa("COM1", atividade1);
+        Pesquisa pesquisa = new Pesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
+                "homofobia,graduacao", "COM1");
+
+        pesquisa.associaAtividade(atividade1);
         atividade1.cadastraItem("Mapa da empresa");
         atividade1.executaAtividade(1, 20);
         assertEquals(atividade1.contaItensRealizados(), 1);
@@ -215,10 +215,10 @@ class AtividadeTest {
 
     @Test
     public void testaGetDuracao() {
-        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
-        controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
-                "homofobia,graduacao");
-        controllerPesquisa.associaAtividadeEmPesquisa("COM1", atividade1);
+        Pesquisa pesquisa = new Pesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
+                "homofobia,graduacao", "COM1");
+
+        pesquisa.associaAtividade(atividade1);
         atividade1.cadastraItem("Mapa da empresa");
         atividade1.executaAtividade(1, 20);
         assertEquals(atividade1.getDuracao(), 20);

@@ -123,4 +123,8 @@ public class ControllerProblema implements Serializable {
         Collections.sort(results, new ComparadorBusca());
         return results;
     }
+
+    public HashMap<String, Problema> getProblemas() {
+        return problemas;
+    }
 }

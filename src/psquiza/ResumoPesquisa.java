@@ -3,9 +3,10 @@ package psquiza;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Collections;
 
-public class ResumoPesquisa {
+public class ResumoPesquisa implements Serializable {
 
 
     public void gravaResumo(String descricaoPesquisa, String codigo, AssociacaoEmPesquisa associacao) throws IOException {

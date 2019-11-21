@@ -389,5 +389,8 @@ public class ControllerAtividade implements Serializable {
         return this.ordemAtividade.pegaMaiorRiscoAtividades(idAtividade);
     }
 
+    public HashMap<String, Atividade> getAtividades() {
+        return atividades;
+    }
 }
 

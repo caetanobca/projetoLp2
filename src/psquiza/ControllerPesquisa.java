@@ -30,10 +30,19 @@ public class ControllerPesquisa implements Serializable {
      */
     private SugestaoProxAtividade estrategia;
 
-    public ControllerPesquisa() {
+    private Map<String, Objetivo> objetivos;
+    private Map<String, Problema> problemas;
+    private Map<String, Atividade> atividades;
+    private Map<String, Pesquisador> pesquisadores;
+
+    public ControllerPesquisa(Map<String, Objetivo> objetivoMap, Map<String, Problema> problemaMap, Map<String, Atividade> atividadeMap, Map<String, Pesquisador> pesquisadorMap) {
         this.pesquisas = new HashMap<String, Pesquisa>();
         this.validador = new Validacao();
         this.estrategia = SugestaoProxAtividade.MAIS_ANTIGA;
+        this.objetivos = objetivoMap;
+        this.problemas = problemaMap;
+        this.objetivos = objetivoMap;
+        this.pesquisadores = pesquisadorMap;
     }
 
     /**
@@ -194,7 +203,7 @@ public class ControllerPesquisa implements Serializable {
      * @param problema   Objeto do tipo Problema a ser associado.
      * @return true caso a associacao tenha dado certo, false caso contrario.
      */
-    public boolean associaProblemaEmPesquisa(String idPesquisa, Problema problema) {
+    public boolean associaProblema(String idPesquisa, String problema) {
         boolean associou = false;
         if (!this.pesquisas.containsKey(idPesquisa)) {
             this.validador.lancaExcecao("Pesquisa nao encontrada.");
@@ -203,7 +212,7 @@ public class ControllerPesquisa implements Serializable {
             this.validador.lancaExcecao("Pesquisa desativada.");
 
         } else {
-            associou = this.pesquisas.get(idPesquisa).associaProblemaEmPesquisa(problema);
+            associou = this.pesquisas.get(idPesquisa).associaProblema(this.problemas.get(problema));
 
         }
 
@@ -218,7 +227,7 @@ public class ControllerPesquisa implements Serializable {
      *
      * @return true caso a desassociacao tenha dado certo, false caso contrario.
      */
-    public boolean desassociaProblemaEmPesquisa(String idPesquisa){
+    public boolean desassociaProblema(String idPesquisa){
         boolean desassociou = false;
         if (!this.pesquisas.containsKey(idPesquisa)) {
             this.validador.lancaExcecao("Pesquisa nao encontrada.");
@@ -227,7 +236,7 @@ public class ControllerPesquisa implements Serializable {
             this.validador.lancaExcecao("Pesquisa desativada.");
 
         } else {
-            desassociou = this.pesquisas.get(idPesquisa).desassociaProblemaEmPesquisa();
+            desassociou = this.pesquisas.get(idPesquisa).desassociaProblema();
 
         }
 
@@ -242,7 +251,7 @@ public class ControllerPesquisa implements Serializable {
      * @param objetivo   Objeto do tipo Objetivo a ser associado.
      * @return true caso a associacao tenha dado certo, false caso contrario.
      */
-    public boolean associaObjetivoEmPesquisa(String idPesquisa, Objetivo objetivo) {
+    public boolean associaObjetivo(String idPesquisa, String objetivo) {
         boolean associou = false;
         if (!this.pesquisas.containsKey(idPesquisa)) {
             this.validador.lancaExcecao("Pesquisa nao encontrada.");
@@ -251,7 +260,7 @@ public class ControllerPesquisa implements Serializable {
             this.validador.lancaExcecao("Pesquisa desativada.");
 
         } else {
-            associou = this.pesquisas.get(idPesquisa).associaObjetivoEmPesquisa(objetivo);
+            associou = this.pesquisas.get(idPesquisa).associaObjetivo(this.objetivos.get(objetivo));
 
         }
 
@@ -266,7 +275,7 @@ public class ControllerPesquisa implements Serializable {
      * @param objetivo   Objeto do tipo Objetivo a ser desassociado.
      * @return true caso a desassociacao tenha dado certo, false caso contrario.
      */
-    public boolean desassociaObjetivoEmPesquisa(String idPesquisa, Objetivo objetivo) {
+    public boolean desassociaObjetivo(String idPesquisa, String objetivo) {
         boolean desassociou = false;
         if (!this.pesquisas.containsKey(idPesquisa)) {
 
@@ -276,11 +285,77 @@ public class ControllerPesquisa implements Serializable {
             this.validador.lancaExcecao("Pesquisa desativada.");
 
         } else {
-            desassociou = this.pesquisas.get(idPesquisa).desassociaObjetivoEmPesquisa(objetivo);
+            desassociou = this.pesquisas.get(idPesquisa).desassociaObjetivo(this.objetivos.get(objetivo));
 
         }
 
         return desassociou;
+    }
+
+    /**
+     * Associa Atividade em uma Pesquisa. Uma Atividade so pode so pode ser associada em
+     * uma Pesquisa se ela estiver ativa, ou se a atividade nao ja tiver sido associada.
+     *
+     * @param idPesquisa codigo identificador da Pesquisa
+     * @param atividade a Atividade a ser associada
+     * @return valor booleano que representa o sucesso ou nao da associacao
+     */
+    public boolean associaAtividade(String idPesquisa, String atividade) {
+        validador.validaNulleVazio(idPesquisa,"Campo codigoPesquisa nao pode ser nulo ou vazio.");
+        if (!this.pesquisas.containsKey(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa nao encontrada.");
+        }
+        if (!pesquisaEhAtiva(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa desativada.");
+        }
+
+        return this.pesquisas.get(idPesquisa).associaAtividade(this.atividades.get(atividade));
+    }
+
+    /**
+     * Desassocia uma atividade em uma Pesquisa. Uma Atividade nao pode ser dessasociada se
+     * a pesquisa estiver desativada, ou se a atividade nao ja tiver sido associada.
+     *
+     * @param idPesquisa codigo identificador da Pesquisa
+     * @param atividade a Atividade a ser dessasociada
+     * @return valor booleano que representa o sucesso ou nao da operacao
+     */
+    public boolean desassociaAtividade(String idPesquisa, String atividade) {
+        validador.validaNulleVazio(idPesquisa,"Campo codigoPesquisa nao pode ser nulo ou vazio.");
+        if (!this.pesquisas.containsKey(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa nao encontrada.");
+        }
+        if (!pesquisaEhAtiva(idPesquisa)) {
+            this.validador.lancaExcecao("Pesquisa desativada.");
+        }
+        if(!this.atividades.get(atividade).isAssociada()){
+            return false;
+        }
+        return this.pesquisas.get(idPesquisa).desassociaAtividade(this.atividades.get(atividade));
+    }
+
+    /**
+     * Metodo responsavel por associar um pesquisador  a determinadapesquisa, para identificacao de qual pesquisa e qual
+     * pesquisador serao relacionados, o idPesquisa e o emailPesquisador sao utilizados. Uma excecao e lancada caso o usuario
+     * queira fornecer algum valor nulo ou vazio para os parametros.
+     * @param idPesquisa e o identificador unico da pesquisa
+     * @param pesquisador e o pesquisador
+     */
+    public boolean associaPesquisador(String idPesquisa, String pesquisador) {
+        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
+        return this.pesquisas.get(idPesquisa).associaPesquisador(this.pesquisadores.get(pesquisador));
+    }
+
+    /**
+     * Metodo responsavel por desassociar uma pesquisa de um determinado pesquisador, para identificacao de qual pesquisa e qual
+     * pesquisador serao desassociados, o idPesquisa e o emailPesquisador sao utilizados. Uma excecao e lancada caso o usuario
+     * queira fornecer algum valor nulo ou vazio para os parametros.
+     * @param idPesquisa e o identificador unico da pesquisa
+     * @param pesquisador e o pesquisador
+     */
+    public boolean desassociaPesquisador(String idPesquisa, String pesquisador) {
+        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
+        return this.pesquisas.get(idPesquisa).desassociaPesquisador(this.pesquisadores.get(pesquisador));
     }
 
     /**
@@ -425,71 +500,6 @@ public class ControllerPesquisa implements Serializable {
      */
     public Map<String, Pesquisa> getPesquisas() {
         return pesquisas;
-    }
-
-    /**
-     * Associa Atividade em uma Pesquisa. Uma Atividade so pode so pode ser associada em
-     * uma Pesquisa se ela estiver ativa, ou se a atividade nao ja tiver sido associada.
-     *
-     * @param idPesquisa codigo identificador da Pesquisa
-     * @param atividade a Atividade a ser associada
-     * @return valor booleano que representa o sucesso ou nao da associacao
-     */
-    public boolean associaAtividadeEmPesquisa(String idPesquisa, Atividade atividade) {
-        validador.validaNulleVazio(idPesquisa,"Campo codigoPesquisa nao pode ser nulo ou vazio.");
-        if (!this.pesquisas.containsKey(idPesquisa)) {
-            this.validador.lancaExcecao("Pesquisa nao encontrada.");
-        }
-        if (!pesquisaEhAtiva(idPesquisa)) {
-            this.validador.lancaExcecao("Pesquisa desativada.");
-        }
-        return this.pesquisas.get(idPesquisa).associaAtividadeEmPesquisa(atividade);
-    }
-
-    /**
-     * Desassocia uma atividade em uma Pesquisa. Uma Atividade nao pode ser dessasociada se
-     * a pesquisa estiver desativada, ou se a atividade nao ja tiver sido associada.
-     *
-     * @param idPesquisa codigo identificador da Pesquisa
-     * @param atividade a Atividade a ser dessasociada
-     * @return valor booleano que representa o sucesso ou nao da operacao
-     */
-    public boolean desassociaAtividadeEmPesquisa(String idPesquisa, Atividade atividade) {
-        validador.validaNulleVazio(idPesquisa,"Campo codigoPesquisa nao pode ser nulo ou vazio.");
-        if (!this.pesquisas.containsKey(idPesquisa)) {
-            this.validador.lancaExcecao("Pesquisa nao encontrada.");
-        }
-        if (!pesquisaEhAtiva(idPesquisa)) {
-            this.validador.lancaExcecao("Pesquisa desativada.");
-        }
-        if(!atividade.isAssociada()){
-            return false;
-        }
-        return this.pesquisas.get(idPesquisa).desassociaAtividadeEmPesquisa(atividade);
-    }
-
-    /**
-     * Metodo responsavel por associar um pesquisador  a determinadapesquisa, para identificacao de qual pesquisa e qual
-     * pesquisador serao relacionados, o idPesquisa e o emailPesquisador sao utilizados. Uma excecao e lancada caso o usuario
-     * queira fornecer algum valor nulo ou vazio para os parametros.
-     * @param idPesquisa e o identificador unico da pesquisa
-     * @param pesquisador e o pesquisador
-     */
-    public boolean associaPesquisador(String idPesquisa, Pesquisador pesquisador) {
-        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
-        return this.pesquisas.get(idPesquisa).associaPesquisador(pesquisador);
-    }
-
-    /**
-     * Metodo responsavel por desassociar uma pesquisa de um determinado pesquisador, para identificacao de qual pesquisa e qual
-     * pesquisador serao desassociados, o idPesquisa e o emailPesquisador sao utilizados. Uma excecao e lancada caso o usuario
-     * queira fornecer algum valor nulo ou vazio para os parametros.
-     * @param idPesquisa e o identificador unico da pesquisa
-     * @param pesquisador e o pesquisador
-     */
-    public boolean desassociaPesquisador(String idPesquisa, Pesquisador pesquisador) {
-        validador.validaNulleVazio(idPesquisa,"Campo idPesquisa nao pode ser nulo ou vazio.");
-        return this.pesquisas.get(idPesquisa).desassociaPesquisador(pesquisador);
     }
 
 

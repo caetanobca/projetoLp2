@@ -81,7 +81,7 @@ public class AssociacaoEmPesquisa implements Serializable {
      * @param problema Objeto Problema que sera associado a Pesquisa.
      * @return  variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
      */
-    public boolean associaProblemaEmPesquisa(Problema problema) {
+    public boolean associaProblema(Problema problema) {
         boolean associou;
 
 
@@ -107,7 +107,7 @@ public class AssociacaoEmPesquisa implements Serializable {
      * passado por parametro e o mesmo que ja esta associado, caso seja, a desassociacao será realizada.
      * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
      */
-    public boolean desassociaProblemaEmPesquisa() {
+    public boolean desassociaProblema() {
         boolean desassociou;
         if (this.problemaAssociado == null || "".equals(this.problemaAssociado)){
 
@@ -127,7 +127,7 @@ public class AssociacaoEmPesquisa implements Serializable {
      * @param objetivo Objeto Objetivo que sera associado a Pesquisa.
      * @return  variavel booleana, true caso a associacao tenha dado certo, false caso contrario.
      */
-    public boolean associaObjetivoEmPesquisa(Objetivo objetivo) {
+    public boolean associaObjetivo(Objetivo objetivo) {
         boolean associou = false;
 
         if (!objetivos.contains(objetivo)) {
@@ -149,7 +149,7 @@ public class AssociacaoEmPesquisa implements Serializable {
      * @param objetivo Objeto Problema que sera desassociado a Pesquisa.
      * @return variavel booleana, true caso a desassociacao tenha dado certo, false caso contrario.
      */
-    public boolean desassociaObjetivoEmPesquisa(Objetivo objetivo) {
+    public boolean desassociaObjetivo(Objetivo objetivo) {
         boolean desassociou = false;
 
         if (objetivos.contains(objetivo)) {
@@ -168,7 +168,7 @@ public class AssociacaoEmPesquisa implements Serializable {
      * @param atividade a Atividade a ser associada
      * @return valor booleano que representa o sucesso ou nao da associacao
      */
-    public boolean associaAtividadeEmPesquisa(Atividade atividade) {
+    public boolean associaAtividade(Atividade atividade) {
         if(atividades.contains(atividade)) {
             return false;
         } else{
@@ -185,7 +185,7 @@ public class AssociacaoEmPesquisa implements Serializable {
      * @param atividade a Atividade a ser dessasociada
      * @return valor booleano que representa o sucesso ou nao da operacao
      */
-    public boolean desassociaAtividadeEmPesquisa(Atividade atividade){
+    public boolean desassociaAtividade(Atividade atividade){
         if (!atividades.contains(atividade)){
             return false;
         } else {

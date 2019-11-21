@@ -135,4 +135,8 @@ public class ControllerObjetivo implements Serializable {
         Collections.sort(results, new ComparadorBusca());
         return results;
     }
+
+    public HashMap<String, Objetivo> getObjetivos() {
+        return objetivos;
+    }
 }

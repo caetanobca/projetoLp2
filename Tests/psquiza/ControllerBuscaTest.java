@@ -18,12 +18,12 @@ class ControllerBuscaTest {
     @BeforeEach
     void constroiBusca() {
 
-
-        this.pesquisaTeste = new ControllerPesquisa();
         this.pesquisadorTeste = new ControllerPesquisador();
         this.atividadeTeste = new ControllerAtividade();
         this.objetivoTeste = new ControllerObjetivo();
         this.problemaTeste = new ControllerProblema();
+        this.pesquisaTeste = new ControllerPesquisa(this.objetivoTeste.getObjetivos(), this.problemaTeste.getProblemas(),
+                this.atividadeTeste.getAtividades(), this.pesquisadorTeste.getPesquisadores() );
 
 
         pesquisaTeste.cadastraPesquisa("Casos de homofobia na graduação de Ciências da Computação", "homofobia," +

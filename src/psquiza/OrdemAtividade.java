@@ -2,10 +2,11 @@ package psquiza;
 
 import util.Validacao;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OrdemAtividade {
+public class OrdemAtividade implements Serializable {
 
     /**
      * Objeto que tem funcoes que auxiliam na validacao de entradas.
