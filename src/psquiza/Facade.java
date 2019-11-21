@@ -225,7 +225,6 @@ public class Facade {
         this.controllerPesquisa.gravaResultados(codigoPesquisa);
     }
 
-
     public void defineProximaAtividade(String idPrecedente, String idSubsquente) {
         this.controllerAtividade.defineProximaAtividade(idPrecedente, idSubsquente);
     }
