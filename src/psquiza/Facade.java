@@ -219,6 +219,9 @@ public class Facade {
         this.controllerPersistencia = new ControllerPersistencia(controllerProblema, controllerObjetivo,
                 controllerPesquisa, controllerAtividade, controllerPesquisador);
 
+        this.controllerPesquisa.carregaMapas(controllerObjetivo.getObjetivos(), controllerProblema.getProblemas(),
+                controllerAtividade.getAtividades(), controllerPesquisador.getPesquisadores());
+
     }
 
     public void gravarResumo(String codigoPesquisa) throws IOException {
