@@ -1,5 +1,11 @@
 package psquiza;
 
+import psquiza.atividade.ControllerAtividade;
+import psquiza.objetivo.ControllerObjetivo;
+import psquiza.pesquisa.ControllerPesquisa;
+import psquiza.pesquisador.ControllerPesquisador;
+import psquiza.problema.ControllerProblema;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;

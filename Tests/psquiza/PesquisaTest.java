@@ -2,6 +2,9 @@ package psquiza;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import psquiza.atividade.Atividade;
+import psquiza.objetivo.Objetivo;
+import psquiza.problema.Problema;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -213,9 +216,9 @@ class PesquisaTest {
 
         Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
 
-        assertTrue(teste2.associaProblemaEmPesquisa( problema1));
-        assertTrue(teste1.associaProblemaEmPesquisa( problema1));
-        assertFalse(teste2.associaProblemaEmPesquisa( problema1));
+        assertTrue(teste2.associaProblema( problema1));
+        assertTrue(teste1.associaProblema( problema1));
+        assertFalse(teste2.associaProblema( problema1));
     }
 
     @Test
@@ -223,9 +226,9 @@ class PesquisaTest {
         Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
         Problema problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4, "P2");
 
-        this.teste1.associaProblemaEmPesquisa(problema1);
+        this.teste1.associaProblema(problema1);
 
-        assertThrows(IllegalArgumentException.class, () -> teste1.associaProblemaEmPesquisa(problema2));
+        assertThrows(IllegalArgumentException.class, () -> teste1.associaProblema(problema2));
     }
 
     @Test
@@ -233,18 +236,18 @@ class PesquisaTest {
         Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
         Problema problema2 = new Problema("A problematica da falta do RU na evasao escolar no estudantes de baixa renda na UFCG", 4, "P2");
 
-        teste1.associaProblemaEmPesquisa(problema1);
-        assertThrows(IllegalArgumentException.class, () -> teste1.associaProblemaEmPesquisa(problema2));
+        teste1.associaProblema(problema1);
+        assertThrows(IllegalArgumentException.class, () -> teste1.associaProblema(problema2));
     }
 
     @Test
     void desassociaProblemaEmPesquisa(){
         Problema problema1 = new Problema("A falta de paciencia durante a criacao de testes no estudantes da graduacao de computacao",3,"P1");
 
-        teste1.associaProblemaEmPesquisa(problema1);
+        teste1.associaProblema(problema1);
 
-        assertTrue(teste1.desassociaProblemaEmPesquisa());
-        assertFalse(teste1.desassociaProblemaEmPesquisa());
+        assertTrue(teste1.desassociaProblema());
+        assertFalse(teste1.desassociaProblema());
     }
 
     @Test
@@ -252,13 +255,13 @@ class PesquisaTest {
         Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
         Objetivo objetivo2 = new Objetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5, "O2");
 
-        assertTrue(this.teste1.associaObjetivoEmPesquisa(objetivo1));
+        assertTrue(this.teste1.associaObjetivo(objetivo1));
 
         assertFalse(objetivo2.getAssociado());
-        assertTrue(this.teste1.associaObjetivoEmPesquisa(objetivo2));
+        assertTrue(this.teste1.associaObjetivo(objetivo2));
         assertTrue(objetivo2.getAssociado());
 
-        assertFalse(this.teste1.associaObjetivoEmPesquisa(objetivo1));
+        assertFalse(this.teste1.associaObjetivo(objetivo1));
     }
 
     @Test
@@ -268,10 +271,10 @@ class PesquisaTest {
 
         teste2 = new Pesquisa("Autoavaliacao na Disciplina de Programacao Orientada a Objeto." , "computacao, poo", "COM2");
 
-        this.teste1.associaObjetivoEmPesquisa(objetivo1);
-        this.teste2.associaObjetivoEmPesquisa(objetivo2);
+        this.teste1.associaObjetivo(objetivo1);
+        this.teste2.associaObjetivo(objetivo2);
 
-        assertThrows(IllegalArgumentException.class, () -> teste1.associaObjetivoEmPesquisa(objetivo2));
+        assertThrows(IllegalArgumentException.class, () -> teste1.associaObjetivo(objetivo2));
     }
 
     @Test
@@ -280,8 +283,8 @@ class PesquisaTest {
 
         Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
 
-        teste2.associaObjetivoEmPesquisa(objetivo1);
-        assertThrows(IllegalArgumentException.class, () -> teste1.associaObjetivoEmPesquisa(objetivo1));
+        teste2.associaObjetivo(objetivo1);
+        assertThrows(IllegalArgumentException.class, () -> teste1.associaObjetivo(objetivo1));
     }
 
     @Test
@@ -289,11 +292,11 @@ class PesquisaTest {
         Objetivo objetivo1 = new Objetivo("GERAL", "Aumentar o interesse dos alunos em realizar testes nas aulas de programacao",5,5, "O1");
         Objetivo objetivo2 = new Objetivo("ESPECIFICO", "Criar bonfiicacao aos melhores testadores de cada turma", 4, 5, "O2");
 
-        this.teste1.associaObjetivoEmPesquisa(objetivo1);
+        this.teste1.associaObjetivo(objetivo1);
         assertTrue(objetivo1.getAssociado());
-        assertTrue(this.teste1.desassociaObjetivoEmPesquisa(objetivo1));
+        assertTrue(this.teste1.desassociaObjetivo(objetivo1));
         assertFalse(objetivo1.getAssociado());
-        assertFalse(this.teste1.desassociaObjetivoEmPesquisa(objetivo2));
+        assertFalse(this.teste1.desassociaObjetivo(objetivo2));
     }
 
     @Test
@@ -312,8 +315,8 @@ class PesquisaTest {
         ,"Algum ataque homofobico");
         Atividade atividade2 = new Atividade("A2","Degustacao das cachacas dos engenhos paraibanos",
                 "BAIXO","Algum aluno ficar embreagado");
-        assertTrue(teste1.associaAtividadeEmPesquisa(atividade1));
-        assertTrue(teste2.associaAtividadeEmPesquisa(atividade2));
+        assertTrue(teste1.associaAtividade(atividade1));
+        assertTrue(teste2.associaAtividade(atividade2));
     }
 
     @Test
@@ -322,9 +325,9 @@ class PesquisaTest {
                 ,"Algum ataque homofobico");
         Atividade atividade2 = new Atividade("A2","Degustacao das cachacas dos engenhos paraibanos",
                 "BAIXO","Algum aluno ficar embreagado");
-        teste1.associaAtividadeEmPesquisa(atividade1);
-        teste2.associaAtividadeEmPesquisa(atividade2);
-        assertFalse(teste1.associaAtividadeEmPesquisa(atividade1));
-        assertFalse(teste2.associaAtividadeEmPesquisa(atividade2));
+        teste1.associaAtividade(atividade1);
+        teste2.associaAtividade(atividade2);
+        assertFalse(teste1.associaAtividade(atividade1));
+        assertFalse(teste2.associaAtividade(atividade2));
     }
 }

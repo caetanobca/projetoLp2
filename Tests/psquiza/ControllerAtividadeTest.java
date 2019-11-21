@@ -2,6 +2,7 @@ package psquiza;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import psquiza.atividade.ControllerAtividade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -215,12 +216,13 @@ class ControllerAtividadeTest {
 
     @Test
     public void testaExecutaAtividadeComExcecoes() {
-        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
-        controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
-                "homofobia,graduacao");
+        Pesquisa pesquisa = new Pesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
+                "homofobia,graduacao", "COM1");
+
         controladorDeAtividade.cadastraAtividade("Realizacao de rodas de conversa para debater homofobia", "BAIXO"
                 , "Algum tipo de comportamento homofobico");
-        controllerPesquisa.associaAtividadeEmPesquisa("COM1", controladorDeAtividade.getAtividade("A1"));
+
+        pesquisa.associaAtividade(controladorDeAtividade.getAtividade("A1"));
         controladorDeAtividade.cadastraItem("A1", "Papel");
         controladorDeAtividade.executaAtividade("A1", 1, 10);
 
@@ -244,12 +246,13 @@ class ControllerAtividadeTest {
 
     @Test
     public void testaExecutaAtividade() {
-        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
-        controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
-                "homofobia,graduacao");
+        Pesquisa pesquisa = new Pesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
+                "homofobia,graduacao", "COM1");
+
         controladorDeAtividade.cadastraAtividade("Realizacao de rodas de conversa para debater homofobia", "BAIXO"
                 , "Algum tipo de comportamento homofobico");
-        controllerPesquisa.associaAtividadeEmPesquisa("COM1", controladorDeAtividade.getAtividade("A1"));
+
+        pesquisa.associaAtividade(controladorDeAtividade.getAtividade("A1"));
         controladorDeAtividade.cadastraItem("A1", "Papel");
         controladorDeAtividade.executaAtividade("A1", 1, 10);
         assertEquals(controladorDeAtividade.contaItensRealizados("A1"), 1);
@@ -349,12 +352,12 @@ class ControllerAtividadeTest {
 
     @Test
     public void testaGetDuracao() {
-        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
-        controllerPesquisa.cadastraPesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
-                "homofobia,graduacao");
+        Pesquisa pesquisa = new Pesquisa("Homofobia na graduacao de Ciencias da Computacao", "computacao," +
+                "homofobia,graduacao", "COM1");
         controladorDeAtividade.cadastraAtividade("Realizacao de rodas de conversa para debater homofobia", "BAIXO"
                 , "Algum tipo de comportamento homofobico");
-        controllerPesquisa.associaAtividadeEmPesquisa("COM1", controladorDeAtividade.getAtividade("A1"));
+
+        pesquisa.associaAtividade(controladorDeAtividade.getAtividade("A1"));
         controladorDeAtividade.cadastraItem("A1", "Papel");
         controladorDeAtividade.executaAtividade("A1", 1, 10);
         assertEquals(controladorDeAtividade.getDuracao("A1"), 10);
